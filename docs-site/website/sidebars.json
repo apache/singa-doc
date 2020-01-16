@@ -8,7 +8,8 @@
     "Guides": [
       "device",
       "tensor",
-      "autograd"
+      "autograd",
+      "dist-train"
     ],
     "Model Zoo": [
       "model-zoo-cnn-cifar10",
