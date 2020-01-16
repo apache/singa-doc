@@ -83,11 +83,11 @@ class Footer extends React.Component {
               SINGA Team
             </a>
             <a href={`${this.props.config.baseUrl}blog`}>SINGA News</a>
-            <a href={this.props.config.mainRepoUrl}>GitHub</a>
+            <a href={`https://github.com/apache/singa`}>GitHub</a>
             <div className="social">
               <a
                 className="github-button" // part of the https://buttons.github.io/buttons.js script in siteConfig.js
-                href={this.props.config.mainRepoUrl}
+                href={`https://github.com/apache/singa`}
                 data-count-href="/apache/singa/stargazers"
                 data-show-count="true"
                 data-count-aria-label="# stargazers on GitHub"
