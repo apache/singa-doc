@@ -22,15 +22,15 @@ $ yarn run start:website
 
 ## Docs for the Docusaurus Site
 
-All the docs are located in the `SINGA_ROOT/docs-site/docs/` folder.
+All the docs are located in the `docs` folder.
 
-documentation for older versions of Apache SINGA, which you can edit in `website/versioned_docs`
+"Versioned documents are placed into `website/versioned_docs/version-${version}`, where `${version}` is the version number you supplied the `version` script... If you wish to change the documentation for a past version, you can access the files for that respective version. (https://docusaurus.io/docs/en/versioning.html#storing-files-for-each-version)
+
+"Documents in the `docs` directory will be considered part of version `next` and they are available, for example, at the URL `docs/next/doc1.html`. Documents from the latest version use the URL `docs/doc1.html`" (https://docusaurus.io/docs/en/versioning)
 
 ## News for the Docusaurus Site
 
-All the news are located in the `SINGA_ROOT/docs-site/website/blog/` folder.
-
-**refer to this page for writing this README: https://github.com/apache/pulsar/tree/master/site2**
+All the news are located in the `website/blog/` folder.
 
 # Editing Content
 
@@ -182,4 +182,6 @@ For more information about custom pages, click [here](https://docusaurus.io/docs
 
 ## Deploy
 
-cd to /website/build/singa/ to serve
+"To create a static build of your website, run the following script from the `website` directory: `yarn run build # or npm run build`"
+
+`cd` to `/website/build/singa/` to serve the static files
