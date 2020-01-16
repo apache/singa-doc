@@ -31,7 +31,7 @@ class Users extends React.Component {
     }
 
     // editURL points to data/users.js list of users
-    const editUrl = `${siteConfig.repoUrl}/edit/master/docs-site/website/data/users.js`
+    const editUrl = `${siteConfig.repoUrl}/edit/master/website/data/users.js`
     const showcase = siteConfig.users.map(user => (
       <a href={user.infoLink} key={user.infoLink}>
         <img src={user.image} alt={user.caption} title={user.caption} />

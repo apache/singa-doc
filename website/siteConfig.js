@@ -29,7 +29,8 @@
 // and pages/en/users.js files provided
 const users = require("./data/users")
 
-const repoUrl = "https://github.com/apache/singa"
+// new github repo for this website Jan2020
+const repoUrl = "https://github.com/apache/singa-doc"
 
 const siteConfig = {
   title: "Apache SINGA", // Title for your website.
@@ -44,10 +45,10 @@ const siteConfig = {
 
   // display an edit button for docs markdowns
   // docs path after merging with main repo
-  editUrl: `${repoUrl}/blob/master/docs-site/docs/`,
+  editUrl: `${repoUrl}/blob/master/docs/`,
 
   // Used for publishing and more
-  projectName: "singa", // cd to /website/build/singa/ to serve
+  projectName: "singa-doc", // cd to /website/build/singa-doc/ to serve
   organizationName: "apache",
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...

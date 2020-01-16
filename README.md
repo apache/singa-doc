@@ -184,4 +184,4 @@ For more information about custom pages, click [here](https://docusaurus.io/docs
 
 "To create a static build of your website, run the following script from the `website` directory: `yarn run build # or npm run build`"
 
-`cd` to `/website/build/singa/` to serve the static files
+`cd` to `/website/build/singa-doc/` to serve the static files
