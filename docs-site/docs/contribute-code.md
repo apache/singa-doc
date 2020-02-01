@@ -13,21 +13,63 @@ A simple way to enforce the Google coding styles is to use the linting and forma
 
 - [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
 - [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+- [cpplint extension](https://marketplace.visualstudio.com/items?itemName=mine.cpplint)
+- [Clang-Format](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
 
 Once the extensions are installed, edit the `settings.json` file.
 
-```json
+```json 
+"[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+},
+"cpplint.cpplintPath": "path/to/cpplint",
+
 "editor.formatOnSave": true,
 "python.formatting.provider": "yapf",
-"python.formatting.yapfArgs": [
-    "--style",
-    "{based_on_style: google}"
-],
 "python.linting.enabled": true,
 "python.linting.lintOnSave": true,
-"C_Cpp.clang_format_style": "Google"
+```
+Configurations are specified in corresponding config files. And these tools would look up for configuration files in the root of the project automatically, e.g. `.pylintrc`.
+
+#### Tool Installation
+
+- Ubuntu 18.04:
+```
+$ sudo pip install cpplint
+$ which cpplint
+/path/to/cpplint
+
+$ sudo apt install clang-format-6.0
+
+$ pip install yapf pylint
 ```
 
+- OSX:
+```
+$ sudo pip install cpplint
+$ which cpplint
+/path/to/cpplint
+
+$ brew install clang-format
+
+$ pip install yapf pylint
+```
+
+- Windows:
+Install Anaconda for package management, and install LLVM for clang-format.
+```
+$ pip install cpplint
+$ where cpplint
+C:/path/to/cpplint.exe
+
+$ pip install yapf pylint
+```
+
+#### Usage
+- After the configuration, linting should be automatically applied when editing source code file. Errors and warnings are listed in Visual Studio Code `PROBLEMS` panel.
+- Code Formatting could be done by bringing up Command Palette(`Shift+Ctrl+P` in Windows or `Shift+Command+P` in OSX) and type `Format Document`.
+
+#### Submission 
 You need to fix the format errors before submitting the pull requests.
 
 ## JIRA format
