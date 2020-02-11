@@ -29,7 +29,8 @@ Once the extensions are installed, edit the `settings.json` file.
    "python.formatting.provider": "yapf",
    "python.linting.enabled": true,
    "python.linting.lintOnSave": true,
-   "clang-format.language.cpp.style": "google"
+   "clang-format.language.cpp.style": "google",
+   "python.formatting.yapfArgs" : ["--style" , "{based_on_style: google}" ]
 }
 ```
 
