@@ -19,16 +19,25 @@ A simple way to enforce the Google coding styles is to use the linting and forma
 Once the extensions are installed, edit the `settings.json` file.
 
 ```json 
-"[cpp]": {
-    "editor.defaultFormatter": "xaver.clang-format"
-},
-"cpplint.cpplintPath": "path/to/cpplint",
+{
+   "[cpp]": {
+      "editor.defaultFormatter": "xaver.clang-format"
+   },
+   "cpplint.cpplintPath": "path/to/cpplint",
 
-"editor.formatOnSave": true,
-"python.formatting.provider": "yapf",
-"python.linting.enabled": true,
-"python.linting.lintOnSave": true,
+   "editor.formatOnSave": true,
+   "python.formatting.provider": "yapf",
+   "python.linting.enabled": true,
+   "python.linting.lintOnSave": true,
+   "clang-format.language.cpp.style": "google"
+}
 ```
+
+Depending on your platform, the user settings file is located here:
+1. Windows %APPDATA%\Code\User\settings.json
+2. macOS $HOME/Library/Application Support/Code/User/settings.json
+3. Linux $HOME/.config/Code/User/settings.json
+
 Configurations are specified in corresponding config files. And these tools would look up for configuration files in the root of the project automatically, e.g. `.pylintrc`.
 
 #### Tool Installation
