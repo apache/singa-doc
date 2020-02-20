@@ -67,7 +67,7 @@ $ pip install pylint
 ```
 
 Then, we need to install LLVM 9.0 which provides clang-format version 9.0.0. The download page of LLVM is:
-- [LLVM](http://releases.llvm.org/download.html#9.0.1)
+- [LLVM](http://releases.llvm.org/download.html#9.0.0)
 
 #### Usage
 - After the configuration, linting should be automatically applied when editing source code file. Errors and warnings are listed in Visual Studio Code `PROBLEMS` panel.
