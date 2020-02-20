@@ -43,16 +43,7 @@ Configurations are specified in corresponding config files. And these tools woul
 
 #### Tool Installation
 
-- Ubuntu 18.04:
-```
-$ sudo pip install cpplint
-$ which cpplint
-/path/to/cpplint
-
-$ sudo apt install clang-format-6.0
-
-$ pip install yapf pylint
-```
+It is ideal if all the contributors uses the same version of code formatting tool (clang-format 9.0.0 and yapf 0.29.0) to get rid of github pull request conflicts.
 
 - OSX:
 ```
@@ -60,20 +51,23 @@ $ sudo pip install cpplint
 $ which cpplint
 /path/to/cpplint
 
-$ brew install clang-format
-
-$ pip install yapf pylint
+$ pip install yapf==0.29.0 
+$ pip install pylint
 ```
 
 - Windows:
-Install Anaconda for package management, and install LLVM for clang-format.
+Install Anaconda for package management.
 ```
 $ pip install cpplint
 $ where cpplint
 C:/path/to/cpplint.exe
 
-$ pip install yapf pylint
+$ pip install yapf==0.29.0
+$ pip install pylint
 ```
+
+Then, we need to install LLVM 9.0 which provides clang-format version 9.0.0. The download page of LLVM is:
+- [LLVM](http://releases.llvm.org/download.html#9.0.1)
 
 #### Usage
 - After the configuration, linting should be automatically applied when editing source code file. Errors and warnings are listed in Visual Studio Code `PROBLEMS` panel.
