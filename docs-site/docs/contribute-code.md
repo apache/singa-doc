@@ -43,7 +43,7 @@ Configurations are specified in corresponding config files. And these tools woul
 
 #### Tool Installation
 
-It is ideal if all the contributors uses the same version of code formatting tool (clang-format 9.0.0 and yapf 0.29.0) to get rid of github pull request conflicts.
+It is ideal when all the contributors uses the same version of code formatting tool (clang-format 9.0.0 and yapf 0.29.0), so that all code formatting in different PRs would be identical to get rid of github pull request conflicts.
 
 - OSX:
 ```
