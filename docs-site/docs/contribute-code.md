@@ -19,30 +19,31 @@ A simple way to enforce the Google coding styles is to use the linting and forma
 Once the extensions are installed, edit the `settings.json` file.
 
 ```json 
-"[cpp]": {
-    "editor.defaultFormatter": "xaver.clang-format"
-},
-"cpplint.cpplintPath": "path/to/cpplint",
+{
+   "[cpp]": {
+      "editor.defaultFormatter": "xaver.clang-format"
+   },
+   "cpplint.cpplintPath": "path/to/cpplint",
 
-"editor.formatOnSave": true,
-"python.formatting.provider": "yapf",
-"python.linting.enabled": true,
-"python.linting.lintOnSave": true,
+   "editor.formatOnSave": true,
+   "python.formatting.provider": "yapf",
+   "python.linting.enabled": true,
+   "python.linting.lintOnSave": true,
+   "clang-format.language.cpp.style": "google",
+   "python.formatting.yapfArgs" : ["--style" , "{based_on_style: google}" ]
+}
 ```
+
+Depending on your platform, the user settings file is located here:
+1. Windows %APPDATA%\Code\User\settings.json
+2. macOS $HOME/Library/Application Support/Code/User/settings.json
+3. Linux $HOME/.config/Code/User/settings.json
+
 Configurations are specified in corresponding config files. And these tools would look up for configuration files in the root of the project automatically, e.g. `.pylintrc`.
 
 #### Tool Installation
 
-- Ubuntu 18.04:
-```
-$ sudo pip install cpplint
-$ which cpplint
-/path/to/cpplint
-
-$ sudo apt install clang-format-6.0
-
-$ pip install yapf pylint
-```
+It is ideal when all the contributors uses the same version of code formatting tool (clang-format 9.0.0 and yapf 0.29.0), so that all code formatting in different PRs would be identical to get rid of github pull request conflicts.
 
 - OSX:
 ```
@@ -50,20 +51,23 @@ $ sudo pip install cpplint
 $ which cpplint
 /path/to/cpplint
 
-$ brew install clang-format
-
-$ pip install yapf pylint
+$ pip install yapf==0.29.0 
+$ pip install pylint
 ```
 
 - Windows:
-Install Anaconda for package management, and install LLVM for clang-format.
+Install Anaconda for package management.
 ```
 $ pip install cpplint
 $ where cpplint
 C:/path/to/cpplint.exe
 
-$ pip install yapf pylint
+$ pip install yapf==0.29.0
+$ pip install pylint
 ```
+
+Then, we need to install LLVM 9.0 which provides clang-format version 9.0.0. The download page of LLVM is:
+- [LLVM](http://releases.llvm.org/download.html#9.0.0)
 
 #### Usage
 - After the configuration, linting should be automatically applied when editing source code file. Errors and warnings are listed in Visual Studio Code `PROBLEMS` panel.
