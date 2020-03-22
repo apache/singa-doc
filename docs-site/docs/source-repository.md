@@ -7,41 +7,16 @@ title: Source Repository
 
 This project uses [Git](http://git-scm.com/) to manage its source code. Instructions on Git use can be found at http://git-scm.com/documentation .
 
-## Web Access
+## Repository
 
 The following is a link to the online source repository.
 
 - https://gitbox.apache.org/repos/asf?p=singa.git
 
-## Contributors
+There is a Github mirror at
 
-Contributors are encouraged to rebase their commits onto the latest master before sending the pull requests to make the git history clean. The following git instructors should be executed after committing the current work:
+- https://github.com/apache/singa
 
-```shell
-git checkout master
-git pull <apache/singa upstream> master:master
-git checkout <new feature branch>
-git rebase master
-```
+The code can be cloned from either repo, e.g.,
 
-## Committers
-
-- To connect your Apache account with your Github account, Please follow the instructions on: https://gitbox.apache.org/setup/. After that you can directly merge PRs using GitHub’s UI.
-
-To merge pull request https://github.com/apache/singa/pull/xxx, the following instructions should be executed,
-
-```shell
-git clone https://github.com/apache/singa.git
-git remote add asf https://gitbox.apache.org/repos/asf/singa.git
-# optional
-git pull asf master:master
-git fetch origin pull/xxx/head:prxxx
-git merge prxxx
-git push asf master:master
-```
-
-- To migrate from git-wip-us.apache.org to Gitbox: If you already cloned the SINGA repository from the old repo https://git-wip-us.apache.org/repos/asf/singa.git, you can update the master by:
-
-```shell
-git remote set-url origin git@github.com/apache/singa.git
-```
+    git clone https://github.com/apache/singa.git
