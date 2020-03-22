@@ -37,8 +37,8 @@ Once the extensions are installed, edit the `settings.json` file.
 Depending on your platform, the user settings file is located here:
 
 1. Windows %APPDATA%\Code\User\settings.json
-2. macOS \$HOME/Library/Application Support/Code/User/settings.json
-3. Linux \$HOME/.config/Code/User/settings.json
+2. macOS "\$HOME/Library/Application Support/Code/User/settings.json"
+3. Linux "\$HOME/.config/Code/User/settings.json"
 
 Configurations are specified in corresponding config files. And these tools would look up for configuration files in the root of the project automatically, e.g. `.pylintrc`.
 
