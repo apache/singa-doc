@@ -27,7 +27,8 @@
       "build",
       "contribute-code",
       "contribute-docs",
-      "how-to-release"
+      "how-to-release", 
+      "git-workflow"
     ]
   },
   "community": {

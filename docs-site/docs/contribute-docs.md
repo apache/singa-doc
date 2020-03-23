@@ -13,17 +13,17 @@ You need at least `node` and `yarn` to get started with setting up a local devel
 
 1. Start from the SINGA root directory, install any website specific dependencies by `yarn install`.
 
-```sh
-# Install dependencies
-$ yarn install
-```
+   ```sh
+   # Install dependencies
+   $ yarn install
+   ```
 
-2.  Run a development server with hot-reloading to check changes by running `yarn start` in the website directory.
+2. Run a development server with hot-reloading to check changes by running `yarn start` in the website directory.
 
-```sh
-# Start the site
-$ yarn run start:website
-```
+   ```sh
+   # Start the site
+   $ yarn run start:website
+   ```
 
 ## Docs for the Docusaurus Site
 
