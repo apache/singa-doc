@@ -97,12 +97,12 @@ conda install -c <anaconda username> -c conda-forge singa-xpu
 
 ## Use native tools to build SINGA on Ubuntu
 
-Refer to SINGA [Dockerfiles](https://github.com/apache/singa/blob/master/tool/docker/devel/ubuntu/cuda9/Dockerfile#L30) for the instructions of installing the dependent libraries on Ubuntu 16.04. You can also create a Docker container using the [devel images]() and build SINGA inside the container. To build SINGA with GPU, MKLDNN, Python and unit tests, run the following instructions
+Refer to SINGA [Dockerfiles](https://github.com/apache/singa/blob/master/tool/docker/devel/ubuntu/cuda9/Dockerfile#L30) for the instructions of installing the dependent libraries on Ubuntu 16.04. You can also create a Docker container using the [devel images]() and build SINGA inside the container. To build SINGA with GPU, DNNL, Python and unit tests, run the following instructions
 
 ```shell
 mkdir build    # at the root of singa folder
 cd build
-cmake -DENABLE_TEST=ON -DUSE_CUDA=ON -DUSE_MKLDNN=ON -DUSE_PYTHON3=ON ..
+cmake -DENABLE_TEST=ON -DUSE_CUDA=ON -DUSE_DNNL=ON -DUSE_PYTHON3=ON ..
 make
 cd python
 pip install .
@@ -235,19 +235,19 @@ $ cmake -DUSE_CUDA=ON ..
 $ make
 ```
 
-### USE_MKLDNN
+### USE_DNNL
 
-User can enable MKL-DNN to enhance the performance of CPU computation.
+User can enable DNNL to enhance the performance of CPU computation.
 
-Installation guide of MKL-DNN could be found [here](https://github.com/intel/mkl-dnn#installation).
+Installation guide of DNNL could be found [here](https://github.com/intel/mkl-dnn#installation).
 
-SINGA has been tested over MKL-DNN v0.17.2.
+SINGA has been tested over DNNL v1.1.
 
-To build SINGA with MKL-DNN support:
+To build SINGA with DNNL support:
 
 ```shell
 # Dependent libs are installed already
-$ cmake -DUSE_MKLDNN=ON ..
+$ cmake -DUSE_DNNL=ON ..
 $ make
 ```
 
