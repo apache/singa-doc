@@ -76,7 +76,7 @@ version-(cpu|gpu)[-devel]
 
 | Tag | Description | Example value |
 | --- | --- | --- |
-| `version` | SINGA version | 'nightly', '2.0.0', '1.2.0' |
+| `version` | SINGA version | '2.0.0-rc0', '2.0.0', '1.2.0' |
 | `cpu` | the image cannot run on GPUs | 'cpu' |
 | `gpu` | the image can run on Nvidia GPUs | 'gpu', or 'cudax.x-cudnnx.x' e.g., 'cuda10.0-cudnn7.3' |
 | `devel` | indicator for development | if absent SINGA Python package is installed for runtime only; if present, the building environment is also created, you can recompile SINGA from source at '/root/singa' |
