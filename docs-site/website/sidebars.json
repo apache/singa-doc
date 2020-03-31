@@ -9,6 +9,7 @@
       "device",
       "tensor",
       "autograd",
+      "graph",
       "dist-train"
     ],
     "Model Zoo": [
