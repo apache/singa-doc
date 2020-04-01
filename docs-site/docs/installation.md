@@ -41,7 +41,7 @@ singa                      2.1.0.dev        cpu_py37  nusdbsystem
 The following command install a specific version of SINGA,
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa=2.1.0.dev=cpu_py37
+$ conda install -c nusdbsystem -c conda-forge singa=X.Y.Z.dev=cpu_py37
 ```
 
 If there is no error message from
@@ -59,13 +59,13 @@ Install Docker on your local host machine following the [instructions](https://d
 1. CPU-only.
 
 ```shell
-$ docker run -it apache/singa:2.0.0-cpu /bin/bash
+$ docker run -it apache/singa:X.Y.Z-cpu /bin/bash
 ```
 
 2. With GPU enabled. Install [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) after install Docker.
 
 ```shell
-$ nvidia-docker run -it apache/singa:2.0.0-gpu /bin/bash
+$ nvidia-docker run -it apache/singa:X.Y.Z-gpu /bin/bash
 ```
 
 3. For the complete list of SINGA Docker images (tags), visit the [docker hub site](https://hub.docker.com/r/apache/singa/). For each docker image, the tag is named as
