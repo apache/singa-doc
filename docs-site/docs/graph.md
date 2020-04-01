@@ -251,7 +251,7 @@ for b in range(num_train_batch):
         <td>10.9703</td>
         <td>351.0504</td>
         <td>37.69%</td>
-        <td>0.9725</td>
+        <td>0.9507</td>
     </tr>
     <tr>
         <td nowrap>module:enable graph, serial</td>
@@ -259,7 +259,7 @@ for b in range(num_train_batch):
         <td>17.0389</td>
         <td>11.7378</td>
         <td>375.6103</td>
-        <td>36.69%</td>
+        <td>36.81%</td>
         <td>1.0172</td>
     </tr>
     <tr>
@@ -267,8 +267,8 @@ for b in range(num_train_batch):
         <td nowrap>layer</td>
         <td>10547</td>
         <td>14.8635</td>
-        <td>6.7684</td>
-        <td>237.7649</td>
+        <td>6.7279</td>
+        <td>430.5858</td>
         <td>0.00%</td>
         <td>1.0000</td>
     </tr>
@@ -285,10 +285,10 @@ for b in range(num_train_batch):
         <td nowrap>module:enable graph, bfs</td>
         <td>6935</td>
         <td>14.8553</td>
-        <td>6.7384</td>
-        <td>433.1748</td>
+        <td>6.7316</td>
+        <td>430.8231</td>
         <td>34.25%</td>
-        <td>1.0269</td>
+        <td>1.0006</td>
     </tr>
     <tr>
         <td nowrap>module:enable graph, serial</td>
