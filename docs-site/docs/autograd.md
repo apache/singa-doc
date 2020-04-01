@@ -18,9 +18,9 @@ relevant modules in Singa and give an example to illustrate the usage.
 ## Relevant Modules
 
 There are three classes involved in autograd, namely `singa.tensor.Tensor`,
-`singa.autograd.Operation`, and `singa.autograd.Layer`. In the rest of this
-article, we use tensor, operation and layer to refer to an instance of the
-respective class.
+`singa.autograd.Operation`, `singa.autograd.Layer` and `singa.module.Module`.
+In the rest of this article, we use tensor, operation, layer and module to 
+refer to an instance of the respective class.
 
 ### Tensor
 
@@ -67,6 +67,10 @@ For those operations that require parameters, we package them into a new class,
 `Layer`. For example, convolution operation is wrapped into a convolution layer.
 `Layer` manages (stores) the parameters and calls the corresponding `Operation`s
 to implement the transformation.
+
+### Module
+
+For every neural network, it can be a subclass of Module. It is used to buffer all the operations in the neural network and form a computational graph. SINGA will schedule the operations and memory allocation to make training more efficient while using less memory.
 
 ## Examples
 
@@ -188,4 +192,68 @@ for epoch in range(epochs):
 
         for p, gp in autograd.backward(loss):  # auto backward
             sgd.update(p, gp)
+```
+
+### Operation + Module
+
+The following [example](https://github.com/apache/singa/blob/master/examples/autograd/cnn_module.py) implements a CNN model using the Module provided by the module.
+
+#### Define the model class
+
+Define the model class, it should be the subclass of the Module. In this way, all operations used during traing phase  will form a calculation graph and will be analyzed. The operations in the graph will be scheduled and executed efficiently. Layers can also be included in the module class.
+
+```python
+class MLP(module.Module):  # the model is a subclass of Module
+
+    def __init__(self, optimizer):
+        super(MLP, self).__init__()
+
+        # init the operators, layers and other objects
+        self.w0 = Tensor(shape=(2, 3), requires_grad=True, stores_grad=True)
+        self.w0.gaussian(0.0, 0.1)
+        self.b0 = Tensor(shape=(3,), requires_grad=True, stores_grad=True)
+        self.b0.set_value(0.0)
+
+        self.w1 = Tensor(shape=(3, 2), requires_grad=True, stores_grad=True)
+        self.w1.gaussian(0.0, 0.1)
+        self.b1 = Tensor(shape=(2,), requires_grad=True, stores_grad=True)
+        self.b1.set_value(0.0)
+
+        # init the optimizer
+        self.optimizer = optimizer
+
+    def forward(self, inputs):  # define the forward function
+        x = autograd.matmul(inputs, self.w0)
+        x = autograd.add_bias(x, self.b0)
+        x = autograd.relu(x)
+        x = autograd.matmul(x, self.w1)
+        x = autograd.add_bias(x, self.b1)
+        return x
+
+    def loss(self, out, target): # define the loss function
+        # can use the loss operations provided by SINGA or self-defined function
+        return autograd.softmax_cross_entropy(out, target)
+
+    def optim(self, loss):       # define the optim function
+        # can use the optimizer provided by SINGA or self-defined function
+        return self.optimizer.backward_and_update(loss)
+```
+
+#### Training
+
+```python
+# create a model instance
+model = MLP(sgd)
+# declare what device to train on
+model.on_device(dev)
+# declare execution mode and order
+model.graph(graph, sequential)
+
+for i in range(niters):
+    out = model(inputs)
+    loss = model.loss(out, target)
+    model.optim(loss)
+
+    if i % (niters / 10) == 0 and rank_in_global == 0:
+        print("training loss = ", tensor.to_numpy(loss)[0], flush=True)
 ```
