@@ -300,6 +300,7 @@ for b in range(num_train_batch):
         <td>1.0374</td>
     </tr>
 </table>
+
 ### Conclusion
 
 * Computational graph does not affect training time and memory usage if the graph is disabled (has backward compatibility).
