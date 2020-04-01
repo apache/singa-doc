@@ -5,15 +5,22 @@ title: ONNX
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-ONNX is an open format built to represent machine learning models, which enables an ability to transfer trained models between different deep learning frameworks. We have integrated the main functionality of ONNX into Singa, and several basic operators have been supported. More operators are being developing.
+ONNX is an open format built to represent machine learning models, which enables
+an ability to transfer trained models between different deep learning
+frameworks. We have integrated the main functionality of ONNX into Singa, and
+several basic operators have been supported. More operators are being
+developing.
 
 ## Example: ONNX mnist on singa
 
-We will introduce the onnx of singa by using the mnist example. In this section, the examples of how to export, load, inference, re-training, and transfer-learning the minist model will be displayed.
+We will introduce the onnx of singa by using the mnist example. In this section,
+the examples of how to export, load, inference, re-training, and
+transfer-learning the minist model will be displayed.
 
 ### Load dataset
 
-Firstly, we import some necessary libraries and define some auxiliary functions for downloading and preprocessing the dataset:
+Firstly, we import some necessary libraries and define some auxiliary functions
+for downloading and preprocessing the dataset:
 
 ```python
 import os
@@ -95,7 +102,10 @@ def to_categorical(y, num_classes):
 
 ### MNIST model
 
-We define a class called **CNN** to construct the mnist model which consists of several convolution, pooling, fully connection and relu layers. We also define a function to calculate the **accuracy** of our result. Finally, we define a **train** and a **test** function to handle the training and prediction process.
+We define a class called **CNN** to construct the mnist model which consists of
+several convolution, pooling, fully connection and relu layers. We also define a
+function to calculate the **accuracy** of our result. Finally, we define a
+**train** and a **test** function to handle the training and prediction process.
 
 ```python
 class CNN:
@@ -183,7 +193,8 @@ def test(model, x, y, batch_size=64, dev=device.get_default_device()):
 
 ### Train mnist model and export it to onnx
 
-Now, we can train the mnist model and export its onnx model by calling the **soonx.to_onnx** function.
+Now, we can train the mnist model and export its onnx model by calling the
+**soonx.to_onnx** function.
 
 ```python
 def make_onnx(x, y):
@@ -215,9 +226,19 @@ print('The model is saved.')
 
 ### Inference
 
-After we export the onnx model, we can find a file called **mnist.onnx** in the '/tmp' directory, this model, therefore, can be imported by other libraries. Now, if we want to import this onnx model into singa again and do the inference using the validation dataset, we can define a class called **Infer**, the forward function of Infer will be called by the test function to do inference for validation dataset. By the way, we should set the label of training to **False** to fix the gradient of autograd operators.
+After we export the onnx model, we can find a file called **mnist.onnx** in the
+'/tmp' directory, this model, therefore, can be imported by other libraries.
+Now, if we want to import this onnx model into singa again and do the inference
+using the validation dataset, we can define a class called **Infer**, the
+forward function of Infer will be called by the test function to do inference
+for validation dataset. By the way, we should set the label of training to
+**False** to fix the gradient of autograd operators.
 
-When import the onnx model, we firstly call **onnx.load** to load the onnx model. Then the onnx model will be fed into the **soonx.prepare** to parse and initiate to a singa model(**sg_ir** in the code). The sg_ir contains a singa graph within it, and we can run an step of inference by feeding input to its run function.
+When import the onnx model, we firstly call **onnx.load** to load the onnx
+model. Then the onnx model will be fed into the **soonx.prepare** to parse and
+initiate to a singa model(**sg_ir** in the code). The sg_ir contains a singa
+graph within it, and we can run an step of inference by feeding input to its run
+function.
 
 ```python
 class Infer:
@@ -244,7 +265,11 @@ test(Infer(sg_ir), valid_x, valid_y, dev=dev)
 
 ### Re-training
 
-Assume after import the model, we want to re-train the model again, we can define a function called **re_train**. Before we call this re_train function, we should set the label of training to **True** to make the autograde operators update their gradient. And after we finish the training, we set it as **False** again to call the test function doing inference.
+Assume after import the model, we want to re-train the model again, we can
+define a function called **re_train**. Before we call this re_train function, we
+should set the label of training to **True** to make the autograde operators
+update their gradient. And after we finish the training, we set it as **False**
+again to call the test function doing inference.
 
 ```python
 def re_train(sg_ir,
@@ -295,7 +320,12 @@ test(new_model, valid_x, valid_y, dev=dev)
 
 ### Transfer learning
 
-Finally, if we want to do transfer-learning, we can define a function called **Trans** to append some layers after the onnx model. For demonstration, we only append several linear(fully connection) and relu after the onnx model. We also define a transfer_learning function to handle the training process of the transfer-learning model. And the label of training is the same as the previous one.
+Finally, if we want to do transfer-learning, we can define a function called
+**Trans** to append some layers after the onnx model. For demonstration, we only
+append several linear(fully connection) and relu after the onnx model. We also
+define a transfer_learning function to handle the training process of the
+transfer-learning model. And the label of training is the same as the previous
+one.
 
 ```python
 class Trans:
@@ -363,11 +393,15 @@ test(new_model, valid_x, valid_y, dev=dev)
 
 ## Example: ONNX tiny_yolov2 on singa
 
-Now, the onnx of Singa supports importing models from [Onnx Model Zoo](https://github.com/onnx/models). We will show you how to inmport a Tiny-Yolo-V2 model and verify the correctness of the model by using its test dataset.
+Now, the onnx of Singa supports importing models from
+[Onnx Model Zoo](https://github.com/onnx/models). We will show you how to
+inmport a Tiny-Yolo-V2 model and verify the correctness of the model by using
+its test dataset.
 
 ### Load model
 
-Firstly, we try to download the Tiny-Yolo-V2 model from the Onnx Model Zoo if it doesn't exist already, and then load this model:
+Firstly, we try to download the Tiny-Yolo-V2 model from the Onnx Model Zoo if it
+doesn't exist already, and then load this model:
 
 ```python
 def load_model():
@@ -394,7 +428,8 @@ onnx_model = onnx.load(model_path)
 
 ### Set batchsize and prepare model
 
-Then since lots of example models don't indicate its batch size, we need to update it. After that, we can parse the onnx model into singa model:
+Then since lots of example models don't indicate its batch size, we need to
+update it. After that, we can parse the onnx model into singa model:
 
 ```python
 def update_batch_size(onnx_model, batch_size):
@@ -431,7 +466,8 @@ model = Infer(sg_ir)
 
 ### Load dataset, run and verify
 
-Finally, we load the test dataset which is provided by Onnx Model Zoo, do the inference and verify its correctness.
+Finally, we load the test dataset which is provided by Onnx Model Zoo, do the
+inference and verify its correctness.
 
 ```python
 def load_dataset(test_data_dir):

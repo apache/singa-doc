@@ -5,7 +5,10 @@ title: singa-incubating-1.0.0 Release Notes
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-SINGA is a general distributed deep learning platform for training big deep learning models over large datasets. It is designed with an intuitive programming model based on the layer abstraction. SINGA supports a wide variety of popular deep learning models.
+SINGA is a general distributed deep learning platform for training big deep
+learning models over large datasets. It is designed with an intuitive
+programming model based on the layer abstraction. SINGA supports a wide variety
+of popular deep learning models.
 
 This release includes following features:
 
@@ -37,7 +40,8 @@ This release includes following features:
   - [SINGA-202] Add reader and writer for binary file
   - [SINGA-200] Implement Encoder and Decoder for data pre-processing
 
-- Module components including layer classes, training algorithms and Python binding
+- Module components including layer classes, training algorithms and Python
+  binding
   - [SINGA-235] Unify the engines for cudnn and singa layers
   - [SINGA-230] OpenCL Convolution layer and Pooling layer
   - [SINGA-222] Fixed bugs in IO
@@ -46,7 +50,8 @@ This release includes following features:
   - [SINGA-199] Implement Python classes for SGD optimizers
   - [SINGA-198] Change Layer::Setup API to include input Tensor shapes
   - [SINGA-193] Add Python layers
-  - [SINGA-192] Implement optimization algorithms for SINGA v1 (nesterove, adagrad, rmsprop)
+  - [SINGA-192] Implement optimization algorithms for SINGA v1 (nesterove,
+    adagrad, rmsprop)
   - [SINGA-191] Add "autotune" for CudnnConvolution Layer
   - [SINGA-190] Add prelu layer and flatten layer
   - [SINGA-189] Generate python outputs of proto files
@@ -58,7 +63,8 @@ This release includes following features:
   - [SINGA-180] Add Activation layer and Softmax layer
   - [SINGA-178] Add Convolution layer and Pooling layer
   - [SINGA-176] Add loss and metric base classes
-  - [SINGA-174] Add Batch Normalization layer and Local Response Nomalization layer.
+  - [SINGA-174] Add Batch Normalization layer and Local Response Nomalization
+    layer.
   - [SINGA-170] Add Dropout layer and CudnnDropout layer.
   - [SINGA-169] Add base Layer class for V1.0
 

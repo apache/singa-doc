@@ -5,15 +5,23 @@ title: singa-incubating-0.2.0 Release Notes
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-SINGA is a general distributed deep learning platform for training big deep learning models over large datasets. It is designed with an intuitive programming model based on the layer abstraction. SINGA supports a wide variety of popular deep learning models.
+SINGA is a general distributed deep learning platform for training big deep
+learning models over large datasets. It is designed with an intuitive
+programming model based on the layer abstraction. SINGA supports a wide variety
+of popular deep learning models.
 
 This release includes the following **major features**:
 
-- [Training on GPU](../docs/gpu.html) enables training of complex models on a single node with multiple GPU cards.
-- [Hybrid neural net partitioning](../docs/hybrid.html) supports data and model parallelism at the same time.
-- [Python wrapper](../docs/python.html) makes it easy to configure the job, including neural net and SGD algorithm.
-- [RNN model and BPTT algorithm](../docs/general-rnn.html) are implemented to support applications based on RNN models, e.g., GRU.
-- [Cloud software integration](../docs/distributed-training.md) includes Mesos, Docker and HDFS.
+- [Training on GPU](../docs/gpu.html) enables training of complex models on a
+  single node with multiple GPU cards.
+- [Hybrid neural net partitioning](../docs/hybrid.html) supports data and model
+  parallelism at the same time.
+- [Python wrapper](../docs/python.html) makes it easy to configure the job,
+  including neural net and SGD algorithm.
+- [RNN model and BPTT algorithm](../docs/general-rnn.html) are implemented to
+  support applications based on RNN models, e.g., GRU.
+- [Cloud software integration](../docs/distributed-training.md) includes Mesos,
+  Docker and HDFS.
 
 **More details** are listed as follows,
 
@@ -57,7 +65,8 @@ This release includes the following **major features**:
 - Other improvment
   - [SINGA-84] Header Files Rearrange
   - [SINGA-93] Remove the asterisk in the log tcp://169.254.12.152:\*:49152
-  - [SINGA-94] Move call to google::InitGoogleLogging() from Driver::Init() to main()
+  - [SINGA-94] Move call to google::InitGoogleLogging() from Driver::Init() to
+    main()
   - [SINGA-96] Add Momentum to Cifar10 Example
   - [SINGA-101] Add ll (ls -l) command in .bashrc file when using docker
   - [SINGA-114] Remove short logs in tmp directory
