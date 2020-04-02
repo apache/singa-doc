@@ -5,32 +5,29 @@ title: Computational Graph
 
 <!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License. -->
 
-SINGA supports buffering operations and computational graph. By using computational graph, SINGA can schedule the execution of operations and the memory allocation and release which makes training more efficient while using less memory.
+SINGA supports buffering operations and computational graph. Using computational graph, SINGA can schedule the execution of operations as well as the memory allocation and release. It makes training more efficient while using less memory.
 
 ## Features
-There are three main features of computational graph, namely the construction of the computational graph, lazy allocation, automatic recycling and synchronization pipeline. Details as follows:
-* `Computational graph construction`: Construct a computational graph based on the user-defined neural network or expressions and then run the graph to accomplish the training task. The computational graph also includes operations like synch and fused synch in the communicator.
-* `Lazy allocation`: When blocks need to be allocated, devices won't allocate memory for them immediately. Only when an operation uses this block for the first time, memory allocation will be performed.
-* `Automatic recycling`: Automatically deallocate the intermediate tensors which won't be used again in the following operations when we are running the graph in an iteration.
-* `Synchronization pipeline`: In previous synchronization operations, buffers were used to synchronize multiple tensors at once. But the communicator needs to collect all the tensors before copying them into the buffer. Synchronization pipeline can copy tensors to the buffer separately, which reduces the time for synchronous operations.
+There are three main features of computational graph, namely (i) Computational graph construction, (ii) Lazy allocation, (iii) Automatic recycling. Details are as follows:
+* `Computational graph construction`: Construct a computational graph based on the mathematical or deep learning operations, and then run the graph to accomplish the training task. The computational graph also includes operations like communicator.synch and communicator.fusedSynch for the distributed training.
+* `Lazy allocation`: When blocks are allocated, devices do not allocate memory for them immediately. Devices do memory allocation only when an operation uses this block for the first time.
+* `Automatic recycling`: When we are running a graph in an iteration, it automatically deallocate the intermediate tensors which won't be used again in the remaining operations. 
 
 ## Design
 ### Computational graph construction
-* Use the technique of delayed execution to falsely perform operations in the forward propagation and backward propagation once. Buffer all the operations and the tensors read or written by each operation. 
+* Use the technique of delayed execution to falsely perform operations in the forward propagation and backward propagation once. Buffer all the operations and the tensors read or written by each operation.
 * Calculate dependencies between all the operations to decide the order of execution. (Support directed cyclic graph)
 * Execute all the operations in the order we just calculated to update all the parameters.
 * The system will only analyze the same graph once. If new operations are added to the graph, the calculation graph will be re-analyzed.
 * Provided a module class for users to use this feature more conveniently.
 ### Lazy allocation
-* When a device needs to create a new block, just pass the device to that block instead of allocating a piece of memory from the mempool and passing the pointer to that block.
-* When the block is accessed for the first time, let the device corresponding to the block allocate memory and then access it.
+* When a device needs to create a new block, pass the device to that block only, instead of allocating a piece of memory from the mempool and passing the pointer to that block.
+* When a block is accessed for the first time, the device corresponding to the block allocate memory and then access it.
 ### Automatic recycling
 * When calculating dependencies between the operations during the graph construction, the reference count of tensors can also be calculated.
-* When an operation is completed, we can decrease the reference count of tensors the operation used.
-* If a tensor's reference count reaches zero, it means the tensor won't be accessed by latter operations and we can recycle its memory.
+* When an operation is completed, decreases the reference count of tensors that the operation used.
+* If a tensor's reference count reaches zero, it means the tensor won't be accessed by latter operations, so we can recycle its memory.
 * The program will track the usage of the block. If a block is used on the python side, it will not be recycled, which is convenient for debugging on the python side.
-### Synchronization pipeline
-* If a tensor needs fusion synchronization, it will be copied to the buffer immediately and don't need to gather all the tensors. Because the copy operation is advanced, it takes less time to do real synchronization. This optimizes the use of the GPU.
 
 
 ## How to use
@@ -92,7 +89,7 @@ for b in range(num_train_batch):
     model.optim(loss)
 ```
 * Some settings: [module.py](https://github.com/apache/singa/blob/master/python/singa/module.py)
-    * `trainng`: whether to train the neural network defined in the class or for evaluation
+    * `training`: whether to train the neural network defined in the class or for evaluation.
     * `graph_mode`: the model class defined by users can be trained using computational graph or not.
     * `sequential`: execute operations in graph serially or in the order of BFS.
 * More examples:
@@ -105,18 +102,18 @@ for b in range(num_train_batch):
 ### Single node
 * Experiment settings
     * Model
-      * using layer: ResNet50 in [resnet.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet.py)
-      * using module: ResNet50 in [resnet_module.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet_module.py)
-    * GPU: Nvidia RTX 2080Ti
-* Explanation
+      * Using layer: ResNet50 in [resnet.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet.py)
+      * Using module: ResNet50 in [resnet_module.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet_module.py)
+    * GPU: NVIDIA RTX 2080Ti
+* Notations
     * `s` ：second
     * `it` ： iteration
     * `Mem`：peak memory usage of single GPU
-    * `Throughout`：number of pictures processed per second
+    * `Throughout`：number of images processed per second
     * `Time`：total time
     * `Speed`：iterations per second
     * `Reduction`：the memory usage reduction rate compared with dev branch
-    * `Seepdup`: speedup ratio compared with dev branch
+    * `Speedup`: speedup ratio compared with dev branch
 * Result
 <table style="text-align: center">
     <tr>
@@ -210,9 +207,9 @@ for b in range(num_train_batch):
     * Model
       * using Layer: ResNet50 in [resnet_dist.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet_dist.py)
       * using Module: ResNet50 in [resnet_module.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet_module.py)
-    * GPU: Nvidia RTX 2080Ti \* 2
+    * GPU: NVIDIA RTX 2080Ti \* 2
     * MPI: two MPI processes on one node
-* Explanation: the same as above
+* Notations: the same as above
 * Result
 <table style="text-align: center">
     <tr>
@@ -308,7 +305,7 @@ for b in range(num_train_batch):
 
 ## Include operations in graph
 
-For new operations, if they need to included in the computational graph, they should be submitted to the device. Device class in CPP will add these operations in the computational graph and scheduler will schedule them automatically.
+For new operations to be included in the computational graph, they should be submitted to the device. Device class in CPP will add these operations in the computational graph and scheduler will schedule them automatically.
 
 #### Requirements
 
@@ -318,8 +315,8 @@ For new operations, if they need to included in the computational graph, they sh
 
 * For the function of the operation: All variables used in lambda expressions need to be captured according to the following rules.
 
-  * `capture by value`: If the variable is a local variable or will be immediately released(e.g. intermediate tensors). If not captured by value, these variables will be destroyed after buffering. Buffering is just a way to defer real calculations.
-  * `capture by reference`：If the variable is recorded on the python side or a global variable(e.g. The parameter W and ConvHand in the Conv2d class). 
+  * `capture by value`: If the variable is a local variable or will be immediately released (e.g. intermediate tensors). If not captured by value, these variables will be destroyed after buffering. Buffering is just a way to defer real calculations.
+  * `capture by reference`：If the variable is recorded on the python side or a global variable (e.g. The parameter W and ConvHand in the Conv2d class). 
 
   * `mutable`: The lambda expression should have mutable tag if a variable captured by value is modified in an expression
 
