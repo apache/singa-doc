@@ -112,7 +112,7 @@ for b in range(num_train_batch):
     * `Throughout`：number of images processed per second
     * `Time`：total time
     * `Speed`：iterations per second
-    * `Reduction`：the memory usage reduction rate compared with dev branch
+    * `Reduction`：the memory usage reduction rate compared with that using layer
     * `Speedup`: speedup ratio compared with dev branch
 * Result
 <table style="text-align: center">
@@ -300,7 +300,7 @@ for b in range(num_train_batch):
 
 ### Conclusion
 
-* Computational graph does not affect training time and memory usage if the graph is disabled (has backward compatibility).
+* Computational graph does not affect training time and memory usage if the graph is disabled.
 * Computational graph can significantly reduce memory usage and training time.
 
 ## Include operations in graph
