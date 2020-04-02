@@ -30,7 +30,7 @@ To create a static build of your website, run the following script from the
 `website` directory:
 
 ```sh
-$ yarn run build # or npm run build`"
+$ yarn run build # or npm run build
 ```
 
 The generated html files are under `website/build/singa-doc/`.
