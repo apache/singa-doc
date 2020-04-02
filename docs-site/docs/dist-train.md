@@ -5,17 +5,32 @@ title: Distributed Training
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-SINGA supports distributed data parallel training and evaulation process based on multiprocessing. The following is the illustration of the data parallel training:
+SINGA supports distributed data parallel training and evaulation process based
+on multiprocessing. The following is the illustration of the data parallel
+training:
 
 ![MPI.png](assets/MPI.png)
 
-In the distributed training, each process runs a training script which utilizes one GPU. Each process has an individual rank, which gives information of which GPU the individual process is using. The training data is partitioned, so that each process can evaluate the sub-gradient based on the partitioned training data. Once the sub-graident is calculated on each processes, the overall stochastic gradient is obtained by all-reducing the sub-gradients evaluated by all processes. The all-reduce operation is supported by the NVidia Collective Communication Library (NCCL).
+In the distributed training, each process runs a training script which utilizes
+one GPU. Each process has an individual rank, which gives information of which
+GPU the individual process is using. The training data is partitioned, so that
+each process can evaluate the sub-gradient based on the partitioned training
+data. Once the sub-graident is calculated on each processes, the overall
+stochastic gradient is obtained by all-reducing the sub-gradients evaluated by
+all processes. The all-reduce operation is supported by the NVidia Collective
+Communication Library (NCCL).
 
-The all-reduce operation by NCCL can be used to reduce and synchronize the parameters from different GPUs. Let's consider a data partitioned distributed training using 4 GPUs. Once the sub-gradients from the 4 GPUs are calculated, the NCCL can perform the all-reduce process so that all the GPUs can get the sum of the sub-gradients over the GPUs:
+The all-reduce operation by NCCL can be used to reduce and synchronize the
+parameters from different GPUs. Let's consider a data partitioned distributed
+training using 4 GPUs. Once the sub-gradients from the 4 GPUs are calculated,
+the NCCL can perform the all-reduce process so that all the GPUs can get the sum
+of the sub-gradients over the GPUs:
 
 ![AllReduce.png](assets/AllReduce.png)
 
-Finally, the parameter update of Stochastic Gradient Descent (SGD) can then be performed by using the overall stochastic gradient obtained by the all-reduce process.
+Finally, the parameter update of Stochastic Gradient Descent (SGD) can then be
+performed by using the overall stochastic gradient obtained by the all-reduce
+process.
 
 ## Python DistOpt Methods:
 
@@ -37,49 +52,59 @@ dev = device.create_cuda_gpu_on(sgd.rank_in_local)
 sgd.backward_and_update(loss)
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss is the objective function of the deep learning model optimization,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss is the objective function of the deep
+learning model optimization,
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. for classification problem it can be the output of the softmax_cross_entropy function.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. for classification problem it can be the
+output of the softmax_cross_entropy function.
 
 &nbsp;
 
-3. Backward propagation and distributed parameter update, using half precision for gradient communication:
+3. Backward propagation and distributed parameter update, using half precision
+   for gradient communication:
 
 ```python
 sgd.backward_and_update_half(loss)
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It converts the gradients to 16 bits half precision format before allreduce
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It converts the gradients to 16 bits half
+precision format before allreduce
 
 &nbsp;
 
-4. Backward propagation and distributed asychronous training with partial parameter synchronization:
+4. Backward propagation and distributed asychronous training with partial
+   parameter synchronization:
 
 ```python
 sgd.backward_and_partial_update(loss)
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It performs asychronous training where one parameter partition is all-reduced per iteration.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It performs asychronous training where one
+parameter partition is all-reduced per iteration.
 
 &nbsp;
 
-5. Backward propagation and distributed parameter update, with sparsification to reduce data transmission:
+5. Backward propagation and distributed parameter update, with sparsification to
+   reduce data transmission:
 
 ```python
 sgd.backward_and_spars_update(loss)
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It applies sparsification schemes to transfer only the gradient elements which are significant.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It applies sparsification schemes to transfer only
+the gradient elements which are significant.
 
 &nbsp;
 
 ## Instruction to Use:
 
-SINGA supports two ways to launch the distributed training, namely I. MPI (Message Passing Interface) and II. python multiprocessing.
+SINGA supports two ways to launch the distributed training, namely I. MPI
+(Message Passing Interface) and II. python multiprocessing.
 
 ### I. Using MPI
 
-The following are the detailed steps to start up a distributed training with MPI, using MNIST dataset as an example:
+The following are the detailed steps to start up a distributed training with
+MPI, using MNIST dataset as an example:
 
 1. Import SINGA and Miscellaneous Libraries used for the training
 
@@ -340,7 +365,8 @@ for epoch in range(max_epoch):
 
 9. Save the above training code in a python file, e.g. mnist_dist_demo.py
 
-10. Generate a hostfile to be used by the MPI, e.g. the hostfile below uses 4 processes and hence 4 GPUs for the training.
+10. Generate a hostfile to be used by the MPI, e.g. the hostfile below uses 4
+    processes and hence 4 GPUs for the training.
 
 ```python
 cat host_file
@@ -348,13 +374,15 @@ cat host_file
 
     localhost:4
 
-11. Finally, use the MPIEXEC command to Execute the Multi-GPUs Training with the hostfile:
+11. Finally, use the MPIEXEC command to Execute the Multi-GPUs Training with the
+    hostfile:
 
 ```python
 mpiexec --hostfile host_file python3 mnist_dist_demo.py
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It could result in several times speed up compared to the single GPU training.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It could result in several times speed up compared
+to the single GPU training.
 
 ```
 Starting Epoch 0:
@@ -391,11 +419,14 @@ Evaluation accuracy = 0.982672, Elapsed Time = 0.717571s
 
 ### II. Using Python multiprocessing
 
-For single node, we can use Python multiprocessing module instead of MPI. It needs just a small portion of code changes:
+For single node, we can use Python multiprocessing module instead of MPI. It
+needs just a small portion of code changes:
 
 1. Put all the above training codes in a function, e.g. train_mnist_cnn
 
-2. Generate a NCCIdHolder, define the number of GPUs to be used in the training process (gpu_per_node), and uses the multiprocessing to launch the training code with the arguments.
+2. Generate a NCCIdHolder, define the number of GPUs to be used in the training
+   process (gpu_per_node), and uses the multiprocessing to launch the training
+   code with the arguments.
 
 ```python
     # Generate a NCCL ID to be used for collective communication
@@ -414,7 +445,8 @@ For single node, we can use Python multiprocessing module instead of MPI. It nee
         p.start()
 ```
 
-3. In the training code, it should pass the arguments defined above to the DistOpt object.
+3. In the training code, it should pass the arguments defined above to the
+   DistOpt object.
 
 ```python
 sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, gpu_per_node=gpu_per_node)
@@ -425,7 +457,8 @@ sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, gpu_per_node=gpu_per_no
 
 ## Full Examples
 
-The full examples of the distributed training using the MNIST dataset are available in the examples folder of SINGA:
+The full examples of the distributed training using the MNIST dataset are
+available in the examples folder of SINGA:
 
 1. MPI: examples/autograd/mnist_dist.py
 

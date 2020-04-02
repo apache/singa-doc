@@ -5,7 +5,9 @@ title: Build SINGA on Windows
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-The process of building SINGA from source on Microsoft Windows has four parts: install dependencies, build SINGA source, (optionally) install the python module and (optionally) run the unit tests.
+The process of building SINGA from source on Microsoft Windows has four parts:
+install dependencies, build SINGA source, (optionally) install the python module
+and (optionally) run the unit tests.
 
 ## Install Dependencies
 
@@ -14,38 +16,48 @@ You may create a folder for building the dependencies.
 The dependencies are:
 
 - Compiler and IDE
-  - Visual Studio. The community edition is free and can be used to build SINGA. https://www.visualstudio.com/
+  - Visual Studio. The community edition is free and can be used to build SINGA.
+    https://www.visualstudio.com/
 - CMake
   - Can be downloaded from http://cmake.org/
-  - Make sure the path to cmake executable is in the system path, or use full path when calling cmake.
+  - Make sure the path to cmake executable is in the system path, or use full
+    path when calling cmake.
 - SWIG
 
   - Can be downloaded from http://swig.org/
-  - Make sure the path to swig executable is in the system path, or use full path when calling swig. Use a recent version such as 3.0.12.
+  - Make sure the path to swig executable is in the system path, or use full
+    path when calling swig. Use a recent version such as 3.0.12.
 
 - Protocol Buffers
-  - Download a suitable version such as 2.6.1: https://github.com/google/protobuf/releases/tag/v2.6.1 .
+  - Download a suitable version such as 2.6.1:
+    https://github.com/google/protobuf/releases/tag/v2.6.1 .
   - Download both protobuf-2.6.1.zip and protoc-2.6.1-win32.zip .
-  - Extract both of them in dependencies folder. Add the path to protoc executable to the system path, or use full path when calling it.
+  - Extract both of them in dependencies folder. Add the path to protoc
+    executable to the system path, or use full path when calling it.
   - Open the Visual Studio solution which can be found in vsproject folder.
   - Change the build settings to Release and x64.
   - build libprotobuf project.
 - Openblas
 
-  - Download a suitable source version such as 0.2.20 from http://www.openblas.net
+  - Download a suitable source version such as 0.2.20 from
+    http://www.openblas.net
   - Extract the source in the dependencies folder.
-  - If you don't have Perl installed, download a perl environment such as Strawberry Perl (http://strawberryperl.com/)
-  - Build the Visual Studio solution by running this command in the source folder:
+  - If you don't have Perl installed, download a perl environment such as
+    Strawberry Perl (http://strawberryperl.com/)
+  - Build the Visual Studio solution by running this command in the source
+    folder:
 
   ```bash
   cmake -G "Visual Studio 15 2017 Win64"
   ```
 
-  - Open the Visual Studio solution and change the build settings to Release and x64.
+  - Open the Visual Studio solution and change the build settings to Release and
+    x64.
   - Build libopenblas project
 
 - Google glog
-  - Download a suitable version such as 0.3.5 from https://github.com/google/glog/releases
+  - Download a suitable version such as 0.3.5 from
+    https://github.com/google/glog/releases
   - Extract the source in the dependencies folder.
   - Open the Visual Studio solution.
   - Change the build settings to Release and x64.
@@ -106,8 +118,10 @@ The dependencies are:
   - change target name to \_singa_wrap
   - change target extension to .pyd
   - change configuration type to Dynamic Library (.dll)
-  - goto Additional Library Directories and add the path to python, openblas, protobuf and glog libraries
-  - goto Additional Dependencies and add libopenblas.lib, libglog.lib and libprotobuf.lib
+  - goto Additional Library Directories and add the path to python, openblas,
+    protobuf and glog libraries
+  - goto Additional Dependencies and add libopenblas.lib, libglog.lib and
+    libprotobuf.lib
 
 - build singa project
 
@@ -130,7 +144,9 @@ The dependencies are:
   python setup.py install
   ```
 
-- Make \_singa_wrap.pyd, libglog.dll and libopenblas.dll available by adding them to the path or by copying them to singa package folder in the python site-packages
+- Make \_singa_wrap.pyd, libglog.dll and libopenblas.dll available by adding
+  them to the path or by copying them to singa package folder in the python
+  site-packages
 
 - Verify that SINGA is installed by running:
 
@@ -159,13 +175,19 @@ A video tutorial for the build process can be found here:
 - In test_singa project:
 
   - Add USE_GLOG to the Preprocessor Definitions.
-  - In Additional Include Directories, add path of GLOG_INCLUDE_DIR, CBLAS_INCLUDE_DIR and Protobuf_INCLUDE_DIR which were used in step 2 above. Add also build and build/include folders.
-  - Goto Additional Library Directories and add the path to openblas, protobuf and glog libraries. Add also build/src/singa_objects.dir/Release.
-  - Goto Additional Dependencies and add libopenblas.lib, libglog.lib and libprotobuf.lib. Fix the names of the two libraries: gtest.lib and singa_objects.lib.
+  - In Additional Include Directories, add path of GLOG_INCLUDE_DIR,
+    CBLAS_INCLUDE_DIR and Protobuf_INCLUDE_DIR which were used in step 2 above.
+    Add also build and build/include folders.
+  - Goto Additional Library Directories and add the path to openblas, protobuf
+    and glog libraries. Add also build/src/singa_objects.dir/Release.
+  - Goto Additional Dependencies and add libopenblas.lib, libglog.lib and
+    libprotobuf.lib. Fix the names of the two libraries: gtest.lib and
+    singa_objects.lib.
 
 - Build test_singa project.
 
-- Make libglog.dll and libopenblas.dll available by adding them to the path or by copying them to test/release folder
+- Make libglog.dll and libopenblas.dll available by adding them to the path or
+  by copying them to test/release folder
 
 - The unit tests can be executed
 
@@ -193,11 +215,14 @@ In addition to the dependencies in section 1 above, we will need the following:
 
 - CUDA
 
-  Download a suitable version such as 9.1 from https://developer.nvidia.com/cuda-downloads . Make sure to install the Visual Studio integration module.
+  Download a suitable version such as 9.1 from
+  https://developer.nvidia.com/cuda-downloads . Make sure to install the Visual
+  Studio integration module.
 
 - cuDNN
 
-  Download a suitable version such as 7.1 from https://developer.nvidia.com/cudnn
+  Download a suitable version such as 7.1 from
+  https://developer.nvidia.com/cudnn
 
 - cnmem:
 
@@ -251,13 +276,16 @@ In addition to the dependencies in section 1 above, we will need the following:
 - Add numpy include path
 - Add protobuf include path
 - Add include path for CUDA, cuDNN and cnmem
-- In the preprocessor definitions of the singa_objects project, add USE_GLOG, USE_CUDA and USE_CUDNN. Remove DISABLE_WARNINGS.
+- In the preprocessor definitions of the singa_objects project, add USE_GLOG,
+  USE_CUDA and USE_CUDNN. Remove DISABLE_WARNINGS.
 - Build singa_objects project
 
 #### Building singa-kernel
 
-- Create a new Visual Studio project of type "CUDA 9.1 Runtime". Give it a name such as singa-kernel.
-- The project comes with an initial file called kernel.cu. Remove this file from the project.
+- Create a new Visual Studio project of type "CUDA 9.1 Runtime". Give it a name
+  such as singa-kernel.
+- The project comes with an initial file called kernel.cu. Remove this file from
+  the project.
 - Add this file: src/core/tensor/math_kernel.cu
 - In the project settings:
 
@@ -275,10 +303,13 @@ In addition to the dependencies in section 1 above, we will need the following:
   - change target name to \_singa_wrap
   - change target extension to .pyd
   - change configuration type to Dynamic Library (.dll)
-  - goto Additional Library Directories and add the path to python, openblas, protobuf and glog libraries
+  - goto Additional Library Directories and add the path to python, openblas,
+    protobuf and glog libraries
   - Add also the library path to singa-kernel, cnmem, cuda and cudnn.
-  - goto Additional Dependencies and add libopenblas.lib, libglog.lib and libprotobuf.lib.
-  - Add also: singa-kernel.lib, cnmem.lib, cudnn.lib, cuda.lib , cublas.lib, curand.lib and cudart.lib.
+  - goto Additional Dependencies and add libopenblas.lib, libglog.lib and
+    libprotobuf.lib.
+  - Add also: singa-kernel.lib, cnmem.lib, cudnn.lib, cuda.lib , cublas.lib,
+    curand.lib and cudart.lib.
 
 - build singa project
 
@@ -301,7 +332,10 @@ In addition to the dependencies in section 1 above, we will need the following:
   python setup.py install
   ```
 
-- Make \_singa_wrap.pyd, libglog.dll, libopenblas.dll, cnmem.dll, CUDA Runtime (e.g. cudart64_91.dll) and cuDNN (e.g. cudnn64_7.dll) available by adding them to the path or by copying them to singa package folder in the python site-packages
+- Make \_singa_wrap.pyd, libglog.dll, libopenblas.dll, cnmem.dll, CUDA Runtime
+  (e.g. cudart64_91.dll) and cuDNN (e.g. cudnn64_7.dll) available by adding them
+  to the path or by copying them to singa package folder in the python
+  site-packages
 
 - Verify that SINGA is installed by running:
 
@@ -321,7 +355,8 @@ A video tutorial for this part can be found here:
   cmake -G "Visual Studio 15 2017 Win64"
   ```
 
-- Open the generated solution in Visual Studio, or add the project to the singa solution that was created in step 5.2
+- Open the generated solution in Visual Studio, or add the project to the singa
+  solution that was created in step 5.2
 
 - Change the build settings to Release and x64.
 
@@ -330,13 +365,22 @@ A video tutorial for this part can be found here:
 - In test_singa project:
 
   - Add USE_GLOG; USE_CUDA; USE_CUDNN to the Preprocessor Definitions.
-  - In Additional Include Directories, add path of GLOG_INCLUDE_DIR, CBLAS_INCLUDE_DIR and Protobuf_INCLUDE_DIR which were used in step 5.2 above. Add also build, build/include, CUDA and cuDNN include folders.
-  - Goto Additional Library Directories and add the path to openblas, protobuf and glog libraries. Add also build/src/singa_objects.dir/Release, singa-kernel, cnmem, CUDA and cuDNN library paths.
-  - Goto Additional Dependencies and add libopenblas.lib; libglog.lib; libprotobuf.lib; cnmem.lib; cudnn.lib; cuda.lib; cublas.lib; curand.lib; cudart.lib; singa-kernel.lib. Fix the names of the two libraries: gtest.lib and singa_objects.lib.
+  - In Additional Include Directories, add path of GLOG_INCLUDE_DIR,
+    CBLAS_INCLUDE_DIR and Protobuf_INCLUDE_DIR which were used in step 5.2
+    above. Add also build, build/include, CUDA and cuDNN include folders.
+  - Goto Additional Library Directories and add the path to openblas, protobuf
+    and glog libraries. Add also build/src/singa_objects.dir/Release,
+    singa-kernel, cnmem, CUDA and cuDNN library paths.
+  - Goto Additional Dependencies and add libopenblas.lib; libglog.lib;
+    libprotobuf.lib; cnmem.lib; cudnn.lib; cuda.lib; cublas.lib; curand.lib;
+    cudart.lib; singa-kernel.lib. Fix the names of the two libraries: gtest.lib
+    and singa_objects.lib.
 
 * Build test_singa project.
 
-* Make libglog.dll, libopenblas.dll, cnmem.dll, cudart64_91.dll and cudnn64_7.dll available by adding them to the path or by copying them to test/release folder
+* Make libglog.dll, libopenblas.dll, cnmem.dll, cudart64_91.dll and
+  cudnn64_7.dll available by adding them to the path or by copying them to
+  test/release folder
 
 * The unit tests can be executed
 

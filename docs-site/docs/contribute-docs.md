@@ -3,95 +3,82 @@ id: contribute-docs
 title: How to Contribute to Documentation
 ---
 
-<!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License. -->
 
-## Docusaurus Website
+There are two types of documentation, namely markdown files and API usage
+reference. This guideline introduces some tools and instruction in preparing the
+source markdown files and API comments.
 
-This website was created with [Docusaurus](https://docusaurus.io/).
+The markdown files will be built into HTML pages via
+[Docusaurus](https://docusaurus.io/); The API comments (from the source code)
+will be used to generate API reference pages using Sphinx (for Python) and
+Doxygen (for CPP).
 
-You need at least `node` and `yarn` to get started with setting up a local development environment.
+## Markdown Files
 
-1. Start from the SINGA root directory, install any website specific dependencies by `yarn install`.
+Try to follow the
+[Google Documentation style](https://developers.google.com/style). For example,
 
-   ```sh
-   # Install dependencies
-   $ yarn install
-   ```
+1. Remove 'please' from an instruction. 'Please click...' VS 'Click ...'.
+2. Follow the
+   [standard captitalization rules](https://owl.purdue.edu/owl/general_writing/mechanics/help_with_capitals.html).
+3. Use 'you' instead of 'we' in the instructions.
+4. Use present tense and avoid 'will'
+5. Prefer active voice than passive voice.
 
-2. Run a development server with hot-reloading to check changes by running `yarn start` in the website directory.
+In addition, to make the documentation consistent,
 
-   ```sh
-   # Start the site
-   $ yarn run start:website
-   ```
+1. Keep the line short, e.g., length<=80
+2. Use the relative path assuming that we are in the root folder of the repo,
+   e.g., `doc-site/docs` refers to `singa-doc/docs-site/docs`
+3. Higlight the command, path, class function and variable using backticks,
+   e.g., `Tensor`, `singa-doc/docs-site/docs`.
+4. To hightlight other terms/concepts, use _graph_ or **graph**
 
-## Docs for the Docusaurus Site
+The [prettier tool](https://prettier.io/) used by this project will auto-format
+the code according to the
+[configuration](https://github.com/apache/singa-doc/blob/master/docs-site/.prettierrc)
+when we do `git commit`. For example, it will wrap the text in the markdown file
+to at most 80 characters (except the lines for comments).
 
-All the docs are located in the `SINGA_ROOT/docs-site/docs/` folder.
+When introducing a concept (e.g., the `Tensor` class), provide the overview (the
+purpose and relation to other concepts), APIs and examples. Google colab can be
+used to demonstrate the usage.
 
-## News for the Docusaurus Site
+Refer to [this page](https://github.com/apache/singa-doc/tree/master/docs-site)
+for the details on how to edit the markdown files and build the website.
 
-All the news are located in the `SINGA_ROOT/docs-site/website/blog/` folder.
-
-## Website (old version)
-
-This document gives step-by-step instructions for deploying [SINGA website](http://singa.apache.org). SINGA website is built by [Sphinx](http://www.sphinx-doc.org) from a source tree stored in the [git repo](https://github.com/apache/singa/tree/master/doc).
-
-To install Sphinx:
-
-    pip install -U Sphinx==1.5.6
-
-To install the markdown support for Sphinx:
-
-    pip install recommonmark==0.5.0
-
-To install the rtd theme:
-
-    pip install sphinx_rtd_theme==0.4.3
-
-You can build the website by executing the following command from the doc folder:
-
-    ./build.sh html
-
-Committers can update the [SINGA website](http://singa.apache.org/en/index.html) by copying the updated files to the [website repo](https://github.com/apache/singa-site) (suppose the site repo is ~/singa-sit)
-
-    cd _build
-    rsync --checksum -rvh html/ ~/singa-site/
-    cd ~/singa-site
-    git commit -m "update xxxx"
-    git push
-
-We fix the versions of the libs in order to generate the same (checksum) html file if the source file is not changed. Otherwise, everytime we build the documentation, the html file of the same source file could be different. As a result, many html files in the site repo need updating.
-
-### Python API
+## API References
 
 ### CPP API
 
+Follow the
+[Google CPP Comments Style](https://google.github.io/styleguide/cppguide.html#Comments).
+
 To generate docs, run "doxygen" from the doc folder (Doxygen >= 1.8 recommended)
 
-### Using Visual Studio Code (vscode)
+### Python API
 
-#### Preview
+Follow the
+[Google Python DocString Style](http://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings).
 
-The document files (rst and md files) can be previewed in vscode via the [reStructuredText Extension](https://docs.restructuredtext.net/).
+## Visual Studio Code (vscode)
 
-1.  Install the extension in vscode.
-2.  Install the dependent libs. All libs required to build the website should be installed (see the above instructions). In addition, there are two more libs to be installed.
+If you use vscode as the editor, the following plugins are useful.
 
-        pip install sphinx-autobuild=0.7.1
-        pip install doc8=0.8.0
+### Docstring Snippet
 
-3.  Configure the conf path for `restructuredtext.confPath` to the [conf.py](./conf.py)
+[autoDocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring)
+generates the docstring of functions, classes, etc. Choose the DocString Format
+to `google`.
 
-#### Docstring Snippet
+### Spell Check
 
-[autoDocstring](https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring) generates the docstring of functions, classes, etc. Choose the DocString Format to `google`.
+[Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+can be configured to check the comments of the code, or .md and .rst files.
 
-#### Spell Check
-
-[Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) can be configured to check the comments of the code, or .md and .rst files.
-
-To do spell check only for comments of Python code, add the following snippet via `File - Preferences - User Snippets - python.json`
+To do spell check only for comments of Python code, add the following snippet
+via `File - Preferences - User Snippets - python.json`
 
     "cspell check" : {
     "prefix": "cspell",
@@ -104,7 +91,8 @@ To do spell check only for comments of Python code, add the following snippet vi
     "description": "# spell check only for python comments"
     }
 
-To do spell check only for comments of Cpp code, add the following snippet via `File - Preferences - User Snippets - cpp.json`
+To do spell check only for comments of Cpp code, add the following snippet via
+`File - Preferences - User Snippets - cpp.json`
 
     "cspell check" : {
     "prefix": "cspell",
