@@ -414,10 +414,3 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
   return dx;
 }
 ```
-
-## Future features
-
-- [ ] Graph substitution: replace a subgraph of the input computation graph with another subgraph which is functionally equivalent to the original one. 
-- [ ] Support recalculation and swapping out variables from the GPU to reduce memory usage.
-- [ ] Perform operations in the graph in the order of DFS.
-- [ ] Performing operations in parallel on single GPU.
