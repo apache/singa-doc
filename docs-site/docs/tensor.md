@@ -60,8 +60,8 @@ array([[1., 0., 0.],
 
 ### Tensor Functions
 
-Functions in module `singa.tensor` return new `tensor` object after applying
-defined transformation in the function.
+Functions in module `singa.tensor` return new `tensor` object after applying the
+transformation defined in the function.
 
 ```python
 >>> tensor.log(t+1)
@@ -71,9 +71,9 @@ defined transformation in the function.
 
 ### Tensor on Different Devices
 
-`tensor` is created on host(CPU) by default, and can also be created on
-different backends by specifiying the `device`. Existing `tensor` could also be
-moved between `device` by `to_device()`.
+`tensor` is created on host (CPU) by default; it can also be created on
+different hardware devices by specifying the `device`. A `tensor` could be moved
+between `device`s via `to_device()` function.
 
 ```python
 >>> from singa import device
@@ -137,53 +137,99 @@ loss:  [1.2866782]
 training completed
 ```
 
-## Tensor implementation
-Previous section shows users the general usage of `Tensor`, the implementation under the hood will be covered below. First, the design of python and C++ tensors will be introduced. Later part will talk about how the frontend(Python) and backend(C++) are connected and how to extend them.
+## Tensor Implementation
 
-### Python Tensor:
+The previous section shows the general usage of `Tensor`, the implementation
+under the hood will be covered below. First, the design of Python and C++
+tensors will be introduced. Later part will talk about how the frontend (Python)
+and backend (C++) are connected and how to extend them.
 
-Python class `Tensor`, defined in `python/singa/tensor.py`, provides high level tensor manipulation access for implementing deep learning architecture(autograd and models), as well as data management by end users.
+### Python Tensor
 
-It primarily works by simply wrapping around C++ tensor methods, both arithmetic (e.g. `sum`) and non arithmetic methods (e.g. `reshape`). Some advanced arithmetic operations are later introduced and implemented in pure python tensor API, e.g. `tensordot`. Python Tensor API could be used to implement complex operations easily with the flexible methods available.
+Python class `Tensor`, defined in `python/singa/tensor.py`, provides high level
+tensor manipulations for implementing deep learning operations (via
+[autograd](./autograd)), as well as data management by end users.
 
-API are grouped into `Tensor` methods, and functions that take `Tensor` as inputs.
+It primarily works by simply wrapping around C++ tensor methods, both arithmetic
+(e.g. `sum`) and non arithmetic methods (e.g. `reshape`). Some advanced
+arithmetic operations are later introduced and implemented using pure Python
+tensor API, e.g. `tensordot`. Python Tensor APIs could be used to implement
+complex neural network operations easily with the flexible methods available.
 
-### C++ Tensor:
-C++ class `Tensor`, defined in `include/singa/core/tensor.h`, primarily manages the memory that holds the data, and provides low level APIs for tensor manipulation. Also, it provides various arithmetic methods(e.g. `matmul`) by wrapping different backends.
+### C++ Tensor
 
-#### Execution context and Memory Block
-Two important concepts or data structures for `Tensor` are execution context `device`, and memory block `Block`.
+C++ class `Tensor`, defined in `include/singa/core/tensor.h`, primarily manages
+the memory that holds the data, and provides low level APIs for tensor
+manipulation. Also, it provides various arithmetic methods (e.g. `matmul`) by
+wrapping different backends (CUDA, BLAS, cuBLAS, etc.).
 
-Each `Tensor` is linked to one device, representing the execution context (CPU, GPU). Tensor math calculations are asynchronously delayed to be executed on the linked device.
+#### Execution Context and Memory Block
 
-Tensor data are stored in class `Block`, defined in `include/singa/core/common.h`. `Block` owns the underlying data, while tensors take ownership on the metadata describing the tensor, like `shape`, `strides`.
+Two important concepts or data structures for `Tensor` are the execution context
+`device`, and the memory block `Block`.
 
-#### Tensor Math backends:
-To leverage on the efficient math library provided by different backend hardwards,  SINGA has three different sets of implementations of Tensor functions, one for each type of Device.
+Each `Tensor` is physically stored on and managed by a hardware device,
+representing the execution context (CPU, GPU). Tensor math calculations are
+executed on the device.
 
-- 'tensor_math_cpp.h' implements operations using Cpp (with CBLAS) for CppGPU
+Tensor data in a `Block` instance, defined in `include/singa/core/common.h`.
+`Block` owns the underlying data, while tensors take ownership on the metadata
+describing the tensor, like `shape`, `strides`.
+
+#### Tensor Math Backends
+
+To leverage on the efficient math libraries provided by different backend
+hardware devices, SINGA has one set of implementations of Tensor functions for
+each supported backend.
+
+- 'tensor_math_cpp.h' implements operations using Cpp (with CBLAS) for CppCPU
   devices.
 - 'tensor_math_cuda.h' implements operations using Cuda (with cuBLAS) for
   CudaGPU devices.
 - 'tensor_math_opencl.h' implements operations using OpenCL for OpenclGPU
   devices.
 
-### Connecting C++ Tensor and Python - SWIG
+### Exposing C++ APIs to Python
 
-While C++ Tensor could be used standalone as a Tensor library, it is further extended to bridge Python code by [SWIG](http://www.swig.org/). SWIG can automatically compile C++ API into Python modules.
+SWIG(http://www.swig.org/) is a tool that can automatically convert C++ APIs
+into Python APIs. SINGA uses SWIG to expose the C++ APIs to Python. Several
+files are generated by SWIG, including `python/singa/singa_wrap.py`. The Python
+modules (e.g., `tensor`, `device` and `autograd`) imports this module to call
+the C++ APIs for implementing the Python classes and functions.
 
-When compiling from source, several files are generated by SWIG, including `python/singa/singa_wrap.py`. The Python `Tensor` class imports this module and could use C++ API with ease.
+```python
+import tensor
 
-### Create new Tensor functions:
-With the groundwork set by the previous description, extending tensor functions could be done easily in bottom up manner. For math operations, the steps are: 
-- Add new API to `tensor.h`
-- Add the code generation by predefined macro in `tensor.cc`, refer to `GenUnaryTensorFn(Abs);` as an example.
-- Add template method/function placeholder in `tensor_math.h`  
-- Fill up implementation at least for CPU(`tensor_math_cpp.h`) and GPU(`tensor_math_cuda.h`)
-- Extend the API exposed to SWIG for translation in `src/api/core_tensor.i`
-- Wrap generated python API `python/singa/singa_wrap.py` and make it consistent with python `Tensor` API.
+t = tensor.Tensor(shape=(2, 3))
+```
+
+For example, when a Python `Tensor` instance is created as above, the `Tensor`
+class implementation creates an instance of the `Tensor` class defined in
+`singa_wrap.py`, which corresponds to the C++ `Tensor` class. For clarity, the
+`Tensor` class in `singa_wrap.py` is referred as `CTensor` in `tensor.py`.
+
+```python
+# in tensor.py
+from . import singa_wrap as singa
+
+CTensor = singa.Tensor
+```
+
+### Create New Tensor Functions
+
+With the groundwork set by the previous description, extending tensor functions
+could be done easily in a bottom up manner. For math operations, the steps are:
+
+- Declare the new API to `tensor.h`
+- Generate code using the predefined macro in `tensor.cc`, refer to
+  `GenUnaryTensorFn(Abs);` as an example.
+- Declare the template method/function in `tensor_math.h`
+- Do the real implementation at least for CPU (`tensor_math_cpp.h`) and
+  GPU(`tensor_math_cuda.h`)
+- Expose the API via SWIG by adding it into `src/api/core_tensor.i`
+- Define the Python Tensor API in `tensor.py` by calling the automatically
+  generated function in `singa_wrap.py`
 - Write unit tests where appropriate
-
 
 ## Python API
 
