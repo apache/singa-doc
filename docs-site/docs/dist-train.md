@@ -165,14 +165,14 @@ if __name__ == '__main__':
     nccl_id = singa.NcclIdHolder()
 
     # Define the number of GPUs to be used in the training process
-    gpu_per_node = int(sys.argv[1])
+    num_gpus = int(sys.argv[1])
 
     # Define and launch the multi-processing
 	import multiprocessing
     process = []
-    for gpu_num in range(0, gpu_per_node):
+    for gpu_num in range(0, num_gpus):
         process.append(multiprocessing.Process(target=train_mnist_cnn,
-                       args=(nccl_id, gpu_num, gpu_per_node)))
+                       args=(nccl_id, gpu_num, num_gpus)))
 
     for p in process:
         p.start()
@@ -186,18 +186,18 @@ Note that we need to generate a NCCL ID here to be used for collective communica
 The NCCL ID is like a ticket, where only the processes with this ID can join the AllReduce operation. 
 (Later if we use MPI, the passing of NCCL ID is not necessary, because the ID is broadcased by MPI in our code automatically)
 
-(ii) `gpu_per_node`
+(ii) `num_gpus`
 
-gpu_per_node is the number of GPUs in a node you would like to use for training. For single node training, it is the world size. 
+num_gpus is the number of GPUs in a node you would like to use for training. For single node training, it is the world size. 
 
 (iii) `gpu_num`
 
-gpu_num determine the local rank of the distributed training and which gpu is used in the process. In the code above, we used a for loop to run the train function where the argument gpu_num iterates from 0 to gpu_per_node. In this case, different processes can use  different GPUs for training. 
+gpu_num determine the local rank of the distributed training and which gpu is used in the process. In the code above, we used a for loop to run the train function where the argument gpu_num iterates from 0 to num_gpus. In this case, different processes can use  different GPUs for training. 
 
 The arguments for creating the `DistOpt` instance should be updated as follows
 
 ```python
-sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, gpu_per_node=gpu_per_node)
+sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, num_gpus=num_gpus)
 ```
 
 3. Run `doc_dist_multiprocess.py`
@@ -357,3 +357,33 @@ sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = False)
 ```
 
 The hyper-parameters are configured when creating the `DistOpt` instance.
+
+## Implementation
+
+This section is mainly for developers who want to know how the code in distribute module is implemented.
+
+### C interface for NCCL communicator
+
+Firstly, the communication layer is written in C language [communicator.cc](https://github.com/apache/singa/blob/master/src/io/communicator.cc). It applies the NCCL library for collective communication.
+
+There are two constructors for the communicator, one for MPI and another for multiprocess.
+
+(i) Constructor using MPI
+
+The constructor first obtains the global rank and the world size first, and calculate the local rank. Then, rank 0 generates a NCCL ID and broadcast it to every rank. After that, it calls the setup function to initialize the NCCL communicator, cuda streams, and buffers.
+
+(ii) Constructor using Python multiprocess
+
+The constructor first obtains the rank, the world size, and the NCCL ID from the input argument. After that, it calls the setup function to initialize the NCCL communicator, cuda streams, and buffers.
+
+After the initialization, it provides the AllReduce functionality to synchronize the model parameters or gradients. For instance, synch takes a input tensor and perform AllReduce through the NCCL routine. After we call synch, it is necessary to call wait function to wait for the AllReduce operation to be completed.
+
+### Python interface for DistOpt
+
+Then, the python interface provide a [DistOpt](https://github.com/apache/singa/blob/master/python/singa/opt.py) class to wrap an [optimizer](https://github.com/apache/singa/blob/master/python/singa/opt.py) object to perform distributed training based on MPI or multiprocessing. During the initialization, it creates a NCCL communicator object (from the C interface as methioned in the subsection above). Then, this communicator object is used for every AllReduce operations in DistOpt.
+
+In MPI or multiprocess, each process has an individual rank, which gives information of
+which GPU the individual process is using. The training data is partitioned, so that
+each process can evaluate the sub-gradient based on the partitioned training data.
+Once the sub-gradient is calculated on each processes, the overall stochastic gradient
+is obtained by all-reducing the sub-gradients evaluated by all processes.
