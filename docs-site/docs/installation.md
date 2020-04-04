@@ -66,7 +66,7 @@ docker commands without `sudo`.
 1. CPU-only.
 
 ```shell
-$ docker run -it apache/singa:X.Y.Z-cpu /bin/bash
+$ docker run -it apache/singa:X.Y.Z-cpu-ubuntu16.04 /bin/bash
 ```
 
 2. With GPU enabled. Install
@@ -74,7 +74,7 @@ $ docker run -it apache/singa:X.Y.Z-cpu /bin/bash
    Docker.
 
 ```shell
-$ nvidia-docker run -it apache/singa:X.Y.Z-gpu /bin/bash
+$ nvidia-docker run -it apache/singa:X.Y.Z-cuda9.0-cudnn7.4.2-ubuntu16.04 /bin/bash
 ```
 
 3. For the complete list of SINGA Docker images (tags), visit the
@@ -91,6 +91,7 @@ version-(cpu|gpu)[-devel]
 | `cpu`     | the image cannot run on GPUs     | 'cpu'                                                                                                                                                                     |
 | `gpu`     | the image can run on Nvidia GPUs | 'gpu', or 'cudax.x-cudnnx.x' e.g., 'cuda10.0-cudnn7.3'                                                                                                                    |
 | `devel`   | indicator for development        | if absent, SINGA Python package is installed for runtime only; if present, the building environment is also created, you can recompile SINGA from source at '/root/singa' |
+| `OS`       | indicate OS version number       | 'ubuntu16.04', 'ubuntu18.04'                                                                                                                                             |
 
 ## From source
 
