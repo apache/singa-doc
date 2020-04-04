@@ -15,20 +15,18 @@ After installing miniconda, execute the one of the following commands to install
 SINGA.
 
 1. CPU only
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ntkhi-Z6XTR8WYPXiLwujHd2dOm0772V)
 
 ```shell
 $ conda install -c nusdbsystem -c conda-forge singa-cpu
 ```
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ntkhi-Z6XTR8WYPXiLwujHd2dOm0772V)
-
 2. GPU with CUDA and cuDNN (CUDA driver >=384.81 is required)
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1do_TLJe18IthLOnBOsHCEe-FFPGk1sPJ)
 
 ```shell
 $ conda install -c nusdbsystem -c conda-forge singa-gpu
 ```
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1do_TLJe18IthLOnBOsHCEe-FFPGk1sPJ)
 
 3. Install a specific version of SINGA. The following command lists all the
    available SINGA packages.
@@ -42,7 +40,9 @@ singa                      2.1.0.dev        cpu_py36  nusdbsystem
 singa                      2.1.0.dev        cpu_py37  nusdbsystem
 ```
 
-The following command install a specific version of SINGA,
+<!--- > Please note that using the nightly built images is not recommended except for SINGA development and testing. Using stable releases is recommended. -->
+
+The following command installs a specific version of SINGA,
 
 ```shell
 $ conda install -c nusdbsystem -c conda-forge singa=X.Y.Z.dev=cpu_py37
@@ -85,16 +85,12 @@ $ nvidia-docker run -it apache/singa:X.Y.Z-gpu /bin/bash
 version-(cpu|gpu)[-devel]
 ```
 
-| Tag       | Description                      | Example value                                                                                                                                                            |
-| --------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `version` | SINGA version                    | '2.0.0-rc0', '2.0.0', '1.2.0'                                                                                                                                            |
-| `cpu`     | the image cannot run on GPUs     | 'cpu'                                                                                                                                                                    |
-| `gpu`     | the image can run on Nvidia GPUs | 'gpu', or 'cudax.x-cudnnx.x' e.g., 'cuda10.0-cudnn7.3'                                                                                                                   |
-| `devel`   | indicator for development        | if absent SINGA Python package is installed for runtime only; if present, the building environment is also created, you can recompile SINGA from source at '/root/singa' |
-
-> Please note that using the nightly built images is not recommended excpet for
-> SINGA development and testing. Using an official release is recommended.
-> Official releases have version numbers such as '2.0.0' and '1.2.0'.
+| Tag       | Description                      | Example value                                                                                                                                                             |
+| --------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `version` | SINGA version                    | '2.0.0-rc0', '2.0.0', '1.2.0'                                                                                                                                             |
+| `cpu`     | the image cannot run on GPUs     | 'cpu'                                                                                                                                                                     |
+| `gpu`     | the image can run on Nvidia GPUs | 'gpu', or 'cudax.x-cudnnx.x' e.g., 'cuda10.0-cudnn7.3'                                                                                                                    |
+| `devel`   | indicator for development        | if absent, SINGA Python package is installed for runtime only; if present, the building environment is also created, you can recompile SINGA from source at '/root/singa' |
 
 ## From source
 
