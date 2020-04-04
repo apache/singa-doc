@@ -20,9 +20,9 @@ the gradients of the weights, which are averaged via All-Reduce (provided by
 [NCCL](https://developer.nvidia.com/nccl)) for weight update following
 stochastic gradient descent algorithms (SGD).
 
-The all-reduce operation by NCCL can be used to reduce and synchronize the
+The All-reduce operation by NCCL can be used to reduce and synchronize the
 gradients from different GPUs. Let's consider the training with 4 GPUs as shown
-below. Once the gradients from the 4 GPUs are calculated, All-Reduce will the
+below. Once the gradients from the 4 GPUs are calculated, All-Reduce will return the
 sum of the gradients over the GPUs and make it available on every GPU. Then the
 averaged gradients can be easily calculated.
 
@@ -261,20 +261,29 @@ before calling AllReduce.
 sgd.backward_and_partial_update(loss)
 ```
 
-In each iteration, only a chunk of of gradients are averaged, which saves the
-communication cost. The other gradients are used to update the parameters
-locally. The chunk size is configured when creating the `DistOpt` instance.
+In each iteration, every rank do the local sgd update. Then, only a chunk 
+of parameters are averaged for synchronization, which saves the communication cost. 
+The chunk size is configured when creating the `DistOpt` instance.
 
 ### Gradient Sparsification
 
 ```python
-sgd.backward_and_spars_update(loss)
+sgd.backward_and_sparse_update(loss)
 ```
 
 It applies sparsification schemes to select a subset of gradients for
 All-Reduce. There are two scheme:
 
 - The top-K largest elements are selected
+
+```python
+sgd.backward_and_sparse_update(loss, topK = True)
+```
+
 - All gradients whose absolute value are larger than predefined threshold.
 
-The hype-parameters are configured when creating the `DistOpt` instance.
+```python
+sgd.backward_and_sparse_update(loss, topK = False)
+```
+
+The hyper-parameters are configured when creating the `DistOpt` instance.
