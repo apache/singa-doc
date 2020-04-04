@@ -7,27 +7,57 @@ title: Computational Graph
 
 SINGA supports buffering operations and computational graph. Using computational graph, SINGA can schedule the execution of operations as well as the memory allocation and release. It makes training more efficient while using less memory.
 
+## About Computational Graph
+
+### Introduction
+
+Computational graph is used to represent networks of the flow of computation. It is composed of many nodes and edges, where nodes represent various operations and edges represent data. In deep neural networks, nodes are tensor-based operations such as convolution and edges are tensors.
+
+The entire neural network is equivalent to a computational graph, all neural networks can correspond to a calculation graph. By representing the neural network as a calculation graph, some optimizations for neural networks can be performed on the calculation graph.
+
+### Pipeline
+
+The whole process of using the calculational graph to represent the model and execute the graph consists of roughly four steps. The whole process is actually similar to compiling. We first describe the program with code, then translate the program into intermediate code, then optimize the intermediate code and finally come up with many ways to efficiently execute the code. In neural networks, the intermediate code is the calculation graph. We can optimize through techniques like common subexpression elimination. When the computer executes the compiled binary file, it can be efficiently executed by using multi-thread technology, and the same as the execution of the calculation graph. Therefore, some ideas of compilation principles can also be used in the optimization of calculation graphs.
+
+* Write the python code for the model.
+
+* Construct the computational graph based on the python code.
+* Optimize the computational graph.
+* Execute the computational graph efficiently.
+
+Figure 1 shows a simple example of going through the entire process.
+
+<img src="assets/GraphPipeline.png" alt="The pipeline of using computational graph" style="zoom:40%;" />
+
+<br/>**Figure 1 - The pipeline of using computational graph**
+
+### An example of MLP
+
+A simple MLP model can be constructed on the Python side by using some APIs of SINGA.
+
+```python
+x = autograd.matmul(inputs, w0)
+x = autograd.add_bias(x, b0)
+x = autograd.relu(x)
+x = autograd.matmul(x, w1)
+x = autograd.add_bias(x, b1)
+loss = autograd.softmax_cross_entropy(x, target)
+sgd.backward_and_update(loss)
+```
+
+When the model is defined, there is actually a calculation graph corresponding to it. This calculation graph contains the calculations that the entire SINGA will perform.  Figure 2 shows the computational graph corresponding to the MLP model defined above.
+
+![The computational graph of MLP](assets/GraphOfMLP.png)
+
+<br/>**Figure 2 - The computational graph of MLP**
+
 ## Features
-There are three main features of computational graph, namely (i) Computational graph construction, (ii) Lazy allocation, (iii) Automatic recycling. Details are as follows:
+
+There are four main features of computational graph in SINGA, namely (i) Computational graph construction, (ii) Lazy allocation, (iii) Automatic recycling, (iv) Shared memory. Details are as follows:
 * `Computational graph construction`: Construct a computational graph based on the mathematical or deep learning operations, and then run the graph to accomplish the training task. The computational graph also includes operations like communicator.synch and communicator.fusedSynch for the distributed training.
 * `Lazy allocation`: When blocks are allocated, devices do not allocate memory for them immediately. Devices do memory allocation only when an operation uses this block for the first time.
-* `Automatic recycling`: When we are running a graph in an iteration, it automatically deallocate the intermediate tensors which won't be used again in the remaining operations. 
-
-## Design
-### Computational graph construction
-* Use the technique of delayed execution to falsely perform operations in the forward propagation and backward propagation once. Buffer all the operations and the tensors read or written by each operation.
-* Calculate dependencies between all the operations to decide the order of execution. (Support directed cyclic graph)
-* Execute all the operations in the order we just calculated to update all the parameters.
-* The system will only analyze the same graph once. If new operations are added to the graph, the calculation graph will be re-analyzed.
-* Provided a module class for users to use this feature more conveniently.
-### Lazy allocation
-* When a device needs to create a new block, pass the device to that block only, instead of allocating a piece of memory from the mempool and passing the pointer to that block.
-* When a block is accessed for the first time, the device corresponding to the block allocate memory and then access it.
-### Automatic recycling
-* When calculating dependencies between the operations during the graph construction, the reference count of tensors can also be calculated.
-* When an operation is completed, decreases the reference count of tensors that the operation used.
-* If a tensor's reference count reaches zero, it means the tensor won't be accessed by latter operations, so we can recycle its memory.
-* The program will track the usage of the block. If a block is used on the python side, it will not be recycled, which is convenient for debugging on the python side.
+* `Automatic recycling`: When we are running a graph in an iteration, it automatically deallocates the intermediate tensors which won't be used again in the remaining operations.
+* `Shared memory`: When two operations will never be performed at the same time, the result tensors produced by them can share a piece of memory.
 
 
 ## How to use
@@ -98,7 +128,7 @@ for b in range(num_train_batch):
     * [ResNet](https://github.com/apache/singa/blob/master/examples/autograd/resnet_module.py)
 
 
-## Evaluation
+## Experiments
 ### Single node
 * Experiment settings
     * Model
@@ -303,9 +333,59 @@ for b in range(num_train_batch):
 * Computational graph does not affect training time and memory usage if the graph is disabled.
 * Computational graph can significantly reduce memory usage and training time.
 
-## Include operations in graph
+## Implementation
 
-For new operations to be included in the computational graph, they should be submitted to the device. Device class in CPP will add these operations in the computational graph and scheduler will schedule them automatically.
+### Computational graph construction
+
+* `Buffer the operations`: Use the technique of delayed execution to falsely perform operations in the forward propagation and backward propagation once. Buffer all the operations and the tensors read or written by each operation. Take matmul for example.
+
+  ```python
+  # user calls an api to do matmul on two tensors
+  x = autograd.matmul(inputs, w0)
+  
+  # Python code inside the api
+  singa.Mult(inputs, w)
+  ```
+
+  ```c++
+  // the backend platform
+  // pass the specific execution function of the operation
+  // and the tensors it will reads and writes during the calculation to the device.
+  C->device()->Exec(
+      [a, A, b, B, CRef](Context *ctx) mutable {
+          GEMV<DType, Lang>(a, A, B, b, &CRef, ctx);
+      },
+      read_blocks, {C->block()});
+  ```
+
+* `Build nodes and edges`: Build the nodes and edges of the operations passed to the device and add them into the computational graph.  Since we just told the scheduler which blocks these operations will read and write and some of the tensors will share the same blocks, the scheduler will split one edge into multiple to ensure that the constructed graph is a directed acyclic graph.
+
+* `Analyze the graph`: Calculate dependencies between all the operations to decide the order of execution. The system will only analyze the same graph once. If new operations are added to the graph, the calculation graph will be re-analyzed.
+
+* `Run graph`: Execute all the operations in the order we just calculated to update all the parameters. Tensors are well scheduled to allocate and deallocate to save memory. After the analyzing, the operations in the graph can be executed based on the result of analyzing.
+
+* `Module`: Provided a module class on the Python side for users to use this feature more conveniently.
+
+### Lazy allocation
+
+* When a device needs to create a new block, pass the device to that block only, instead of allocating a piece of memory from the mempool and passing the pointer to that block.
+* When a block is accessed for the first time, the device corresponding to the block allocates memory and then access it.
+
+### Automatic recycling
+
+* When calculating dependencies between the operations during graph construction, the reference count of tensors can also be calculated.
+* When an operation is completed, the schedualer decrease the reference count of tensors that the operation used.
+* If a tensor's reference count reaches zero, it means the tensor won't be accessed by latter operations, so we can recycle its memory.
+* The program will track the usage of the block. If a block is used on the python side, it will not be recycled, which is convenient for debugging on the python side.
+
+### Shared memory
+
+* Once the kernel function of an operation is added into the default cuda stream and the tensors used by the operation can be freed when the calculation is complete, the scheduler will free these tensors' memory immediately and no need to wait for the calculation to complete. Because subsequent operations will not be performed at the same time as the current operation as the platform now used the default stream of CUDA to finish the calculation. So the following tensors can share the same memory with these tensors. 
+* Use a mempool to manage the GPU memory. Scheduler returns the memory used by tensors to the mempool and the latter tensors will apply for memory from mempool. The mempool will find the most suitable blocks returned by the previous tensors for the latter tensors to share as much memory as possible.
+
+## How to add a new operation
+
+For new operations to be included in the computational graph, they should be submitted to the device. Device class on the CPP side will add these operations in the computational graph and the scheduler will schedule them automatically.
 
 #### Requirements
 

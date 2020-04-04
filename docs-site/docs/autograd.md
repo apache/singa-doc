@@ -194,11 +194,11 @@ for epoch in range(epochs):
             sgd.update(p, gp)
 ```
 
-### Operation + Module
+### Using the Module API
 
 The following [example](https://github.com/apache/singa/blob/master/examples/autograd/cnn_module.py) implements a CNN model using the Module provided by the module.
 
-#### Define the model class
+#### Define the subclass of Module
 
 Define the model class, it should be the subclass of the Module. In this way, all operations used during traing phase  will form a calculation graph and will be analyzed. The operations in the graph will be scheduled and executed efficiently. Layers can also be included in the module class.
 
