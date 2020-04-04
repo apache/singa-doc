@@ -18,9 +18,9 @@ relevant modules in Singa and give an example to illustrate the usage.
 ## Relevant Modules
 
 There are three classes involved in autograd, namely `singa.tensor.Tensor`,
-`singa.autograd.Operation`, `singa.autograd.Layer` and `singa.module.Module`.
-In the rest of this article, we use tensor, operation, layer and module to 
-refer to an instance of the respective class.
+`singa.autograd.Operation`, `singa.autograd.Layer` and `singa.module.Module`. In
+the rest of this article, we use tensor, operation, layer and module to refer to
+an instance of the respective class.
 
 ### Tensor
 
@@ -70,7 +70,10 @@ to implement the transformation.
 
 ### Module
 
-For every neural network, it can be a subclass of Module. It is used to buffer all the operations in the neural network and form a computational graph. SINGA will schedule the operations and memory allocation to make training more efficient while using less memory.
+For every neural network, it can be a subclass of Module. It is used to buffer
+all the operations in the neural network and form a computational graph. SINGA
+will schedule the operations and memory allocation to make training more
+efficient while using less memory.
 
 ## Examples
 
@@ -196,11 +199,16 @@ for epoch in range(epochs):
 
 ### Using the Module API
 
-The following [example](https://github.com/apache/singa/blob/master/examples/autograd/cnn_module.py) implements a CNN model using the Module provided by the module.
+The following
+[example](https://github.com/apache/singa/blob/master/examples/autograd/cnn_module.py)
+implements a CNN model using the Module provided by the module.
 
 #### Define the subclass of Module
 
-Define the model class, it should be the subclass of the Module. In this way, all operations used during traing phase  will form a calculation graph and will be analyzed. The operations in the graph will be scheduled and executed efficiently. Layers can also be included in the module class.
+Define the model class, it should be the subclass of the Module. In this way,
+all operations used during traing phase will form a calculation graph and will
+be analyzed. The operations in the graph will be scheduled and executed
+efficiently. Layers can also be included in the module class.
 
 ```python
 class MLP(module.Module):  # the model is a subclass of Module
