@@ -34,7 +34,7 @@ SINGA implements a module called `DistOpt` for distributed training. It replaces
 the normal SGD optimizer for updating the model parameters. The following
 example illustrates the usage of `DistOpt` for training a CNN model over the
 MNIST dataset. The full example is available
-[here](https://github.com/apache/singa/blob/master/examples/autograd/mnist_dist.py).
+[here](https://github.com/apache/singa/blob/master/examples/autograd/doc_dist_train.py).
 
 ### Example Code
 
@@ -75,12 +75,30 @@ sgd = opt.DistOpt(sgd)
 dev = device.create_cuda_gpu_on(sgd.rank_in_local)
 ```
 
-`dev` represents the `Device` instance, where to load data and run the CNN
+Here are some explanations concerning some variables in the code:
+
+(i) `dev` 
+
+dev represents the `Device` instance, where to load data and run the CNN
 model.
+
+(ii)`rank_in_local` 
+
+Rank in local represents the GPU number the current process is using in the same node. For example, if you are using a node with 2 GPUs, `rank_in_local=0` means that this process is using the first GPU, while `rank_in_local=1` means using the second GPU. Using MPI or multiprocess, you are able to run the same training script which is only different in the value of `rank_in_local`.
+
+(iii)`rank_in_global` 
+
+Rank in global represents the global rank considered all the processes in all the nodes you are using. Let's consider the case you have 3 nodes and each of the node has two GPUs, `rank_in_global=0` means the process using the 1st GPU at the 1st node, `rank_in_global=2` means the process using the 1st GPU of the 2nd node, and `rank_in_global=4` means the process using the 1st GPU of the 3rd node.
 
 3. Load and partition the training/validation data:
 
 ```python
+def data_partition(dataset_x, dataset_y, rank_in_global, world_size):
+    data_per_rank = dataset_x.shape[0] // world_size
+    idx_start = rank_in_global * data_per_rank
+    idx_end = (rank_in_global + 1) * data_per_rank
+    return dataset_x[idx_start:idx_end], dataset_y[idx_start:idx_end]
+
 train_x, train_y, test_x, test_y = load_dataset()
 train_x, train_y = data_partition(train_x, train_y,
                                   sgd.rank_in_global, sgd.world_size)
@@ -106,6 +124,8 @@ loss = autograd.softmax_cross_entropy(out, ty)
 for p, g in autograd.backward(loss):
     synchronize(p, sgd)
 ```
+
+Here, `world_size` represents the total number of processes in all the nodes you are using for distributed training.
 
 5. Run BackPropagation and distributed SGD
 
@@ -137,7 +157,7 @@ def train_mnist_cnn(nccl_id=None, gpu_num=None, gpu_per=None):
     ...
 ```
 
-2. Create `mnist_multiprocess.py`
+2. Create `doc_dist_multiprocess.py`
 
 ```python
 if __name__ == '__main__':
@@ -146,7 +166,6 @@ if __name__ == '__main__':
 
     # Define the number of GPUs to be used in the training process
     gpu_per_node = int(sys.argv[1])
-    gpu_num = 1
 
     # Define and launch the multi-processing
 	import multiprocessing
@@ -159,16 +178,67 @@ if __name__ == '__main__':
         p.start()
 ```
 
+Here are some explanations concerning the variables created above:
+
+(i) `nccl_id`
+
+Note that we need to generate a NCCL ID here to be used for collective communication, and then pass it to all the processes. 
+The NCCL ID is like a ticket, where only the processes with this ID can join the AllReduce operation. 
+(Later if we use MPI, the passing of NCCL ID is not necessary, because the ID is broadcased by MPI in our code automatically)
+
+(ii) `gpu_per_node`
+
+gpu_per_node is the number of GPUs in a node you would like to use for training. For single node training, it is the world size. 
+
+(iii) `gpu_num`
+
+gpu_num determine the local rank of the distributed training and which gpu is used in the process. In the code above, we used a for loop to run the train function where the argument gpu_num iterates from 0 to gpu_per_node. In this case, different processes can use  different GPUs for training. 
+
 The arguments for creating the `DistOpt` instance should be updated as follows
 
 ```python
 sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, gpu_per_node=gpu_per_node)
 ```
 
-3. Run `mnist_multiprocess.py`
+3. Run `doc_dist_multiprocess.py`
 
 ```sh
-python mnist_multiprocess.py
+python doc_dist_multiprocess.py 2
+```
+
+It results in speed up compared to the single GPU training.
+
+```
+Starting Epoch 0:
+Training loss = 408.909790, training accuracy = 0.880475
+Evaluation accuracy = 0.956430
+Starting Epoch 1:
+Training loss = 102.396790, training accuracy = 0.967415
+Evaluation accuracy = 0.977564
+Starting Epoch 2:
+Training loss = 69.217010, training accuracy = 0.977915
+Evaluation accuracy = 0.981370
+Starting Epoch 3:
+Training loss = 54.248390, training accuracy = 0.982823
+Evaluation accuracy = 0.984075
+Starting Epoch 4:
+Training loss = 45.213406, training accuracy = 0.985560
+Evaluation accuracy = 0.985276
+Starting Epoch 5:
+Training loss = 38.868435, training accuracy = 0.987764
+Evaluation accuracy = 0.986278
+Starting Epoch 6:
+Training loss = 34.078186, training accuracy = 0.989149
+Evaluation accuracy = 0.987881
+Starting Epoch 7:
+Training loss = 30.138697, training accuracy = 0.990451
+Evaluation accuracy = 0.988181
+Starting Epoch 8:
+Training loss = 26.854443, training accuracy = 0.991520
+Evaluation accuracy = 0.988682
+Starting Epoch 9:
+Training loss = 24.039650, training accuracy = 0.992405
+Evaluation accuracy = 0.989083
 ```
 
 #### MPI
@@ -176,59 +246,59 @@ python mnist_multiprocess.py
 It works for both single node and multiple nodes as long as there are multiple
 GPUs.
 
-1. Create `mnist_dist.py`
+1. Create `doc_dist_train.py`
 
 ```python
 if __name__ == '__main__':
     train_mnist_cnn()
 ```
 
-2. Generate a hostfile for MPI, e.g. the hostfile below uses 4 processes (i.e.,
-   4 GPUs) on a single node
+2. Generate a hostfile for MPI, e.g. the hostfile below uses 2 processes (i.e.,
+   2 GPUs) on a single node
 
 ```txt
-localhost:4
+localhost:2
 ```
 
 3. Launch the training via `mpiexec`
 
 ```sh
-mpiexec --hostfile host_file python3 mnist_dist.py
+mpiexec --hostfile host_file python doc_dist.py
 ```
 
 It could result in several times speed up compared to the single GPU training.
 
 ```
 Starting Epoch 0:
-Training loss = 673.246277, training accuracy = 0.760517
-Evaluation accuracy = 0.930489, Elapsed Time = 0.757460s
+Training loss = 383.969543, training accuracy = 0.886402
+Evaluation accuracy = 0.954327
 Starting Epoch 1:
-Training loss = 240.009323, training accuracy = 0.919705
-Evaluation accuracy = 0.964042, Elapsed Time = 0.707835s
+Training loss = 97.531479, training accuracy = 0.969451
+Evaluation accuracy = 0.977163
 Starting Epoch 2:
-Training loss = 168.806030, training accuracy = 0.944010
-Evaluation accuracy = 0.967448, Elapsed Time = 0.710606s
+Training loss = 67.166870, training accuracy = 0.978516
+Evaluation accuracy = 0.980769
 Starting Epoch 3:
-Training loss = 139.131454, training accuracy = 0.953676
-Evaluation accuracy = 0.971755, Elapsed Time = 0.710840s
+Training loss = 53.369656, training accuracy = 0.983040
+Evaluation accuracy = 0.983974
 Starting Epoch 4:
-Training loss = 117.479889, training accuracy = 0.960487
-Evaluation accuracy = 0.974659, Elapsed Time = 0.711388s
+Training loss = 45.100403, training accuracy = 0.985777
+Evaluation accuracy = 0.986078
 Starting Epoch 5:
-Training loss = 103.085609, training accuracy = 0.965812
-Evaluation accuracy = 0.979267, Elapsed Time = 0.712624s
+Training loss = 39.330826, training accuracy = 0.987447
+Evaluation accuracy = 0.987179
 Starting Epoch 6:
-Training loss = 97.565521, training accuracy = 0.966897
-Evaluation accuracy = 0.979868, Elapsed Time = 0.714128s
+Training loss = 34.655270, training accuracy = 0.988799
+Evaluation accuracy = 0.987780
 Starting Epoch 7:
-Training loss = 86.971985, training accuracy = 0.970903
-Evaluation accuracy = 0.979868, Elapsed Time = 0.715277s
+Training loss = 30.749735, training accuracy = 0.989984
+Evaluation accuracy = 0.988281
 Starting Epoch 8:
-Training loss = 79.487328, training accuracy = 0.973341
-Evaluation accuracy = 0.982372, Elapsed Time = 0.715577s
+Training loss = 27.422146, training accuracy = 0.991319
+Evaluation accuracy = 0.988582
 Starting Epoch 9:
-Training loss = 74.658951, training accuracy = 0.974793
-Evaluation accuracy = 0.982672, Elapsed Time = 0.717571s
+Training loss = 24.548153, training accuracy = 0.992171
+Evaluation accuracy = 0.988682
 ```
 
 ## Optimizations for Distributed Training
@@ -274,16 +344,16 @@ sgd.backward_and_sparse_update(loss)
 It applies sparsification schemes to select a subset of gradients for
 All-Reduce. There are two scheme:
 
-- The top-K largest elements are selected
+- The top-K largest elements are selected. spars is the portion (0 - 1) of total elements selected.
 
 ```python
-sgd.backward_and_sparse_update(loss, topK = True)
+sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = True)
 ```
 
-- All gradients whose absolute value are larger than predefined threshold.
+- All gradients whose absolute value are larger than predefined threshold spars are selected.
 
 ```python
-sgd.backward_and_sparse_update(loss, topK = False)
+sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = False)
 ```
 
 The hyper-parameters are configured when creating the `DistOpt` instance.
