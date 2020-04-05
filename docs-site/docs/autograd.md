@@ -8,7 +8,7 @@ title: Autograd in SINGA
 There are two typical ways to implement autograd, via symbolic differentiation
 like [Theano](http://deeplearning.net/software/theano/index.html) or reverse
 differentiation like
-[Pytorch](https://pytorch.org/docs/stable/notes/autograd.html). Singa follows
+[Pytorch](https://pytorch.org/docs/stable/notes/autograd.html). SINGA follows
 Pytorch way, which records the computation graph and apply the backward
 propagation automatically after forward propagation. The autograd algorithm is
 explained in details
@@ -18,9 +18,9 @@ relevant modules in Singa and give an example to illustrate the usage.
 ## Relevant Modules
 
 There are three classes involved in autograd, namely `singa.tensor.Tensor`,
-`singa.autograd.Operation`, `singa.autograd.Layer` and `singa.module.Module`. In
-the rest of this article, we use tensor, operation, layer and module to refer to
-an instance of the respective class.
+`singa.autograd.Operation`, and `singa.autograd.Layer`. In the rest of this
+article, we use tensor, operation and layer to refer to an instance of the
+respective class.
 
 ### Tensor
 
@@ -67,13 +67,6 @@ For those operations that require parameters, we package them into a new class,
 `Layer`. For example, convolution operation is wrapped into a convolution layer.
 `Layer` manages (stores) the parameters and calls the corresponding `Operation`s
 to implement the transformation.
-
-### Module
-
-For every neural network, it can be a subclass of Module. It is used to buffer
-all the operations in the neural network and form a computational graph. SINGA
-will schedule the operations and memory allocation to make training more
-efficient while using less memory.
 
 ## Examples
 
@@ -265,3 +258,9 @@ for i in range(niters):
     if i % (niters / 10) == 0 and rank_in_global == 0:
         print("training loss = ", tensor.to_numpy(loss)[0], flush=True)
 ```
+
+### Python API
+
+Refer
+[here](https://singa.readthedocs.io/en/latest/docs/autograd.html#module-singa.autograd)
+for more details of Python API.
