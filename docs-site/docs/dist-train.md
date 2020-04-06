@@ -34,7 +34,7 @@ SINGA implements a module called `DistOpt` for distributed training. It replaces
 the normal SGD optimizer for updating the model parameters. The following
 example illustrates the usage of `DistOpt` for training a CNN model over the
 MNIST dataset. The full example is available
-[here](https://github.com/apache/singa/blob/master/examples/autograd/doc_dist_train.py).
+[here](https://github.com/apache/singa/blob/master/examples/autograd/mnist_dist.py).
 
 ### Example Code
 
@@ -153,11 +153,11 @@ It works on a single node with multiple GPUs, where each GPU is one worker.
 1. Put all the above training codes in a function
 
 ```python
-def train_mnist_cnn(nccl_id=None, gpu_num=None, gpu_per=None):
+def train_mnist_cnn(nccl_id=None, gpu_num=None, num_gpus=None):
     ...
 ```
 
-2. Create `doc_dist_multiprocess.py`
+2. Create `mnist_multiprocess.py`
 
 ```python
 if __name__ == '__main__':
@@ -200,7 +200,7 @@ The arguments for creating the `DistOpt` instance should be updated as follows
 sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, num_gpus=num_gpus)
 ```
 
-3. Run `doc_dist_multiprocess.py`
+3. Run `mnist_multiprocess.py`
 
 ```sh
 python doc_dist_multiprocess.py 2
@@ -246,7 +246,7 @@ Evaluation accuracy = 0.989083
 It works for both single node and multiple nodes as long as there are multiple
 GPUs.
 
-1. Create `doc_dist_train.py`
+1. Create `mnist_dist.py`
 
 ```python
 if __name__ == '__main__':
@@ -263,10 +263,10 @@ localhost:2
 3. Launch the training via `mpiexec`
 
 ```sh
-mpiexec --hostfile host_file python doc_dist.py
+mpiexec --hostfile host_file python mnist_dist.py
 ```
 
-It could result in several times speed up compared to the single GPU training.
+It could result in speed up compared to the single GPU training.
 
 ```
 Starting Epoch 0:
