@@ -20,7 +20,7 @@ the gradients of the weights, which are averaged via all-reduce (provided by
 [NCCL](https://developer.nvidia.com/nccl)) for weight update following
 stochastic gradient descent algorithms (SGD).
 
-The all-reduce operation by NCCL can be used to reduce and synchronize thereduce
+The all-reduce operation by NCCL can be used to reduce and synchronize the
 gradients from different GPUs. Let's consider the training with 4 GPUs as shown
 below. Once the gradients from the 4 GPUs are calculated, all-reduce will return the
 sum of the gradients over the GPUs and make it available on every GPU. Then the
