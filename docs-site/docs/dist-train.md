@@ -16,13 +16,13 @@ over a single GPU. Each process has an individual communication rank. The
 training data is partitioned among the workers and the model is replicated on
 every worker. In each iteration, the workers read a mini-batch of data (e.g.,
 256 images) from its partition and run the BackPropagation algorithm to compute
-the gradients of the weights, which are averaged via All-Reduce (provided by
+the gradients of the weights, which are averaged via all-reduce (provided by
 [NCCL](https://developer.nvidia.com/nccl)) for weight update following
 stochastic gradient descent algorithms (SGD).
 
-The All-reduce operation by NCCL can be used to reduce and synchronize the
+The all-reduce operation by NCCL can be used to reduce and synchronize thereduce
 gradients from different GPUs. Let's consider the training with 4 GPUs as shown
-below. Once the gradients from the 4 GPUs are calculated, All-Reduce will return the
+below. Once the gradients from the 4 GPUs are calculated, all-reduce will return the
 sum of the gradients over the GPUs and make it available on every GPU. Then the
 averaged gradients can be easily calculated.
 
@@ -72,7 +72,7 @@ model = CNN()
 ```python
 sgd = opt.SGD(lr=0.005, momentum=0.9, weight_decay=1e-5)
 sgd = opt.DistOpt(sgd)
-dev = device.create_cuda_gpu_on(sgd.rank_in_local)
+dev = device.create_cuda_gpu_on(sgd.local_rank)
 ```
 
 Here are some explanations concerning some variables in the code:
@@ -82,28 +82,28 @@ Here are some explanations concerning some variables in the code:
 dev represents the `Device` instance, where to load data and run the CNN
 model.
 
-(ii)`rank_in_local` 
+(ii)`local_rank` 
 
-Rank in local represents the GPU number the current process is using in the same node. For example, if you are using a node with 2 GPUs, `rank_in_local=0` means that this process is using the first GPU, while `rank_in_local=1` means using the second GPU. Using MPI or multiprocess, you are able to run the same training script which is only different in the value of `rank_in_local`.
+Local rank represents the GPU number the current process is using in the same node. For example, if you are using a node with 2 GPUs, `local_rank=0` means that this process is using the first GPU, while `local_rank=1` means using the second GPU. Using MPI or multiprocess, you are able to run the same training script which is only different in the value of `local_rank`.
 
-(iii)`rank_in_global` 
+(iii)`global_rank` 
 
-Rank in global represents the global rank considered all the processes in all the nodes you are using. Let's consider the case you have 3 nodes and each of the node has two GPUs, `rank_in_global=0` means the process using the 1st GPU at the 1st node, `rank_in_global=2` means the process using the 1st GPU of the 2nd node, and `rank_in_global=4` means the process using the 1st GPU of the 3rd node.
+Rank in global represents the global rank considered all the processes in all the nodes you are using. Let's consider the case you have 3 nodes and each of the node has two GPUs, `global_rank=0` means the process using the 1st GPU at the 1st node, `global_rank=2` means the process using the 1st GPU of the 2nd node, and `global_rank=4` means the process using the 1st GPU of the 3rd node.
 
 3. Load and partition the training/validation data:
 
 ```python
-def data_partition(dataset_x, dataset_y, rank_in_global, world_size):
+def data_partition(dataset_x, dataset_y, global_rank, world_size):
     data_per_rank = dataset_x.shape[0] // world_size
-    idx_start = rank_in_global * data_per_rank
-    idx_end = (rank_in_global + 1) * data_per_rank
+    idx_start = global_rank * data_per_rank
+    idx_end = (global_rank + 1) * data_per_rank
     return dataset_x[idx_start:idx_end], dataset_y[idx_start:idx_end]
 
 train_x, train_y, test_x, test_y = load_dataset()
 train_x, train_y = data_partition(train_x, train_y,
-                                  sgd.rank_in_global, sgd.world_size)
+                                  sgd.global_rank, sgd.world_size)
 test_x, test_y = data_partition(test_x, test_y,
-                                sgd.rank_in_global, sgd.world_size)
+                                sgd.global_rank, sgd.world_size)
 ```
 
 A partition of the dataset is returned for this `dev`.
@@ -153,7 +153,7 @@ It works on a single node with multiple GPUs, where each GPU is one worker.
 1. Put all the above training codes in a function
 
 ```python
-def train_mnist_cnn(nccl_id=None, gpu_num=None, num_gpus=None):
+def train_mnist_cnn(nccl_id=None, local_rank=None, world_size=None):
     ...
 ```
 
@@ -165,14 +165,14 @@ if __name__ == '__main__':
     nccl_id = singa.NcclIdHolder()
 
     # Define the number of GPUs to be used in the training process
-    num_gpus = int(sys.argv[1])
+    world_size = int(sys.argv[1])
 
     # Define and launch the multi-processing
 	import multiprocessing
     process = []
-    for gpu_num in range(0, num_gpus):
+    for local_rank in range(0, world_size):
         process.append(multiprocessing.Process(target=train_mnist_cnn,
-                       args=(nccl_id, gpu_num, num_gpus)))
+                       args=(nccl_id, local_rank, world_size)))
 
     for p in process:
         p.start()
@@ -183,21 +183,21 @@ Here are some explanations concerning the variables created above:
 (i) `nccl_id`
 
 Note that we need to generate a NCCL ID here to be used for collective communication, and then pass it to all the processes. 
-The NCCL ID is like a ticket, where only the processes with this ID can join the AllReduce operation. 
+The NCCL ID is like a ticket, where only the processes with this ID can join the all-reduce operation. 
 (Later if we use MPI, the passing of NCCL ID is not necessary, because the ID is broadcased by MPI in our code automatically)
 
-(ii) `num_gpus`
+(ii) `world_size`
 
-num_gpus is the number of GPUs in a node you would like to use for training. For single node training, it is the world size. 
+world_size is the number of GPUs you would like to use for training. 
 
-(iii) `gpu_num`
+(iii) `local_rank`
 
-gpu_num determine the local rank of the distributed training and which gpu is used in the process. In the code above, we used a for loop to run the train function where the argument gpu_num iterates from 0 to num_gpus. In this case, different processes can use  different GPUs for training. 
+local_rank determine the local rank of the distributed training and which gpu is used in the process. In the code above, we used a for loop to run the train function where the argument local_rank iterates from 0 to world_size. In this case, different processes can use different GPUs for training. 
 
 The arguments for creating the `DistOpt` instance should be updated as follows
 
 ```python
-sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, num_gpus=num_gpus)
+sgd = opt.DistOpt(sgd, nccl_id=nccl_id, local_rank=local_rank, world_size=world_size)
 ```
 
 3. Run `mnist_multiprocess.py`
@@ -323,7 +323,7 @@ sgd.backward_and_update_half(loss)
 ```
 
 It converts each gradient value to 16-bit representation (i.e., half-precision)
-before calling AllReduce.
+before calling all-reduce.
 
 ### Partial Synchronization
 
@@ -342,7 +342,7 @@ sgd.backward_and_sparse_update(loss)
 ```
 
 It applies sparsification schemes to select a subset of gradients for
-All-Reduce. There are two scheme:
+all-reduce. There are two scheme:
 
 - The top-K largest elements are selected. spars is the portion (0 - 1) of total elements selected.
 
@@ -376,11 +376,11 @@ The constructor first obtains the global rank and the world size first, and calc
 
 The constructor first obtains the rank, the world size, and the NCCL ID from the input argument. After that, it calls the setup function to initialize the NCCL communicator, cuda streams, and buffers.
 
-After the initialization, it provides the AllReduce functionality to synchronize the model parameters or gradients. For instance, synch takes a input tensor and perform AllReduce through the NCCL routine. After we call synch, it is necessary to call wait function to wait for the AllReduce operation to be completed.
+After the initialization, it provides the all-reduce functionality to synchronize the model parameters or gradients. For instance, synch takes a input tensor and perform all-reduce through the NCCL routine. After we call synch, it is necessary to call wait function to wait for the all-reduce operation to be completed.
 
 ### Python interface for DistOpt
 
-Then, the python interface provide a [DistOpt](https://github.com/apache/singa/blob/master/python/singa/opt.py) class to wrap an [optimizer](https://github.com/apache/singa/blob/master/python/singa/opt.py) object to perform distributed training based on MPI or multiprocessing. During the initialization, it creates a NCCL communicator object (from the C interface as methioned in the subsection above). Then, this communicator object is used for every AllReduce operations in DistOpt.
+Then, the python interface provide a [DistOpt](https://github.com/apache/singa/blob/master/python/singa/opt.py) class to wrap an [optimizer](https://github.com/apache/singa/blob/master/python/singa/opt.py) object to perform distributed training based on MPI or multiprocessing. During the initialization, it creates a NCCL communicator object (from the C interface as methioned in the subsection above). Then, this communicator object is used for every all-reduce operations in DistOpt.
 
 In MPI or multiprocess, each process has an individual rank, which gives information of
 which GPU the individual process is using. The training data is partitioned, so that
