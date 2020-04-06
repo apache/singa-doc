@@ -203,7 +203,7 @@ sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, num_gpus=num_gpus)
 3. Run `mnist_multiprocess.py`
 
 ```sh
-python doc_dist_multiprocess.py 2
+python mnist_multiprocess.py 2
 ```
 
 It results in speed up compared to the single GPU training.
