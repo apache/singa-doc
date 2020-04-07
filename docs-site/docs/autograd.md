@@ -8,7 +8,7 @@ title: Autograd in SINGA
 There are two typical ways to implement autograd, via symbolic differentiation
 like [Theano](http://deeplearning.net/software/theano/index.html) or reverse
 differentiation like
-[Pytorch](https://pytorch.org/docs/stable/notes/autograd.html). Singa follows
+[Pytorch](https://pytorch.org/docs/stable/notes/autograd.html). SINGA follows
 Pytorch way, which records the computation graph and apply the backward
 propagation automatically after forward propagation. The autograd algorithm is
 explained in details
@@ -189,3 +189,78 @@ for epoch in range(epochs):
         for p, gp in autograd.backward(loss):  # auto backward
             sgd.update(p, gp)
 ```
+
+### Using the Module API
+
+The following
+[example](https://github.com/apache/singa/blob/master/examples/autograd/cnn_module.py)
+implements a CNN model using the Module provided by the module.
+
+#### Define the subclass of Module
+
+Define the model class, it should be the subclass of the Module. In this way,
+all operations used during traing phase will form a calculation graph and will
+be analyzed. The operations in the graph will be scheduled and executed
+efficiently. Layers can also be included in the module class.
+
+```python
+class MLP(module.Module):  # the model is a subclass of Module
+
+    def __init__(self, optimizer):
+        super(MLP, self).__init__()
+
+        # init the operators, layers and other objects
+        self.w0 = Tensor(shape=(2, 3), requires_grad=True, stores_grad=True)
+        self.w0.gaussian(0.0, 0.1)
+        self.b0 = Tensor(shape=(3,), requires_grad=True, stores_grad=True)
+        self.b0.set_value(0.0)
+
+        self.w1 = Tensor(shape=(3, 2), requires_grad=True, stores_grad=True)
+        self.w1.gaussian(0.0, 0.1)
+        self.b1 = Tensor(shape=(2,), requires_grad=True, stores_grad=True)
+        self.b1.set_value(0.0)
+
+        # init the optimizer
+        self.optimizer = optimizer
+
+    def forward(self, inputs):  # define the forward function
+        x = autograd.matmul(inputs, self.w0)
+        x = autograd.add_bias(x, self.b0)
+        x = autograd.relu(x)
+        x = autograd.matmul(x, self.w1)
+        x = autograd.add_bias(x, self.b1)
+        return x
+
+    def loss(self, out, target): # define the loss function
+        # can use the loss operations provided by SINGA or self-defined function
+        return autograd.softmax_cross_entropy(out, target)
+
+    def optim(self, loss):       # define the optim function
+        # can use the optimizer provided by SINGA or self-defined function
+        return self.optimizer.backward_and_update(loss)
+```
+
+#### Training
+
+```python
+# create a model instance
+model = MLP(sgd)
+# declare what device to train on
+model.on_device(dev)
+# declare execution mode and order
+model.graph(graph, sequential)
+
+for i in range(niters):
+    out = model(inputs)
+    loss = model.loss(out, target)
+    model.optim(loss)
+
+    if i % (niters / 10) == 0 and rank_in_global == 0:
+        print("training loss = ", tensor.to_numpy(loss)[0], flush=True)
+```
+
+### Python API
+
+Refer
+[here](https://singa.readthedocs.io/en/latest/docs/autograd.html#module-singa.autograd)
+for more details of Python API.
