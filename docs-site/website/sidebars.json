@@ -3,7 +3,7 @@
     "Getting Started": [
       "installation",
       "software-stack",
-      "benchmark-train"
+      "examples"
     ],
     "Guides": [
       "device",
@@ -11,17 +11,6 @@
       "autograd",
       "graph",
       "dist-train"
-    ],
-    "Model Zoo": [
-      "model-zoo-cnn-cifar10",
-      "model-zoo-char-rnn",
-      "model-zoo-rbm-mnist",
-      "model-zoo-imagenet-alexnet",
-      "model-zoo-imagenet-densenet",
-      "model-zoo-imagenet-googlenet",
-      "model-zoo-imagenet-inception",
-      "model-zoo-imagenet-resnet",
-      "model-zoo-imagenet-vgg"
     ],
     "Development": [
       "download-singa",

@@ -61,7 +61,7 @@ function HomeSplash(props) {
           src={`${siteConfig.baseUrl}img/singa.png`}
         />
         <h1 className="index-hero-project-tagline">
-          A Distributed Deep Learning Platform
+          A Distributed Deep Learning Library
         </h1>
         <div className="index-ctas">
           <a
@@ -100,8 +100,8 @@ class Index extends React.Component {
             <a href="https://blogs.apache.org/foundation/entry/the-apache-software-foundation-announces57">
               Apache Top Level Project
             </a>
-            , open source distributed training platform for deep learning and
-            machine learning models
+            , focusing on distributed training of deep learning and machine
+            learning models
           </div>
         </div>
         <div className="mainContainer">
@@ -109,13 +109,11 @@ class Index extends React.Component {
             <GridBlock
               contents={[
                 {
-                  content: `Apache SINGA focuses on [distributed](https://dl.acm.org/citation.cfm?doid=2733373.2807410)
-                   deep learning by partitioning the model and data onto nodes in a cluster and
-                    [parallelize](https://dl.acm.org/citation.cfm?doid=2733373.2806232) the training`,
+                  content: `SINGA [parallelizes the training and optimizes the communication cost](./docs/dist-train) to improve training scalability.`,
                   imageAlign: "left",
-                  image: `${siteConfig.baseUrl}img/overview.png`,
-                  imageAlt: "Distributed Learning",
-                  title: "Distributed Learning",
+                  image: `${siteConfig.baseUrl}img/benchmark.png`,
+                  imageAlt: "Scalbility",
+                  title: "Scalablility",
                 },
               ]}
               layout="twoColumn"
@@ -129,13 +127,25 @@ class Index extends React.Component {
             <GridBlock
               contents={[
                 {
-                  content: `Apache SINGA v2.0.0 has AutoML features, a Healthcare
-                   [model zoo](${docUrl("model-zoo-cnn-cifar10", language)}),
-                    and facility for porting other models onto SINGA`,
+                  content: `SINGA [builds a computational graph](./docs/graph) to optimizes the training speed and memory footprint.`,
                   imageAlign: "right",
-                  image: `${siteConfig.baseUrl}img/singav1-sw.png`,
-                  imageAlt: "AutoML and Model Zoo",
-                  title: "AutoML and Model Zoo",
+                  image: `${siteConfig.baseUrl}img/GraphOfMLP.png`,
+                  imageAlt: "Efficiency",
+                  title: "Efficiency",
+                },
+              ]}
+              layout="twoColumn"
+            />
+          </Container>
+          <Container padding={["bottom", "top"]} className="mainPageContainer">
+            <GridBlock
+              contents={[
+                {
+                  content: `SINGA has a simple [software stack and Python interface](./docs/software-stack) to improve usability.`,
+                  imageAlign: "left",
+                  image: `${siteConfig.baseUrl}img/singav3-sw.png`,
+                  imageAlt: "Usability",
+                  title: "Usability",
                 },
               ]}
               layout="twoColumn"

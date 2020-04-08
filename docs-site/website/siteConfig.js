@@ -60,6 +60,7 @@ const siteConfig = {
     { doc: "source-repository", label: "Community" },
     // {page: 'help', label: 'Help'},
     { blog: true, label: "News" },
+    { href: "https://apache-singa.readthedocs.io/en/latest/", label: "API" },
     { search: true },
     // Determines language drop down position among links
     { languages: true },

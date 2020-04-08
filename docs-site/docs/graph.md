@@ -5,10 +5,10 @@ title: Computational Graph
 
 <!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License. -->
 
-SINGA supports buffering operations and computational graph. Using computational
-graph, SINGA can schedule the execution of operations as well as the memory
-allocation and release. It makes training more efficient while using less
-memory.
+SINGA can buffering operations to create a computational graph (CG). With the
+computational graph, SINGA can schedule the execution of operations as well as
+the memory allocation and release. It makes training more efficient while using
+less memory.
 
 ## About Computational Graph
 
@@ -32,7 +32,7 @@ similar to compiling. We first describe the program with code, then translate
 the program into intermediate code, then optimize the intermediate code and
 finally come up with many ways to efficiently execute the code. In neural
 networks, the intermediate code is the calculation graph. We can optimize
-through techniques like common subexpression elimination. When the computer
+through techniques like common sub-expression elimination. When the computer
 executes the compiled binary file, it can be efficiently executed by using
 multi-thread technology, and the same as the execution of the calculation graph.
 Therefore, some ideas of compilation principles can also be used in the
@@ -76,7 +76,7 @@ model defined above.
 
 ## Features
 
-There are four main features of computational graph in SINGA, namely (i)
+There are four main components of a computational graph in SINGA, namely (i)
 Computational graph construction, (ii) Lazy allocation, (iii) Automatic
 recycling, (iv) Shared memory. Details are as follows:
 
@@ -96,7 +96,7 @@ recycling, (iv) Shared memory. Details are as follows:
 
 ## How to use
 
-- An example of CNN:
+- A CNN example.
 
 ```Python
 
@@ -154,6 +154,9 @@ for b in range(num_train_batch):
     loss = model.loss(out, ty)
     model.optim(loss)
 ```
+
+A Google Colab notebook of this example is available
+[here](https://colab.research.google.com/drive/1fbGUs1AsoX6bU5F745RwQpohP4bHTktq).
 
 - Some settings:
   [module.py](https://github.com/apache/singa/blob/master/python/singa/module.py)
