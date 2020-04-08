@@ -91,7 +91,7 @@ version-(cpu|gpu)[-devel]
 | `cpu`     | the image cannot run on GPUs     | 'cpu'                                                                                                                                                                     |
 | `gpu`     | the image can run on Nvidia GPUs | 'gpu', or 'cudax.x-cudnnx.x' e.g., 'cuda10.0-cudnn7.3'                                                                                                                    |
 | `devel`   | indicator for development        | if absent, SINGA Python package is installed for runtime only; if present, the building environment is also created, you can recompile SINGA from source at '/root/singa' |
-| `OS`       | indicate OS version number       | 'ubuntu16.04', 'ubuntu18.04'                                                                                                                                             |
+| `OS`      | indicate OS version number       | 'ubuntu16.04', 'ubuntu18.04'                                                                                                                                              |
 
 ## From source
 

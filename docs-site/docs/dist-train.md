@@ -22,19 +22,20 @@ stochastic gradient descent algorithms (SGD).
 
 The all-reduce operation by NCCL can be used to reduce and synchronize the
 gradients from different GPUs. Let's consider the training with 4 GPUs as shown
-below. Once the gradients from the 4 GPUs are calculated, all-reduce will return the
-sum of the gradients over the GPUs and make it available on every GPU. Then the
-averaged gradients can be easily calculated.
+below. Once the gradients from the 4 GPUs are calculated, all-reduce will return
+the sum of the gradients over the GPUs and make it available on every GPU. Then
+the averaged gradients can be easily calculated.
 
 ![AllReduce.png](assets/AllReduce.png)
 
 ## Usage
 
-SINGA implements a module called `DistOpt` for distributed training. It replaces
-the normal SGD optimizer for updating the model parameters. The following
-example illustrates the usage of `DistOpt` for training a CNN model over the
-MNIST dataset. The full example is available
-[here](https://github.com/apache/singa/blob/master/examples/autograd/mnist_dist.py).
+SINGA implements a module called `DistOpt` (a subclass of `Opt`) for distributed
+training. It wraps a normal SGD optimizer and calls `Communicator` for gradients
+synchronization. The following example illustrates the usage of `DistOpt` for
+training a CNN model over the MNIST dataset. The source code is available
+[here](https://github.com/apache/singa/blob/master/examples/cnn/), and there is
+a [Colab notebook]() for it.
 
 ### Example Code
 
@@ -77,18 +78,25 @@ dev = device.create_cuda_gpu_on(sgd.local_rank)
 
 Here are some explanations concerning some variables in the code:
 
-(i) `dev` 
+(i) `dev`
 
-dev represents the `Device` instance, where to load data and run the CNN
-model.
+dev represents the `Device` instance, where to load data and run the CNN model.
 
-(ii)`local_rank` 
+(ii)`local_rank`
 
-Local rank represents the GPU number the current process is using in the same node. For example, if you are using a node with 2 GPUs, `local_rank=0` means that this process is using the first GPU, while `local_rank=1` means using the second GPU. Using MPI or multiprocess, you are able to run the same training script which is only different in the value of `local_rank`.
+Local rank represents the GPU number the current process is using in the same
+node. For example, if you are using a node with 2 GPUs, `local_rank=0` means
+that this process is using the first GPU, while `local_rank=1` means using the
+second GPU. Using MPI or multiprocess, you are able to run the same training
+script which is only different in the value of `local_rank`.
 
-(iii)`global_rank` 
+(iii)`global_rank`
 
-Rank in global represents the global rank considered all the processes in all the nodes you are using. Let's consider the case you have 3 nodes and each of the node has two GPUs, `global_rank=0` means the process using the 1st GPU at the 1st node, `global_rank=2` means the process using the 1st GPU of the 2nd node, and `global_rank=4` means the process using the 1st GPU of the 3rd node.
+Rank in global represents the global rank considered all the processes in all
+the nodes you are using. Let's consider the case you have 3 nodes and each of
+the node has two GPUs, `global_rank=0` means the process using the 1st GPU at
+the 1st node, `global_rank=2` means the process using the 1st GPU of the 2nd
+node, and `global_rank=4` means the process using the 1st GPU of the 3rd node.
 
 3. Load and partition the training/validation data:
 
@@ -125,7 +133,8 @@ for p, g in autograd.backward(loss):
     synchronize(p, sgd)
 ```
 
-Here, `world_size` represents the total number of processes in all the nodes you are using for distributed training.
+Here, `world_size` represents the total number of processes in all the nodes you
+are using for distributed training.
 
 5. Run BackPropagation and distributed SGD
 
@@ -182,17 +191,22 @@ Here are some explanations concerning the variables created above:
 
 (i) `nccl_id`
 
-Note that we need to generate a NCCL ID here to be used for collective communication, and then pass it to all the processes. 
-The NCCL ID is like a ticket, where only the processes with this ID can join the all-reduce operation. 
-(Later if we use MPI, the passing of NCCL ID is not necessary, because the ID is broadcased by MPI in our code automatically)
+Note that we need to generate a NCCL ID here to be used for collective
+communication, and then pass it to all the processes. The NCCL ID is like a
+ticket, where only the processes with this ID can join the all-reduce operation.
+(Later if we use MPI, the passing of NCCL ID is not necessary, because the ID is
+broadcased by MPI in our code automatically)
 
 (ii) `world_size`
 
-world_size is the number of GPUs you would like to use for training. 
+world_size is the number of GPUs you would like to use for training.
 
 (iii) `local_rank`
 
-local_rank determine the local rank of the distributed training and which gpu is used in the process. In the code above, we used a for loop to run the train function where the argument local_rank iterates from 0 to world_size. In this case, different processes can use different GPUs for training. 
+local_rank determine the local rank of the distributed training and which gpu is
+used in the process. In the code above, we used a for loop to run the train
+function where the argument local_rank iterates from 0 to world_size. In this
+case, different processes can use different GPUs for training.
 
 The arguments for creating the `DistOpt` instance should be updated as follows
 
@@ -331,8 +345,8 @@ before calling all-reduce.
 sgd.backward_and_partial_update(loss)
 ```
 
-In each iteration, every rank do the local sgd update. Then, only a chunk 
-of parameters are averaged for synchronization, which saves the communication cost. 
+In each iteration, every rank do the local sgd update. Then, only a chunk of
+parameters are averaged for synchronization, which saves the communication cost.
 The chunk size is configured when creating the `DistOpt` instance.
 
 ### Gradient Sparsification
@@ -344,13 +358,15 @@ sgd.backward_and_sparse_update(loss)
 It applies sparsification schemes to select a subset of gradients for
 all-reduce. There are two scheme:
 
-- The top-K largest elements are selected. spars is the portion (0 - 1) of total elements selected.
+- The top-K largest elements are selected. spars is the portion (0 - 1) of total
+  elements selected.
 
 ```python
 sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = True)
 ```
 
-- All gradients whose absolute value are larger than predefined threshold spars are selected.
+- All gradients whose absolute value are larger than predefined threshold spars
+  are selected.
 
 ```python
 sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = False)
@@ -360,30 +376,51 @@ The hyper-parameters are configured when creating the `DistOpt` instance.
 
 ## Implementation
 
-This section is mainly for developers who want to know how the code in distribute module is implemented.
+This section is mainly for developers who want to know how the code in
+distribute module is implemented.
 
 ### C interface for NCCL communicator
 
-Firstly, the communication layer is written in C language [communicator.cc](https://github.com/apache/singa/blob/master/src/io/communicator.cc). It applies the NCCL library for collective communication.
+Firstly, the communication layer is written in C language
+[communicator.cc](https://github.com/apache/singa/blob/master/src/io/communicator.cc).
+It applies the NCCL library for collective communication.
 
-There are two constructors for the communicator, one for MPI and another for multiprocess.
+There are two constructors for the communicator, one for MPI and another for
+multiprocess.
 
 (i) Constructor using MPI
 
-The constructor first obtains the global rank and the world size first, and calculate the local rank. Then, rank 0 generates a NCCL ID and broadcast it to every rank. After that, it calls the setup function to initialize the NCCL communicator, cuda streams, and buffers.
+The constructor first obtains the global rank and the world size first, and
+calculate the local rank. Then, rank 0 generates a NCCL ID and broadcast it to
+every rank. After that, it calls the setup function to initialize the NCCL
+communicator, cuda streams, and buffers.
 
 (ii) Constructor using Python multiprocess
 
-The constructor first obtains the rank, the world size, and the NCCL ID from the input argument. After that, it calls the setup function to initialize the NCCL communicator, cuda streams, and buffers.
+The constructor first obtains the rank, the world size, and the NCCL ID from the
+input argument. After that, it calls the setup function to initialize the NCCL
+communicator, cuda streams, and buffers.
 
-After the initialization, it provides the all-reduce functionality to synchronize the model parameters or gradients. For instance, synch takes a input tensor and perform all-reduce through the NCCL routine. After we call synch, it is necessary to call wait function to wait for the all-reduce operation to be completed.
+After the initialization, it provides the all-reduce functionality to
+synchronize the model parameters or gradients. For instance, synch takes a input
+tensor and perform all-reduce through the NCCL routine. After we call synch, it
+is necessary to call wait function to wait for the all-reduce operation to be
+completed.
 
 ### Python interface for DistOpt
 
-Then, the python interface provide a [DistOpt](https://github.com/apache/singa/blob/master/python/singa/opt.py) class to wrap an [optimizer](https://github.com/apache/singa/blob/master/python/singa/opt.py) object to perform distributed training based on MPI or multiprocessing. During the initialization, it creates a NCCL communicator object (from the C interface as methioned in the subsection above). Then, this communicator object is used for every all-reduce operations in DistOpt.
+Then, the python interface provide a
+[DistOpt](https://github.com/apache/singa/blob/master/python/singa/opt.py) class
+to wrap an
+[optimizer](https://github.com/apache/singa/blob/master/python/singa/opt.py)
+object to perform distributed training based on MPI or multiprocessing. During
+the initialization, it creates a NCCL communicator object (from the C interface
+as mentioned in the subsection above). Then, this communicator object is used
+for every all-reduce operations in DistOpt.
 
-In MPI or multiprocess, each process has an individual rank, which gives information of
-which GPU the individual process is using. The training data is partitioned, so that
-each process can evaluate the sub-gradient based on the partitioned training data.
-Once the sub-gradient is calculated on each processes, the overall stochastic gradient
-is obtained by all-reducing the sub-gradients evaluated by all processes.
+In MPI or multiprocess, each process has an individual rank, which gives
+information of which GPU the individual process is using. The training data is
+partitioned, so that each process can evaluate the sub-gradient based on the
+partitioned training data. Once the sub-gradient is calculated on each
+processes, the overall stochastic gradient is obtained by all-reducing the
+sub-gradients evaluated by all processes.
