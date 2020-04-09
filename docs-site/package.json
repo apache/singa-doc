@@ -9,7 +9,7 @@
   "repository": "https://github.com/apache/singa-doc",
   "homepage": "https://singa.apache.org/",
   "engines": {
-    "node": ">8.4.0",
+    "node": ">10.0.0",
     "yarn": "^1.17.3"
   },
   "workspaces": [

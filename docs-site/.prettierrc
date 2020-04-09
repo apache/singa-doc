@@ -1,6 +1,6 @@
 {
   "endOfLine": "lf",
-  "proseWrap": "never",
+  "proseWrap": "always",
   "printWidth": 80,
   "singleQuote": false,
   "semi": false,

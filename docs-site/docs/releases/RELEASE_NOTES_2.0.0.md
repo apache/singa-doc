@@ -5,14 +5,16 @@ title: singa-incubating-2.0.0 Release Notes
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-SINGA is a general distributed deep learning platform for training big deep learning models over large datasets.
+SINGA is a general distributed deep learning platform for training big deep
+learning models over large datasets.
 
 This release includes following features:
 
 - Core components
 
   - [SINGA-434] Support tensor broadcasting
-  - [SINGA-370] Improvement to tensor reshape and various misc. changes related to SINGA-341 and 351
+  - [SINGA-370] Improvement to tensor reshape and various misc. changes related
+    to SINGA-341 and 351
 
 - Model components
 
@@ -20,12 +22,16 @@ This release includes following features:
   - [SINGA-385] Add new python module for optimizers
   - [SINGA-394] Improve the CPP operations via Intel MKL DNN lib
   - [SINGA-425] Add 3 operators , Abs(), Exp() and leakyrelu(), for Autograd
-  - [SINGA-410] Add two function, set_params() and get_params(), for Autograd Layer class
+  - [SINGA-410] Add two function, set_params() and get_params(), for Autograd
+    Layer class
   - [SINGA-383] Add Separable Convolution for autograd
-  - [SINGA-388] Develop some RNN layers by calling tiny operations like matmul, addbias.
+  - [SINGA-388] Develop some RNN layers by calling tiny operations like matmul,
+    addbias.
   - [SINGA-382] Implement concat operation for autograd
-  - [SINGA-378] Implement maxpooling operation and its related functions for autograd
-  - [SINGA-379] Implement batchnorm operation and its related functions for autograd
+  - [SINGA-378] Implement maxpooling operation and its related functions for
+    autograd
+  - [SINGA-379] Implement batchnorm operation and its related functions for
+    autograd
 
 - Utility functions and CI
 

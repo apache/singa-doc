@@ -5,100 +5,41 @@ title: Distributed Training
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-SINGA supports distributed data parallel training and evaulation process based on multiprocessing. The following is the illustration of the data parallel training:
+SINGA supports data parallel training across multiple GPUs (on a single node or
+across different nodes). The following figure illustrates the data parallel
+training:
 
 ![MPI.png](assets/MPI.png)
 
-In the distributed training, each process runs a training script which utilizes one GPU. Each process has an individual rank, which gives information of which GPU the individual process is using. The training data is partitioned, so that each process can evaluate the sub-gradient based on the partitioned training data. Once the sub-graident is calculated on each processes, the overall stochastic gradient is obtained by all-reducing the sub-gradients evaluated by all processes. The all-reduce operation is supported by the NVidia Collective Communication Library (NCCL).
+In distributed training, each process (called a worker) runs a training script
+over a single GPU. Each process has an individual communication rank. The
+training data is partitioned among the workers and the model is replicated on
+every worker. In each iteration, the workers read a mini-batch of data (e.g.,
+256 images) from its partition and run the BackPropagation algorithm to compute
+the gradients of the weights, which are averaged via all-reduce (provided by
+[NCCL](https://developer.nvidia.com/nccl)) for weight update following
+stochastic gradient descent algorithms (SGD).
 
-The all-reduce operation by NCCL can be used to reduce and synchronize the parameters from different GPUs. Let's consider a data partitioned distributed training using 4 GPUs. Once the sub-gradients from the 4 GPUs are calculated, the NCCL can perform the all-reduce process so that all the GPUs can get the sum of the sub-gradients over the GPUs:
+The all-reduce operation by NCCL can be used to reduce and synchronize the
+gradients from different GPUs. Let's consider the training with 4 GPUs as shown
+below. Once the gradients from the 4 GPUs are calculated, all-reduce will return
+the sum of the gradients over the GPUs and make it available on every GPU. Then
+the averaged gradients can be easily calculated.
 
 ![AllReduce.png](assets/AllReduce.png)
 
-Finally, the parameter update of Stochastic Gradient Descent (SGD) can then be performed by using the overall stochastic gradient obtained by the all-reduce process.
+## Usage
 
-## Python DistOpt Methods:
+SINGA implements a module called `DistOpt` (a subclass of `Opt`) for distributed
+training. It wraps a normal SGD optimizer and calls `Communicator` for gradients
+synchronization. The following example illustrates the usage of `DistOpt` for
+training a CNN model over the MNIST dataset. The source code is available
+[here](https://github.com/apache/singa/blob/master/examples/cnn/), and there is
+a [Colab notebook]() for it.
 
-There are a list of methods for distributed training with DistOpt:
+### Example Code
 
-1. Create a DistOpt with the SGD object and device assignment:
-
-```python
-sgd = opt.SGD(lr=0.005, momentum=0.9, weight_decay=1e-5)
-sgd = opt.DistOpt(sgd)
-dev = device.create_cuda_gpu_on(sgd.rank_in_local)
-```
-
-&nbsp;
-
-2. Backward propagation and distributed parameter update:
-
-```python
-sgd.backward_and_update(loss)
-```
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loss is the objective function of the deep learning model optimization,
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g. for classification problem it can be the output of the softmax_cross_entropy function.
-
-&nbsp;
-
-3. Backward propagation and distributed parameter update, using half precision for gradient communication:
-
-```python
-sgd.backward_and_update_half(loss)
-```
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It converts the gradients to 16 bits half precision format before allreduce
-
-&nbsp;
-
-4. Backward propagation and distributed asychronous training with partial parameter synchronization:
-
-```python
-sgd.backward_and_partial_update(loss)
-```
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It performs asychronous training where one parameter partition is all-reduced per iteration.
-
-&nbsp;
-
-5. Backward propagation and distributed parameter update, with sparsification to reduce data transmission:
-
-```python
-sgd.backward_and_spars_update(loss)
-```
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It applies sparsification schemes to transfer only the gradient elements which are significant.
-
-&nbsp;
-
-## Instruction to Use:
-
-SINGA supports two ways to launch the distributed training, namely I. MPI (Message Passing Interface) and II. python multiprocessing.
-
-### I. Using MPI
-
-The following are the detailed steps to start up a distributed training with MPI, using MNIST dataset as an example:
-
-1. Import SINGA and Miscellaneous Libraries used for the training
-
-```python
-from singa import singa_wrap as singa
-from singa import autograd
-from singa import tensor
-from singa import device
-from singa import opt
-import numpy as np
-import os
-import sys
-import gzip
-import codecs
-import time
-import urllib.request
-```
-
-2. Create a Convolutional Neural Network Model
+1. Define the neural network model:
 
 ```python
 class CNN:
@@ -127,306 +68,359 @@ class CNN:
 model = CNN()
 ```
 
-3. Create a Distributed Optimizer Object and Device Assignment
+2. Create the `DistOpt` instance:
 
 ```python
 sgd = opt.SGD(lr=0.005, momentum=0.9, weight_decay=1e-5)
 sgd = opt.DistOpt(sgd)
-dev = device.create_cuda_gpu_on(sgd.rank_in_local)
+dev = device.create_cuda_gpu_on(sgd.local_rank)
 ```
 
-4. Prepare the Training and Evaluation Data
+Here are some explanations concerning some variables in the code:
+
+(i) `dev`
+
+dev represents the `Device` instance, where to load data and run the CNN model.
+
+(ii)`local_rank`
+
+Local rank represents the GPU number the current process is using in the same
+node. For example, if you are using a node with 2 GPUs, `local_rank=0` means
+that this process is using the first GPU, while `local_rank=1` means using the
+second GPU. Using MPI or multiprocess, you are able to run the same training
+script which is only different in the value of `local_rank`.
+
+(iii)`global_rank`
+
+Rank in global represents the global rank considered all the processes in all
+the nodes you are using. Let's consider the case you have 3 nodes and each of
+the node has two GPUs, `global_rank=0` means the process using the 1st GPU at
+the 1st node, `global_rank=2` means the process using the 1st GPU of the 2nd
+node, and `global_rank=4` means the process using the 1st GPU of the 3rd node.
+
+3. Load and partition the training/validation data:
 
 ```python
-def load_dataset():
-    train_x_url = 'http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz'
-    train_y_url = 'http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz'
-    valid_x_url = 'http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz'
-    valid_y_url = 'http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz'
-    train_x = read_image_file(check_exist_or_download(train_x_url)).astype(
-        np.float32)
-    train_y = read_label_file(check_exist_or_download(train_y_url)).astype(
-        np.float32)
-    valid_x = read_image_file(check_exist_or_download(valid_x_url)).astype(
-        np.float32)
-    valid_y = read_label_file(check_exist_or_download(valid_y_url)).astype(
-        np.float32)
-    return train_x, train_y, valid_x, valid_y
-
-
-def check_exist_or_download(url):
-
-    download_dir = '/tmp/'
-
-    name = url.rsplit('/', 1)[-1]
-    filename = os.path.join(download_dir, name)
-    if not os.path.isfile(filename):
-        print("Downloading %s" % url)
-        urllib.request.urlretrieve(url, filename)
-    return filename
-
-
-def read_label_file(path):
-    with gzip.open(path, 'rb') as f:
-        data = f.read()
-        assert get_int(data[:4]) == 2049
-        length = get_int(data[4:8])
-        parsed = np.frombuffer(data, dtype=np.uint8, offset=8).reshape(
-            (length))
-        return parsed
-
-
-def get_int(b):
-    return int(codecs.encode(b, 'hex'), 16)
-
-
-def read_image_file(path):
-    with gzip.open(path, 'rb') as f:
-        data = f.read()
-        assert get_int(data[:4]) == 2051
-        length = get_int(data[4:8])
-        num_rows = get_int(data[8:12])
-        num_cols = get_int(data[12:16])
-        parsed = np.frombuffer(data, dtype=np.uint8, offset=16).reshape(
-            (length, 1, num_rows, num_cols))
-        return parsed
-
-def to_categorical(y, num_classes):
-    y = np.array(y, dtype="int")
-    n = y.shape[0]
-    categorical = np.zeros((n, num_classes))
-    categorical[np.arange(n), y] = 1
-    categorical = categorical.astype(np.float32)
-    return categorical
-
-
-# Prepare training and valadiation data
-train_x, train_y, test_x, test_y = load_dataset()
-IMG_SIZE = 28
-num_classes=10
-train_y = to_categorical(train_y, num_classes)
-test_y = to_categorical(test_y, num_classes)
-
-# Normalization
-train_x = train_x / 255
-test_x = test_x / 255
-```
-
-5. Data Partitioning of the Training and Evaluation Datasets
-
-```python
-def data_partition(dataset_x, dataset_y, rank_in_global, world_size):
+def data_partition(dataset_x, dataset_y, global_rank, world_size):
     data_per_rank = dataset_x.shape[0] // world_size
-    idx_start = rank_in_global * data_per_rank
-    idx_end = (rank_in_global + 1) * data_per_rank
-    return dataset_x[idx_start: idx_end], dataset_y[idx_start: idx_end]
+    idx_start = global_rank * data_per_rank
+    idx_end = (global_rank + 1) * data_per_rank
+    return dataset_x[idx_start:idx_end], dataset_y[idx_start:idx_end]
 
-train_x, train_y = data_partition(train_x, train_y, sgd.rank_in_global, sgd.world_size)
-test_x, test_y = data_partition(test_x, test_y, sgd.rank_in_global, sgd.world_size)
+train_x, train_y, test_x, test_y = load_dataset()
+train_x, train_y = data_partition(train_x, train_y,
+                                  sgd.global_rank, sgd.world_size)
+test_x, test_y = data_partition(test_x, test_y,
+                                sgd.global_rank, sgd.world_size)
 ```
 
-6. Configuring the Training Loop Variables
+A partition of the dataset is returned for this `dev`.
+
+4. Initialize and synchronize the model parameters among all workers:
 
 ```python
-max_epoch = 10
-batch_size = 64
-tx = tensor.Tensor((batch_size, 1, IMG_SIZE, IMG_SIZE), dev, tensor.float32)
-ty = tensor.Tensor((batch_size, num_classes), dev, tensor.int32)
-num_train_batch = train_x.shape[0] // batch_size
-num_test_batch = test_x.shape[0] // batch_size
-idx = np.arange(train_x.shape[0], dtype=np.int32)
-```
-
-7. Initialize and Synchronize the Model Parameters
-
-```python
-def sychronize(tensor, dist_opt):
+def synchronize(tensor, dist_opt):
     dist_opt.all_reduce(tensor.data)
     tensor /= dist_opt.world_size
 
-#Sychronize the initial parameter
-autograd.training = True
-x = np.random.randn(batch_size, 1, IMG_SIZE, IMG_SIZE).astype(np.float32)
-y = np.zeros( shape=(batch_size, num_classes), dtype=np.int32)
-tx.copy_from_numpy(x)
-ty.copy_from_numpy(y)
+#Synchronize the initial parameter
+tx = tensor.Tensor((batch_size, 1, IMG_SIZE, IMG_SIZE), dev, tensor.float32)
+ty = tensor.Tensor((batch_size, num_classes), dev, tensor.int32)
+...
 out = model.forward(tx)
 loss = autograd.softmax_cross_entropy(out, ty)
 for p, g in autograd.backward(loss):
-    sychronize(p, sgd)
+    synchronize(p, sgd)
 ```
 
-8. Start the Training and Evaluation Loop
+Here, `world_size` represents the total number of processes in all the nodes you
+are using for distributed training.
+
+5. Run BackPropagation and distributed SGD
 
 ```python
-# Function to all reduce Accuracy and Loss from Multiple Devices
-def reduce_variable(variable, dist_opt, reducer):
-    reducer.copy_from_numpy(variable)
-    dist_opt.all_reduce(reducer.data)
-    dist_opt.wait()
-    output=tensor.to_numpy(reducer)
-    return output
-
-def accuracy(pred, target):
-    y = np.argmax(pred, axis=1)
-    t = np.argmax(target, axis=1)
-    a = y == t
-    return np.array(a, "int").sum()
-
-def augmentation(x, batch_size):
-    xpad = np.pad(x, [[0, 0], [0, 0], [4, 4], [4, 4]], 'symmetric')
-    for data_num in range(0, batch_size):
-        offset = np.random.randint(8, size=2)
-        x[data_num,:,:,:] = xpad[data_num, :, offset[0]: offset[0] + 28, offset[1]: offset[1] + 28]
-        if_flip = np.random.randint(2)
-        if (if_flip):
-            x[data_num, :, :, :] = x[data_num, :, :, ::-1]
-    return x
-
-# Training and Evaulation Loop
 for epoch in range(max_epoch):
-    start_time = time.time()
-    np.random.shuffle(idx)
-
-    if(sgd.rank_in_global==0):
-        print('Starting Epoch %d:' % (epoch))
-
-    # Training Phase
-    autograd.training = True
-    train_correct = np.zeros(shape=[1],dtype=np.float32)
-    test_correct = np.zeros(shape=[1],dtype=np.float32)
-    train_loss = np.zeros(shape=[1],dtype=np.float32)
-
     for b in range(num_train_batch):
         x = train_x[idx[b * batch_size: (b + 1) * batch_size]]
-        x = augmentation(x, batch_size)
         y = train_y[idx[b * batch_size: (b + 1) * batch_size]]
         tx.copy_from_numpy(x)
         ty.copy_from_numpy(y)
         out = model.forward(tx)
         loss = autograd.softmax_cross_entropy(out, ty)
-        train_correct += accuracy(tensor.to_numpy(out), y)
-        train_loss += tensor.to_numpy(loss)[0]
+        # do backpropagation and all-reduce
         sgd.backward_and_update(loss)
-
-    # Reduce the Evaluation Accuracy and Loss from Multiple Devices
-    reducer = tensor.Tensor((1,), dev, tensor.float32)
-    train_correct = reduce_variable(train_correct, sgd, reducer)
-    train_loss = reduce_variable(train_loss, sgd, reducer)
-
-    # Output the Training Loss and Accuracy
-    if(sgd.rank_in_global==0):
-        print('Training loss = %f, training accuracy = %f' %
-              (train_loss, train_correct / (num_train_batch*batch_size*sgd.world_size)), flush=True)
-
-    # Evaluation Phase
-    autograd.training = False
-    for b in range(num_test_batch):
-        x = test_x[b * batch_size: (b + 1) * batch_size]
-        y = test_y[b * batch_size: (b + 1) * batch_size]
-        tx.copy_from_numpy(x)
-        ty.copy_from_numpy(y)
-        out_test = model.forward(tx)
-        test_correct += accuracy(tensor.to_numpy(out_test), y)
-
-    # Reduce the Evaulation Accuracy from Multiple Devices
-    test_correct = reduce_variable(test_correct, sgd, reducer)
-
-    # Output the Evaluation Accuracy
-    if(sgd.rank_in_global==0):
-        print('Evaluation accuracy = %f, Elapsed Time = %fs' %
-              (test_correct / (num_test_batch*batch_size*sgd.world_size), time.time() - start_time ), flush=True)
 ```
 
-9. Save the above training code in a python file, e.g. mnist_dist_demo.py
+### Execution Instruction
 
-10. Generate a hostfile to be used by the MPI, e.g. the hostfile below uses 4 processes and hence 4 GPUs for the training.
+There are two ways to launch the training: MPI or Python multiprocessing.
+
+#### Python multiprocessing
+
+It works on a single node with multiple GPUs, where each GPU is one worker.
+
+1. Put all the above training codes in a function
 
 ```python
-cat host_file
+def train_mnist_cnn(nccl_id=None, local_rank=None, world_size=None):
+    ...
 ```
 
-    localhost:4
-
-11. Finally, use the MPIEXEC command to Execute the Multi-GPUs Training with the hostfile:
+2. Create `mnist_multiprocess.py`
 
 ```python
-mpiexec --hostfile host_file python3 mnist_dist_demo.py
-```
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It could result in several times speed up compared to the single GPU training.
-
-```
-Starting Epoch 0:
-Training loss = 673.246277, training accuracy = 0.760517
-Evaluation accuracy = 0.930489, Elapsed Time = 0.757460s
-Starting Epoch 1:
-Training loss = 240.009323, training accuracy = 0.919705
-Evaluation accuracy = 0.964042, Elapsed Time = 0.707835s
-Starting Epoch 2:
-Training loss = 168.806030, training accuracy = 0.944010
-Evaluation accuracy = 0.967448, Elapsed Time = 0.710606s
-Starting Epoch 3:
-Training loss = 139.131454, training accuracy = 0.953676
-Evaluation accuracy = 0.971755, Elapsed Time = 0.710840s
-Starting Epoch 4:
-Training loss = 117.479889, training accuracy = 0.960487
-Evaluation accuracy = 0.974659, Elapsed Time = 0.711388s
-Starting Epoch 5:
-Training loss = 103.085609, training accuracy = 0.965812
-Evaluation accuracy = 0.979267, Elapsed Time = 0.712624s
-Starting Epoch 6:
-Training loss = 97.565521, training accuracy = 0.966897
-Evaluation accuracy = 0.979868, Elapsed Time = 0.714128s
-Starting Epoch 7:
-Training loss = 86.971985, training accuracy = 0.970903
-Evaluation accuracy = 0.979868, Elapsed Time = 0.715277s
-Starting Epoch 8:
-Training loss = 79.487328, training accuracy = 0.973341
-Evaluation accuracy = 0.982372, Elapsed Time = 0.715577s
-Starting Epoch 9:
-Training loss = 74.658951, training accuracy = 0.974793
-Evaluation accuracy = 0.982672, Elapsed Time = 0.717571s
-```
-
-### II. Using Python multiprocessing
-
-For single node, we can use Python multiprocessing module instead of MPI. It needs just a small portion of code changes:
-
-1. Put all the above training codes in a function, e.g. train_mnist_cnn
-
-2. Generate a NCCIdHolder, define the number of GPUs to be used in the training process (gpu_per_node), and uses the multiprocessing to launch the training code with the arguments.
-
-```python
+if __name__ == '__main__':
     # Generate a NCCL ID to be used for collective communication
     nccl_id = singa.NcclIdHolder()
 
     # Define the number of GPUs to be used in the training process
-    gpu_per_node = 8
+    world_size = int(sys.argv[1])
 
     # Define and launch the multi-processing
 	import multiprocessing
     process = []
-    for gpu_num in range(0, gpu_per_node):
-        process.append(multiprocessing.Process(target=train_mnist_cnn, args=(nccl_id, gpu_num, gpu_per_node)))
+    for local_rank in range(0, world_size):
+        process.append(multiprocessing.Process(target=train_mnist_cnn,
+                       args=(nccl_id, local_rank, world_size)))
 
     for p in process:
         p.start()
 ```
 
-3. In the training code, it should pass the arguments defined above to the DistOpt object.
+Here are some explanations concerning the variables created above:
+
+(i) `nccl_id`
+
+Note that we need to generate a NCCL ID here to be used for collective
+communication, and then pass it to all the processes. The NCCL ID is like a
+ticket, where only the processes with this ID can join the all-reduce operation.
+(Later if we use MPI, the passing of NCCL ID is not necessary, because the ID is
+broadcased by MPI in our code automatically)
+
+(ii) `world_size`
+
+world_size is the number of GPUs you would like to use for training.
+
+(iii) `local_rank`
+
+local_rank determine the local rank of the distributed training and which gpu is
+used in the process. In the code above, we used a for loop to run the train
+function where the argument local_rank iterates from 0 to world_size. In this
+case, different processes can use different GPUs for training.
+
+The arguments for creating the `DistOpt` instance should be updated as follows
 
 ```python
-sgd = opt.DistOpt(sgd, nccl_id=nccl_id, gpu_num=gpu_num, gpu_per_node=gpu_per_node)
-
+sgd = opt.DistOpt(sgd, nccl_id=nccl_id, local_rank=local_rank, world_size=world_size)
 ```
 
-4. Finally, we can launch the code with the multiprocessing module.
+3. Run `mnist_multiprocess.py`
 
-## Full Examples
+```sh
+python mnist_multiprocess.py 2
+```
 
-The full examples of the distributed training using the MNIST dataset are available in the examples folder of SINGA:
+It results in speed up compared to the single GPU training.
 
-1. MPI: examples/autograd/mnist_dist.py
+```
+Starting Epoch 0:
+Training loss = 408.909790, training accuracy = 0.880475
+Evaluation accuracy = 0.956430
+Starting Epoch 1:
+Training loss = 102.396790, training accuracy = 0.967415
+Evaluation accuracy = 0.977564
+Starting Epoch 2:
+Training loss = 69.217010, training accuracy = 0.977915
+Evaluation accuracy = 0.981370
+Starting Epoch 3:
+Training loss = 54.248390, training accuracy = 0.982823
+Evaluation accuracy = 0.984075
+Starting Epoch 4:
+Training loss = 45.213406, training accuracy = 0.985560
+Evaluation accuracy = 0.985276
+Starting Epoch 5:
+Training loss = 38.868435, training accuracy = 0.987764
+Evaluation accuracy = 0.986278
+Starting Epoch 6:
+Training loss = 34.078186, training accuracy = 0.989149
+Evaluation accuracy = 0.987881
+Starting Epoch 7:
+Training loss = 30.138697, training accuracy = 0.990451
+Evaluation accuracy = 0.988181
+Starting Epoch 8:
+Training loss = 26.854443, training accuracy = 0.991520
+Evaluation accuracy = 0.988682
+Starting Epoch 9:
+Training loss = 24.039650, training accuracy = 0.992405
+Evaluation accuracy = 0.989083
+```
 
-2. Python Multiprocessing: examples/autograd/mnist_multiprocess.py
+#### MPI
+
+It works for both single node and multiple nodes as long as there are multiple
+GPUs.
+
+1. Create `mnist_dist.py`
+
+```python
+if __name__ == '__main__':
+    train_mnist_cnn()
+```
+
+2. Generate a hostfile for MPI, e.g. the hostfile below uses 2 processes (i.e.,
+   2 GPUs) on a single node
+
+```txt
+localhost:2
+```
+
+3. Launch the training via `mpiexec`
+
+```sh
+mpiexec --hostfile host_file python mnist_dist.py
+```
+
+It could result in speed up compared to the single GPU training.
+
+```
+Starting Epoch 0:
+Training loss = 383.969543, training accuracy = 0.886402
+Evaluation accuracy = 0.954327
+Starting Epoch 1:
+Training loss = 97.531479, training accuracy = 0.969451
+Evaluation accuracy = 0.977163
+Starting Epoch 2:
+Training loss = 67.166870, training accuracy = 0.978516
+Evaluation accuracy = 0.980769
+Starting Epoch 3:
+Training loss = 53.369656, training accuracy = 0.983040
+Evaluation accuracy = 0.983974
+Starting Epoch 4:
+Training loss = 45.100403, training accuracy = 0.985777
+Evaluation accuracy = 0.986078
+Starting Epoch 5:
+Training loss = 39.330826, training accuracy = 0.987447
+Evaluation accuracy = 0.987179
+Starting Epoch 6:
+Training loss = 34.655270, training accuracy = 0.988799
+Evaluation accuracy = 0.987780
+Starting Epoch 7:
+Training loss = 30.749735, training accuracy = 0.989984
+Evaluation accuracy = 0.988281
+Starting Epoch 8:
+Training loss = 27.422146, training accuracy = 0.991319
+Evaluation accuracy = 0.988582
+Starting Epoch 9:
+Training loss = 24.548153, training accuracy = 0.992171
+Evaluation accuracy = 0.988682
+```
+
+## Optimizations for Distributed Training
+
+SINGA provides multiple optimization strategies for distributed training to
+reduce the communication cost. Refer to the API for `DistOpt` for the
+configuration of each strategy.
+
+### No Optimizations
+
+```python
+sgd.backward_and_update(loss)
+```
+
+`loss` is the output tensor from the loss function, e.g., cross-entropy for
+classification tasks.
+
+### Half-precision Gradients
+
+```python
+sgd.backward_and_update_half(loss)
+```
+
+It converts each gradient value to 16-bit representation (i.e., half-precision)
+before calling all-reduce.
+
+### Partial Synchronization
+
+```python
+sgd.backward_and_partial_update(loss)
+```
+
+In each iteration, every rank do the local sgd update. Then, only a chunk of
+parameters are averaged for synchronization, which saves the communication cost.
+The chunk size is configured when creating the `DistOpt` instance.
+
+### Gradient Sparsification
+
+```python
+sgd.backward_and_sparse_update(loss)
+```
+
+It applies sparsification schemes to select a subset of gradients for
+all-reduce. There are two scheme:
+
+- The top-K largest elements are selected. spars is the portion (0 - 1) of total
+  elements selected.
+
+```python
+sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = True)
+```
+
+- All gradients whose absolute value are larger than predefined threshold spars
+  are selected.
+
+```python
+sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = False)
+```
+
+The hyper-parameters are configured when creating the `DistOpt` instance.
+
+## Implementation
+
+This section is mainly for developers who want to know how the code in
+distribute module is implemented.
+
+### C interface for NCCL communicator
+
+Firstly, the communication layer is written in C language
+[communicator.cc](https://github.com/apache/singa/blob/master/src/io/communicator.cc).
+It applies the NCCL library for collective communication.
+
+There are two constructors for the communicator, one for MPI and another for
+multiprocess.
+
+(i) Constructor using MPI
+
+The constructor first obtains the global rank and the world size first, and
+calculate the local rank. Then, rank 0 generates a NCCL ID and broadcast it to
+every rank. After that, it calls the setup function to initialize the NCCL
+communicator, cuda streams, and buffers.
+
+(ii) Constructor using Python multiprocess
+
+The constructor first obtains the rank, the world size, and the NCCL ID from the
+input argument. After that, it calls the setup function to initialize the NCCL
+communicator, cuda streams, and buffers.
+
+After the initialization, it provides the all-reduce functionality to
+synchronize the model parameters or gradients. For instance, synch takes a input
+tensor and perform all-reduce through the NCCL routine. After we call synch, it
+is necessary to call wait function to wait for the all-reduce operation to be
+completed.
+
+### Python interface for DistOpt
+
+Then, the python interface provide a
+[DistOpt](https://github.com/apache/singa/blob/master/python/singa/opt.py) class
+to wrap an
+[optimizer](https://github.com/apache/singa/blob/master/python/singa/opt.py)
+object to perform distributed training based on MPI or multiprocessing. During
+the initialization, it creates a NCCL communicator object (from the C interface
+as mentioned in the subsection above). Then, this communicator object is used
+for every all-reduce operations in DistOpt.
+
+In MPI or multiprocess, each process has an individual rank, which gives
+information of which GPU the individual process is using. The training data is
+partitioned, so that each process can evaluate the sub-gradient based on the
+partitioned training data. Once the sub-gradient is calculated on each
+processes, the overall stochastic gradient is obtained by all-reducing the
+sub-gradients evaluated by all processes.
