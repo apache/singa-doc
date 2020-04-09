@@ -30,7 +30,8 @@
 const users = require("./data/users")
 
 // new github repo for this website Jan2020
-const repoUrl = "https://github.com/apache/singa-doc"
+const docsRepoUrl = "https://github.com/apache/singa-doc"
+const mainRepoUrl = "https://github.com/apache/singa"
 
 const siteConfig = {
   title: "Apache SINGA", // Title for your website.
@@ -45,7 +46,7 @@ const siteConfig = {
 
   // display an edit button for docs markdowns
   // docs path after merging with main repo
-  editUrl: `${repoUrl}/blob/master/docs/`,
+  editUrl: `${docsRepoUrl}/blob/master/docs-site/docs/`,
 
   // Used for publishing and more
   projectName: "singa-doc", // cd to /website/build/singa-doc/ to serve
@@ -65,7 +66,7 @@ const siteConfig = {
     // Determines language drop down position among links
     { languages: true },
     // can change help.js to apache.js, optional
-    { href: repoUrl, label: "GitHub" },
+    { href: mainRepoUrl, label: "GitHub" },
   ],
 
   // If you have users set above, you add it here:
@@ -145,8 +146,8 @@ const siteConfig = {
   // Show documentation's last update time.
   enableUpdateTime: true,
 
-  // pass down the repoUrl to footer etc
-  repoUrl,
+  // pass down the docsRepoUrl to footer (edit users with PR) etc
+  // docsRepoUrl,
 
   scrollToTop: true,
 }
