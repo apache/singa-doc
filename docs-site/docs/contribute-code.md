@@ -58,9 +58,17 @@ page of LLVM is:
 
 - [LLVM](http://releases.llvm.org/download.html#9.0.0)
 
+  - On Ubuntu
+
+    ```sh
+    sudo apt-get install clang-format-9
+    ```
+
+  - On Windows. Download the pre-built package and install
+
 Second, install cpplint, pylint and yapf
 
-- OSX:
+- Ubuntu or OSX:
 
   ```
   $ sudo pip install cpplint
