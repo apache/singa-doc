@@ -42,23 +42,45 @@ in SINGA.
    Incompatibility issues. Follow this
    [example](http://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt).
 
-5. Prepare DISCLAIMER file. Modify from the
-   [template](http://incubator.apache.org/guides/branding.html#disclaimers)
-
-6. Package the release candidate. The release should be packaged into :
+5. Package the release candidate. The release should be packaged into :
    apache-singa-VERSION.tar.gz. The release should not include any binary files
-   including git files. Upload the release to for
-   [stage](https://dist.apache.org/repos/dist/dev/VERSION/). The tar file,
+   including git files. Upload the release the
+   [stage repo](https://dist.apache.org/repos/dist/dev/singa/). The tar file,
    signature, KEY and SHA256 checksum file should be included. MD5 is no longer
    used. Policy is
-   [here](http://www.apache.org/dev/release-distribution#sigs-and-sums)
+   [here](http://www.apache.org/dev/release-distribution#sigs-and-sums). The
+   stage folder should include:
 
    - apache-singa-VERSION.tar.gz
-   - KEY
-   - XX.acs
-   - .SHA256
+   - apache-singa-VERSION.acs
+   - apache-singa-VERSION.SHA256
 
-7. Call for vote by sending an email
+   The commands to create these files and upload them to the stage svn repo:
+
+   ```sh
+   # in singa repo
+   rm -rf .git
+   rm -rf rafiki/*
+   cd ..
+   tar -czvf apache-singa-VERSION.tar.gz  singa/
+
+   mkdir stage
+   cd stage
+   svn co https://dist.apache.org/repos/dist/dev/singa/
+   cd singa
+   # copy the KEYS file from singa repo to this folder if it is not here
+   cp ../../singa/KEYS .
+   mkdir VERSION
+   # copy the tar.gz file
+   mv ../../apache-singa-VERSION.tar.gz VERSION/
+   cd VERSION
+   sha512sum apache-singa-VERSION.tar.gz > apache-singa-VERSION.tar.gz.sha512
+   gpg --armor --output apache-singa-VERSION.tar.gz.asc --detach-sig apache-singa-VERSION.tar.gz
+   svn add VERSION
+   svn update
+   ```
+
+6) Call for vote by sending an email
 
    ```
    To: dev@singa.apache.org
@@ -81,7 +103,7 @@ in SINGA.
    +1
    ```
 
-8. Wait at least 48 hours for test responses. Any PMC, committer or contributor
+7) Wait at least 48 hours for test responses. Any PMC, committer or contributor
    can test features for releasing, and feedback. Everyone should check these
    before vote +1. If the vote passes, then send the result email. Otherwise,
    repeat from the beginning.
@@ -105,24 +127,24 @@ in SINGA.
    Apache SINGA X.Y.Z has passed.
    ```
 
-9. Upload the package for
+8) Upload the package for
    [distribution](http://www.apache.org/dev/release-publishing.html#distribution)
-   to https://dist.apache.org/repos/dist/release/VERSION/.
+   to https://dist.apache.org/repos/dist/release/singa/.
 
-10. Update the Download page of SINGA website. The tar.gz file MUST be
-    downloaded from mirror, using closer.cgi script; other artifacts MUST be
-    downloaded from main Apache site. More details
-    [here](http://www.apache.org/dev/release-download-pages.html). Some feedback
-    we got during the previous releases: "Download pages must only link to
-    formal releases, so must not include links to GitHub.", "Links to KEYS, sigs
-    and hashes must not use dist.apache.org; instead use
-    https://www.apache.org/dist/singa/...;", "Also you only need one KEYS link,
-    and there should be a description of how to use KEYS + sig or hash to verify
-    the downloads."
+9) Update the Download page of SINGA website. The tar.gz file MUST be downloaded
+   from mirror, using closer.cgi script; other artifacts MUST be downloaded from
+   main Apache site. More details
+   [here](http://www.apache.org/dev/release-download-pages.html). Some feedback
+   we got during the previous releases: "Download pages must only link to formal
+   releases, so must not include links to GitHub.", "Links to KEYS, sigs and
+   hashes must not use dist.apache.org; instead use
+   https://www.apache.org/dist/singa/...;", "Also you only need one KEYS link,
+   and there should be a description of how to use KEYS + sig or hash to verify
+   the downloads."
 
-11. Remove the RC tag and compile the conda packages.
+10) Remove the RC tag and compile the conda packages.
 
-12. Publish the release information.
+11) Publish the release information.
 
     ```
     To: announce@apache.org, dev@singa.apache.org

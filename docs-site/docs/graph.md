@@ -5,106 +5,29 @@ title: Computational Graph
 
 <!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License. -->
 
-SINGA can buffering operations to create a computational graph (CG). With the
-computational graph, SINGA can schedule the execution of operations as well as
-the memory allocation and release. It makes training more efficient while using
-less memory.
+The forward and backward propagation in a neural network can be represented
+using a set of operations such as convolution and pooling. Each operation takes
+some input [tensors](./tensor) and applies an [operator](./autograd) to generate
+output tensors. By representing each operator as a node and each tensor as an
+edge, all operations form a computational graph. With the computational graph,
+speed and memory optimization can be conducted by scheduling the execution of
+the operations and memory allocation/release intelligently. In SINGA, users only
+need to define the neural network model using the
+[Module](https://github.com/apache/singa/blob/master/python/singa/module.py)
+API. The graph is constructed and optimized at the C++ backend automatically.
 
-## About Computational Graph
+## Example
 
-### Introduction
+The following code illustrates the usage of the `Module` API.
 
-Computational graph is used to represent networks of the flow of computation. It
-is composed of many nodes and edges, where nodes represent various operations
-and edges represent data. In deep neural networks, nodes are tensor-based
-operations such as convolution and edges are tensors.
-
-The entire neural network is equivalent to a computational graph, all neural
-networks can correspond to a calculation graph. By representing the neural
-network as a calculation graph, some optimizations for neural networks can be
-performed on the calculation graph.
-
-### Pipeline
-
-The whole process of using the calculational graph to represent the model and
-execute the graph consists of roughly four steps. The whole process is actually
-similar to compiling. We first describe the program with code, then translate
-the program into intermediate code, then optimize the intermediate code and
-finally come up with many ways to efficiently execute the code. In neural
-networks, the intermediate code is the calculation graph. We can optimize
-through techniques like common sub-expression elimination. When the computer
-executes the compiled binary file, it can be efficiently executed by using
-multi-thread technology, and the same as the execution of the calculation graph.
-Therefore, some ideas of compilation principles can also be used in the
-optimization of calculation graphs.
-
-- Write the python code for the model.
-
-- Construct the computational graph based on the python code.
-- Optimize the computational graph.
-- Execute the computational graph efficiently.
-
-Figure 1 shows a simple example of going through the entire process.
-
-<img src="assets/GraphPipeline.png" alt="The pipeline of using computational graph" style="zoom:40%;" />
-
-<br/>**Figure 1 - The pipeline of using computational graph**
-
-### An example of MLP
-
-A simple MLP model can be constructed on the Python side by using some APIs of
-SINGA.
-
-```python
-x = autograd.matmul(inputs, w0)
-x = autograd.add_bias(x, b0)
-x = autograd.relu(x)
-x = autograd.matmul(x, w1)
-x = autograd.add_bias(x, b1)
-loss = autograd.softmax_cross_entropy(x, target)
-sgd.backward_and_update(loss)
-```
-
-When the model is defined, there is actually a calculation graph corresponding
-to it. This calculation graph contains the calculations that the entire SINGA
-will perform. Figure 2 shows the computational graph corresponding to the MLP
-model defined above.
-
-![The computational graph of MLP](assets/GraphOfMLP.png)
-
-<br/>**Figure 2 - The computational graph of MLP**
-
-## Features
-
-There are four main components of a computational graph in SINGA, namely (i)
-Computational graph construction, (ii) Lazy allocation, (iii) Automatic
-recycling, (iv) Shared memory. Details are as follows:
-
-- `Computational graph construction`: Construct a computational graph based on
-  the mathematical or deep learning operations, and then run the graph to
-  accomplish the training task. The computational graph also includes operations
-  like communicator.synch and communicator.fusedSynch for the distributed
-  training.
-- `Lazy allocation`: When blocks are allocated, devices do not allocate memory
-  for them immediately. Devices do memory allocation only when an operation uses
-  this block for the first time.
-- `Automatic recycling`: When we are running a graph in an iteration, it
-  automatically deallocates the intermediate tensors which won't be used again
-  in the remaining operations.
-- `Shared memory`: When two operations will never be performed at the same time,
-  the result tensors produced by them can share a piece of memory.
-
-## How to use
-
-- A CNN example.
+1. Implement the new model as a subclass the Module class.
 
 ```Python
-
 class CNN(module.Module):
 
     def __init__(self, optimizer):
         super(CNN, self).__init__()
-
+        # define layers
         self.conv1 = autograd.Conv2d(1, 20, 5, padding=0)
         self.conv2 = autograd.Conv2d(20, 50, 5, padding=0)
         self.linear1 = autograd.Linear(4 * 4 * 50, 500)
@@ -115,6 +38,7 @@ class CNN(module.Module):
         self.optimizer = optimizer
 
     def forward(self, x):
+        # define the forward operations
         y = self.conv1(x)
         y = autograd.relu(y)
         y = self.pooling1(y)
@@ -128,58 +52,267 @@ class CNN(module.Module):
         return y
 
     def loss(self, x, ty):
+        # define the training loss
         return autograd.softmax_cross_entropy(x, ty)
 
     def optim(self, loss):
+        # update the parameters using SGD algorithms
         self.optimizer.backward_and_update(loss)
+```
 
-# initialization other objects
-# ......
+2. Create an instance of the model, and do some configurations
+
+```python
 model = CNN(sgd)
-model.train()
+# set the mode of running the operations:
+# True for training; False for evaluation
+model.train(mode=True)
+# set the device for running the operations
 model.on_device(dev)
-model.graph(graph, sequential)
+# whether to create the graph or run the operations imperatively
+model.graph(mode=True)
+```
 
-# Train
+3. Train the model iteratively
+
+```python
 for b in range(num_train_batch):
-    # Generate the patch data in this iteration
-    # ......
+    # generate the next mini-batch
+    x, y = ...
 
-    # Copy the patch data into input tensors
+    # Copy the data into input tensors
     tx.copy_from_numpy(x)
     ty.copy_from_numpy(y)
 
-    # Train the model
+    # run forward propagation
     out = model(tx)
     loss = model.loss(out, ty)
+    # run backward propagation
     model.optim(loss)
 ```
 
 A Google Colab notebook of this example is available
 [here](https://colab.research.google.com/drive/1fbGUs1AsoX6bU5F745RwQpohP4bHTktq).
 
-- Some settings:
-  [module.py](https://github.com/apache/singa/blob/master/python/singa/module.py)
-  - `training`: whether to train the neural network defined in the class or for
-    evaluation.
-  - `graph_mode`: the model class defined by users can be trained using
-    computational graph or not.
-  - `sequential`: execute operations in graph serially or in the order of BFS.
-- More examples:
-  - [MLP](https://github.com/apache/singa/blob/master/examples/autograd/mlp_module.py)
-  - [CNN](https://github.com/apache/singa/blob/master/examples/autograd/cnn_module.py)
-  - [ResNet](https://github.com/apache/singa/blob/master/examples/autograd/resnet_module.py)
+More examples:
 
-## Experiments
+- [MLP](https://github.com/apache/singa/blob/master/examples/mlp/module.py)
+- [CNN](https://github.com/apache/singa/blob/master/examples/cnn/model/cnn.py)
+- [ResNet](https://github.com/apache/singa/blob/master/examples/cnn/model/resnet.py)
+
+## Implementation
+
+### Graph Construction
+
+SINGA constructs the computational graph in three steps:
+
+1. buffer the operations
+2. analyze the dependencies operations
+3. create the nodes and edges based on the dependencies
+
+Take the matrix multiplication operation from the dense layer of a
+[MLP model](https://github.com/apache/singa/blob/master/examples/mlp/module.py)
+as an example. The operation is called in the `forward` function of the MLP
+class
+
+```python
+class MLP(module.Module):
+
+    def forward(self, inputs):
+        x = autograd.matmul(inputs, self.w0)
+        ...
+```
+
+`autograd` implements the `matmul` operator by calling the function `Mult`
+exposed from CPP via SWIG.
+
+```python
+# implementation of matmul()
+singa.Mult(inputs, w)
+```
+
+At the backend, the `Mult` function is implemented by calling `GEMV` a CBLAS
+function. Instead of calling `GEMV` directly, `Mult` submits `GEMV` and the
+arguments to the device as follows,
+
+```c++
+// implementation of Mult()
+C->device()->Exec(
+    [a, A, b, B, CRef](Context *ctx) mutable {
+        GEMV<DType, Lang>(a, A, B, b, &CRef, ctx);
+    },
+    read_blocks, {C->block()});
+```
+
+The `Exec` function of `Device` buffers the function and its arguments. In
+addition, it also has the information about the blocks (a block is a chunk of
+memory for a tensor) to be read and written by this function.
+
+Once `Module.forward()` has been executed once, all operations are buffered by
+`Device`. Next, the read/write information of all operations are analyzed to
+create the computational graph. For example, if a block `b` is written by one
+operation O1 and is later read by another operation O2, we would know O2 depends
+on O1 and there is a directed edge from A to B, which represents block `b` (or
+its tensor). After that a directed acyclic graph is constructed as shown below.
+The graph is constructed once.
+
+![The computational graph of MLP](assets/GraphOfMLP.png)
+
+<br/>**Figure 1 - The computational graph of the MLP example.**
+
+### Optimization
+
+Currently, the following optimizations are done based on the computational
+graph.
+
+**Lazy allocation** When tensor/blocks are created, devices do not allocate
+memory for them immediately. Instead, when the block is accessed for the first
+time, the memory is allocated.
+
+**Automatic recycling** The reference count of each tensor/block is calculated
+based on the graph. Before executing the operations, the reference count is the
+number of operations that read this block. During the execution, once an
+operation is executed, the reference count of the every input block is decreased
+by 1. If one block's reference count reaches 0, it means that this block will
+not be read again in the remaining operations. Therefore, its memory can be
+released safely. In addition, SINGA tracks the usage of the block outside of the
+graph. If a block is used by Python code (not by autograd operators), it will
+not be recycled.
+
+**Memory sharing** SINGA uses memory pool, e.g.,
+[CnMem](https://github.com/NVIDIA/cnmem) to manage CUDA memory. With _Automatic
+recycling_ and memory pool, SINGA can share the memory among tensors. Consider
+two operations `c = a + b` and `d=2xc`. Before executing the second operation,
+according to _Lazy allocation_, the memory of d should be allocated. Suppose `a`
+is not used in the rest operations. According to Automatic recycling, the block
+of `a` will be released after the first operation. Therefore, SINGA would submit
+four operations to the CUDA stream: addition, free `a`, malloc `b`, and
+multiplication. The memory pool is then able to share the memory released by `a`
+with `b` instead of ask the GPU to do real malloc for `b`.
+
+Other optimization techniques e.g., from compliers, such as common
+sub-expression elimination and parallelizing operations on different CUDA
+streams can also be applied.
+
+## New Operator
+
+Each operator defined in `autograd` module implements two functions: forward and
+backward, which are implemented by calling the operators from the backend. To
+add a new operator in `autograd`, you need to add the multiple operators at the
+backend.
+
+Take the
+[Conv2d](https://github.com/apache/singa/blob/master/python/singa/autograd.py)
+operator as an example, at the Python side, the forward and backward function
+are implemented by calling the operators from the backend depending on the
+device type.
+
+```python
+class _Conv2d(Operation):
+
+    def forward(self, x, W, b=None):
+        ......
+        if training:
+            if self.handle.bias_term:
+                self.inputs = (x, W, b) # record x, W, b
+            else:
+                self.inputs = (x, W)
+
+        if (type(self.handle) != singa.ConvHandle):
+            return singa.GpuConvForward(x, W, b, self.handle)
+        else:
+            return singa.CpuConvForward(x, W, b, self.handle)
+
+    def backward(self, dy):
+        if (type(self.handle) != singa.ConvHandle):
+            dx = singa.GpuConvBackwardx(dy, self.inputs[1], self.inputs[0],
+                                        self.handle)
+            dW = singa.GpuConvBackwardW(dy, self.inputs[0], self.inputs[1],
+                                        self.handle)
+            db = singa.GpuConvBackwardb(
+                dy, self.inputs[2],
+                self.handle) if self.handle.bias_term else None
+        else:
+            dx = singa.CpuConvBackwardx(dy, self.inputs[1], self.inputs[0],
+                                        self.handle)
+            dW = singa.CpuConvBackwardW(dy, self.inputs[0], self.inputs[1],
+                                        self.handle)
+            db = singa.CpuConvBackwardb(
+                dy, self.inputs[2],
+                self.handle) if self.handle.bias_term else None
+        if db:
+            return dx, dW, db
+        else:
+            return dx, dW
+```
+
+For each operator at the backend, it should be implemented in the following way:
+
+- Suppose the operator is `foo()`; its real implementation should be wrapped in
+  another function e.g., `_foo()`. `foo()` passes `_foo` together with the
+  arguments as a lambda function to `Device`'s `Exec` function for buffering.
+  The blocks to be read and written are also passed to `Exec`.
+
+- All arguments used in the lambda expression need to be captured according to
+  the following rules.
+
+  - `capture by value`: If the argument variable is a local variable or will be
+    immediately released (e.g. intermediate tensors). Otherwise, these variables
+    will be destroyed once `foo()` exists.
+  - `capture by reference`：If the variable is recorded on the python side or a
+    persistent variable (e.g. parameter W and ConvHand in the Conv2d class).
+
+  - `mutable`: The lambda expression should have the mutable tag if a variable
+    captured by value is modified in `_foo()`
+
+Here is one
+[example](https://github.com/apache/singa/blob/master/src/model/operation/convolution.cc)
+operator implemented at the backend.
+
+```c++
+Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
+                        const CudnnConvHandle &cch) {
+  CHECK_EQ(dy.device()->lang(), kCuda);
+
+  Tensor dx;
+  dx.ResetLike(x);
+
+  dy.device()->Exec(
+      /*
+       * dx is a local variable so it's captured by value
+       * dy is an intermediate tensor and isn't recorded on the python side
+       * W is an intermediate tensor but it's recorded on the python side
+       * chh is a variable and it's recorded on the python side
+       */
+      [dx, dy, &W, &cch](Context *ctx) mutable {
+        Block *wblock = W.block(), *dyblock = dy.block(), *dxblock = dx.block();
+        float alpha = 1.f, beta = 0.f;
+        cudnnConvolutionBackwardData(
+            ctx->cudnn_handle, &alpha, cch.filter_desc, wblock->data(),
+            cch.y_desc, dyblock->data(), cch.conv_desc, cch.bp_data_alg,
+            cch.workspace.block()->mutable_data(),
+            cch.workspace_count * sizeof(float), &beta, cch.x_desc,
+            dxblock->mutable_data());
+      },
+      {dy.block(), W.block()}, {dx.block(), cch.workspace.block()});
+      /* the lambda expression reads the blocks of tensor dy and w
+       * and writes the blocks of tensor dx and chh.workspace
+       */
+
+  return dx;
+}
+```
+
+## Benchmark
 
 ### Single node
 
 - Experiment settings
   - Model
     - Using layer: ResNet50 in
-      [resnet.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet.py)
+      [resnet.py](https://github.com/apache/singa/blob/master/examples/cnn/autograd/resnet_cifar10.py)
     - Using module: ResNet50 in
-      [resnet_module.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet_module.py)
+      [resnet.py](https://github.com/apache/singa/blob/master/examples/cnn/model/resnet.py)
   - GPU: NVIDIA RTX 2080Ti
 - Notations
   - `s` ：second
@@ -250,7 +383,7 @@ A Google Colab notebook of this example is available
           <td>1.0000</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph</td>
+          <td nowrap>module:disable graph</td>
           <td>10109</td>
           <td>13.2952</td>
           <td>7.5315</td>
@@ -283,9 +416,9 @@ A Google Colab notebook of this example is available
 - Experiment settings
   - Model
     - using Layer: ResNet50 in
-      [resnet_dist.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet_dist.py)
+      [resnet_dist.py](https://github.com/apache/singa/blob/master/examples/cnn/autograd/resnet_dist.py)
     - using Module: ResNet50 in
-      [resnet_module.py](https://github.com/apache/singa/blob/master/examples/autograd/resnet_module.py)
+      [resnet.py](https://github.com/apache/singa/blob/master/examples/cnn/model/resnet.py)
   - GPU: NVIDIA RTX 2080Ti \* 2
   - MPI: two MPI processes on one node
 - Notations: the same as above
@@ -379,211 +512,7 @@ A Google Colab notebook of this example is available
 
 ### Conclusion
 
-- Computational graph does not affect training time and memory usage if the
-  graph is disabled.
-- Computational graph can significantly reduce memory usage and training time.
-
-## Implementation
-
-### Computational graph construction
-
-- `Buffer the operations`: Use the technique of delayed execution to falsely
-  perform operations in the forward propagation and backward propagation once.
-  Buffer all the operations and the tensors read or written by each operation.
-  Take matmul for example.
-
-  ```python
-  # user calls an api to do matmul on two tensors
-  x = autograd.matmul(inputs, w0)
-
-  # Python code inside the api
-  singa.Mult(inputs, w)
-  ```
-
-  ```c++
-  // the backend platform
-  // pass the specific execution function of the operation
-  // and the tensors it will reads and writes during the calculation to the device.
-  C->device()->Exec(
-      [a, A, b, B, CRef](Context *ctx) mutable {
-          GEMV<DType, Lang>(a, A, B, b, &CRef, ctx);
-      },
-      read_blocks, {C->block()});
-  ```
-
-- `Build nodes and edges`: Build the nodes and edges of the operations passed to
-  the device and add them into the computational graph. Since we just told the
-  scheduler which blocks these operations will read and write and some of the
-  tensors will share the same blocks, the scheduler will split one edge into
-  multiple to ensure that the constructed graph is a directed acyclic graph.
-
-- `Analyze the graph`: Calculate dependencies between all the operations to
-  decide the order of execution. The system will only analyze the same graph
-  once. If new operations are added to the graph, the calculation graph will be
-  re-analyzed.
-
-- `Run graph`: Execute all the operations in the order we just calculated to
-  update all the parameters. Tensors are well scheduled to allocate and
-  deallocate to save memory. After the analyzing, the operations in the graph
-  can be executed based on the result of analyzing.
-
-- `Module`: Provided a module class on the Python side for users to use this
-  feature more conveniently.
-
-### Lazy allocation
-
-- When a device needs to create a new block, pass the device to that block only,
-  instead of allocating a piece of memory from the mempool and passing the
-  pointer to that block.
-- When a block is accessed for the first time, the device corresponding to the
-  block allocates memory and then access it.
-
-### Automatic recycling
-
-- When calculating dependencies between the operations during graph
-  construction, the reference count of tensors can also be calculated.
-- When an operation is completed, the schedualer decrease the reference count of
-  tensors that the operation used.
-- If a tensor's reference count reaches zero, it means the tensor won't be
-  accessed by latter operations, so we can recycle its memory.
-- The program will track the usage of the block. If a block is used on the
-  python side, it will not be recycled, which is convenient for debugging on the
-  python side.
-
-### Shared memory
-
-- Once the kernel function of an operation is added into the default cuda stream
-  and the tensors used by the operation can be freed when the calculation is
-  complete, the scheduler will free these tensors' memory immediately and no
-  need to wait for the calculation to complete. Because subsequent operations
-  will not be performed at the same time as the current operation as the
-  platform now used the default stream of CUDA to finish the calculation. So the
-  following tensors can share the same memory with these tensors.
-- Use a mempool to manage the GPU memory. Scheduler returns the memory used by
-  tensors to the mempool and the latter tensors will apply for memory from
-  mempool. The mempool will find the most suitable blocks returned by the
-  previous tensors for the latter tensors to share as much memory as possible.
-
-## How to add a new operation
-
-For new operations to be included in the computational graph, they should be
-submitted to the device. Device class on the CPP side will add these operations
-in the computational graph and the scheduler will schedule them automatically.
-
-#### Requirements
-
-When submitting operations, there are some requirements.
-
-- Need to pass in the function that the operation executes and the data blocks
-  that the operation reads and writes
-
-- For the function of the operation: All variables used in lambda expressions
-  need to be captured according to the following rules.
-
-  - `capture by value`: If the variable is a local variable or will be
-    immediately released (e.g. intermediate tensors). If not captured by value,
-    these variables will be destroyed after buffering. Buffering is just a way
-    to defer real calculations.
-  - `capture by reference`：If the variable is recorded on the python side or a
-    global variable (e.g. The parameter W and ConvHand in the Conv2d class).
-
-  - `mutable`: The lambda expression should have mutable tag if a variable
-    captured by value is modified in an expression
-
-#### Example
-
-- Python side:
-  [\_Conv2d](https://github.com/apache/singa/blob/dev/python/singa/autograd.py#L1191)
-  records x, W, b and handle in the class.
-
-```python
-class _Conv2d(Operation):
-
-    def __init__(self, handle, odd_padding=(0, 0, 0, 0)):
-        super(_Conv2d, self).__init__()
-        self.handle = handle  # record handle
-        self.odd_padding = odd_padding
-        if self.odd_padding != (0, 0, 0, 0):
-            self.re_new_handle = True
-
-    def forward(self, x, W, b=None):
-		# other code
-        # ......
-
-        if training:
-            if self.handle.bias_term:
-                self.inputs = (x, W, b) # record x, W, b
-            else:
-                self.inputs = (x, W)
-
-		# other code
-        # ......
-
-        if (type(self.handle) != singa.ConvHandle):
-            return singa.GpuConvForward(x, W, b, self.handle)
-        else:
-            return singa.CpuConvForward(x, W, b, self.handle)
-
-    def backward(self, dy):
-        if (type(self.handle) != singa.ConvHandle):
-            dx = singa.GpuConvBackwardx(dy, self.inputs[1], self.inputs[0],
-                                        self.handle)
-            dW = singa.GpuConvBackwardW(dy, self.inputs[0], self.inputs[1],
-                                        self.handle)
-            db = singa.GpuConvBackwardb(
-                dy, self.inputs[2],
-                self.handle) if self.handle.bias_term else None
-        else:
-            dx = singa.CpuConvBackwardx(dy, self.inputs[1], self.inputs[0],
-                                        self.handle)
-            dW = singa.CpuConvBackwardW(dy, self.inputs[0], self.inputs[1],
-                                        self.handle)
-            db = singa.CpuConvBackwardb(
-                dy, self.inputs[2],
-                self.handle) if self.handle.bias_term else None
-        if self.odd_padding != (0, 0, 0, 0):
-            dx = utils.handle_odd_pad_bwd(dx, self.odd_padding)
-
-        if db:
-            return dx, dW, db
-
-        else:
-            return dx, dW
-```
-
-- C++ side:
-  [convolution.cc](https://github.com/apache/singa/blob/dev/src/model/operation/convolution.cc)
-
-```c++
-Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
-                        const CudnnConvHandle &cch) {
-  CHECK_EQ(dy.device()->lang(), kCuda);
-
-  Tensor dx;
-  dx.ResetLike(x);
-
-  dy.device()->Exec(
-      /*
-       * dx is a local variable so it's captured by value
-       * dy is an intermediate tensor and isn't recorded on the python side
-       * W is an intermediate tensor but it's recorded on the python side
-       * chh is a variable and it's recorded on the python side
-       */
-      [dx, dy, &W, &cch](Context *ctx) mutable {
-        Block *wblock = W.block(), *dyblock = dy.block(), *dxblock = dx.block();
-        float alpha = 1.f, beta = 0.f;
-        cudnnConvolutionBackwardData(
-            ctx->cudnn_handle, &alpha, cch.filter_desc, wblock->data(),
-            cch.y_desc, dyblock->data(), cch.conv_desc, cch.bp_data_alg,
-            cch.workspace.block()->mutable_data(),
-            cch.workspace_count * sizeof(float), &beta, cch.x_desc,
-            dxblock->mutable_data());
-      },
-      {dy.block(), W.block()}, {dx.block(), cch.workspace.block()});
-      /* the lambda expression reads the blocks of tensor dy and w
-       * and writes the blocks of tensor dx and chh.workspace
-       */
-
-  return dx;
-}
-```
+- Training with the computational graph enabled can significantly reduce the
+  memory footprint.
+- Currently, there is a little improvement in terms of speed. More optimizations
+  can be done towards the efficiency.

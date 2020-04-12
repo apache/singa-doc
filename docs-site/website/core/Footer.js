@@ -61,12 +61,15 @@ class Footer extends React.Component {
               Getting Started
             </a>
             <a href={this.docUrl("device", this.props.language)}>Guides</a>
-            <a href={this.pageUrl("#", this.props.language)}>
-              API Reference (coming soon)
+            <a
+              href={this.pageUrl(
+                "https://apache-singa.readthedocs.io/en/latest/",
+                this.props.language
+              )}
+            >
+              API Reference
             </a>
-            <a href={this.docUrl("model-zoo-cnn-cifar10", this.props.language)}>
-              Model Zoo
-            </a>
+            <a href={this.docUrl("examples", this.props.language)}>Examples</a>
             <a href={this.docUrl("download-singa", this.props.language)}>
               Development
             </a>

@@ -79,7 +79,7 @@ This release includes following changes:
   To enable this feature, use the [Module API](./python/singa/module.py).
 
 - New website based on Docusaurus. The documentation files are moved to a
-  separate repo [singa-doc]](https://github.com/apache/singa-doc). The static
+  separate repo [singa-doc](https://github.com/apache/singa-doc). The static
   website files are stored at
   [singa-site](https://github.com/apache/singa-site).
 

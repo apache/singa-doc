@@ -8,8 +8,8 @@ title: Download SINGA
 ## Verify
 
 To verify the downloaded tar.gz file, download the
-[KEYS](https://www.apache.org/dist/incubator/singa/KEYS) and ASC files and then
-execute the following commands
+[KEYS](https://www.apache.org/dist/singa/KEYS) and ASC files and then execute
+the following commands
 
 ```shell
 % gpg --import KEYS
@@ -30,7 +30,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   - Improve the CPP operations via Intel MKL DNN lib
   - Implement tensor broadcasting
   - Move Docker images under Apache user name
-  - Update depdent lib versions in conda-build config
+  - Update dependent lib versions in conda-build config
 
 ## Incubating v1.2.0 (6 June 2018):
 
@@ -156,14 +156,3 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   - Synchronous and asynchronous distributed training frameworks using CPU
   - Checkpoint and restore
   - Unit test using gtest
-
-> **Disclaimer**
->
-> Apache SINGA is an effort undergoing incubation at The Apache Software
-> Foundation (ASF), sponsored by the name of Apache Incubator PMC. Incubation is
-> required of all newly accepted projects until a further review indicates that
-> the infrastructure, communications, and decision making process have
-> stabilized in a manner consistent with other successful ASF projects. While
-> incubation status is not necessarily a reflection of the completeness or
-> stability of the code, it does indicate that the project has yet to be fully
-> endorsed by the ASF.
