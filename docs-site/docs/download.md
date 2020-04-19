@@ -21,9 +21,9 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 ## V3.0.0 (18 April 2020):
 
 - [Apache SINGA 3.0.0](http://www.apache.org/dyn/closer.cgi/singa/3.0.0/apache-singa-3.0.0.tar.gz)
-  [\SHA512\]](https://www.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.sha512)
+  [\[SHA512\]](https://www.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.sha512)
   [\[ASC\]](https://www.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.asc)
-- [Release Notes 3.0.0](releases/RELEASE_NOTES3.0.0)
+- [Release Notes 3.0.0](releases/RELEASE_NOTES_3.0.0)
 - New features and major changes,
   - Enhanced ONNX. Multiple ONNX models have been tested in SINGA.
   - Distributed training with MPI and NCCL Communication optimization through
