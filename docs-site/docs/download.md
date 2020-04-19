@@ -18,6 +18,25 @@ the following commands
 
 You can also check the SHA512 or MD5 values to see if the download is completed.
 
+## V3.0.0 (18 April 2020):
+
+- [Apache SINGA 3.0.0](http://www.apache.org/dyn/closer.cgi/singa/3.0.0/apache-singa-3.0.0.tar.gz)
+  [\SHA512\]](https://www.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.sha512)
+  [\[ASC\]](https://www.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.asc)
+- [Release Notes 3.0.0](releases/RELEASE_NOTES3.0.0)
+- New features and major changes,
+  - Enhanced ONNX. Multiple ONNX models have been tested in SINGA.
+  - Distributed training with MPI and NCCL Communication optimization through
+    gradient sparsification and compression, and chunk transmission.
+  - Computational graph construction and optimization for speed and memory using
+    the graph.
+  - New documentation website (singa.apache.org) and API reference website
+    (apache-singa.rtfd.io).
+  - CI for code quality check.
+  - Replace MKLDNN with DNNL
+  - Update tensor APIs to support broadcasting operations.
+  - New autograd operators to support ONNX models.
+
 ## Incubating v2.0.0 (20 April 2019):
 
 - [Apache SINGA 2.0.0 (incubating)](http://www.apache.org/dyn/closer.cgi/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz)
