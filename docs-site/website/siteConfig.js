@@ -147,7 +147,7 @@ const siteConfig = {
   enableUpdateTime: true,
 
   // pass down the docsRepoUrl to footer (edit users with PR) etc
-  // docsRepoUrl,
+  docsRepoUrl,
 
   scrollToTop: true,
 }
