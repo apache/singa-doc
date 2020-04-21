@@ -1,0 +1,35 @@
+{
+  "version-3.0.0-docs": {
+    "Getting Started": [
+      "version-3.0.0-installation",
+      "version-3.0.0-software-stack",
+      "version-3.0.0-examples"
+    ],
+    "Guides": [
+      "version-3.0.0-device",
+      "version-3.0.0-tensor",
+      "version-3.0.0-autograd",
+      "version-3.0.0-graph",
+      "version-3.0.0-onnx",
+      "version-3.0.0-dist-train"
+    ],
+    "Development": [
+      "version-3.0.0-download-singa",
+      "version-3.0.0-build",
+      "version-3.0.0-contribute-code",
+      "version-3.0.0-contribute-docs",
+      "version-3.0.0-how-to-release",
+      "version-3.0.0-git-workflow"
+    ]
+  },
+  "version-3.0.0-community": {
+    "Community": [
+      "version-3.0.0-source-repository",
+      "version-3.0.0-mail-lists",
+      "version-3.0.0-issue-tracking",
+      "version-3.0.0-security",
+      "version-3.0.0-team-list",
+      "version-3.0.0-history-singa"
+    ]
+  }
+}
