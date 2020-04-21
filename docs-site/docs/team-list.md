@@ -27,6 +27,7 @@ Zhejiang University, NetEase, Osaka University, yzBigData, etc.
 | Moaz Reyad    | moaz@apache.org         | Université Grenoble Alpes                     |
 | Kian-Lee Tan  | tankianlee@apache.org   | National University of Singapore              |
 | Wei Wang      | wangwei@apache.org      | National University of Singapore              |
+| Zhongle Xie   | zhongle@apache.org      | National University of Singapore              |
 | Sai Ho Yeung  | chrishkchris@apache.org | National University of Singapore              |
 | Meihui Zhang  | meihuizhang@apache.org  | Beijing Institute of Technology               |
 | Kaiping Zheng | kaiping@apache.org      | National University of Singapore              |
