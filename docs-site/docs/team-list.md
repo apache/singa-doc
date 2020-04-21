@@ -14,31 +14,31 @@ Zhejiang University, NetEase, Osaka University, yzBigData, etc.
 
 ## PMC
 
-| Name          | Email                  | Organization                                  |
-| ------------- | ---------------------- | --------------------------------------------- |
-| Gang Chen     | cg@apache.org          | Zhejiang University                           |
-| Anh Dinh      | dinhtta@apache.org     | Singapore University of Technology and Design |
-| Ted Dunning   | tdunning@apache.org    | Apache Software Foundation                    |
-| Jinyang Gao   | jinyang@apache.org     | DAMO Academy, Alibaba Group                   |
-| Alan Gates    | gates@apache.org       | Apache Software Foundation                    |
-| Zhaojing Luo  | zhaojing@apache.org    | National University of Singapore              |
-| Thejas Nair   | thejas@apache.org      | Apache Software Foundation                    |
-| Beng Chin Ooi | ooibc@apache.org       | National University of Singapore              |
-| Moaz Reyad    | moaz@apache.org        | Université Grenoble Alpes                     |
-| Kian-Lee Tan  | tankianlee@apache.org  | National University of Singapore              |
-| Wei Wang      | wangwei@apache.org     | National University of Singapore              |
-| Meihui Zhang  | meihuizhang@apache.org | Beijing Institute of Technology               |
-| Kaiping Zheng | kaiping@apache.org     | National University of Singapore              |
+| Name          | Email                   | Organization                                  |
+| ------------- | ----------------------- | --------------------------------------------- |
+| Gang Chen     | cg@apache.org           | Zhejiang University                           |
+| Anh Dinh      | dinhtta@apache.org      | Singapore University of Technology and Design |
+| Ted Dunning   | tdunning@apache.org     | Apache Software Foundation                    |
+| Jinyang Gao   | jinyang@apache.org      | DAMO Academy, Alibaba Group                   |
+| Alan Gates    | gates@apache.org        | Apache Software Foundation                    |
+| Zhaojing Luo  | zhaojing@apache.org     | National University of Singapore              |
+| Thejas Nair   | thejas@apache.org       | Apache Software Foundation                    |
+| Beng Chin Ooi | ooibc@apache.org        | National University of Singapore              |
+| Moaz Reyad    | moaz@apache.org         | Université Grenoble Alpes                     |
+| Kian-Lee Tan  | tankianlee@apache.org   | National University of Singapore              |
+| Wei Wang      | wangwei@apache.org      | National University of Singapore              |
+| Sai Ho Yeung  | chrishkchris@apache.org | National University of Singapore              |
+| Meihui Zhang  | meihuizhang@apache.org  | Beijing Institute of Technology               |
+| Kaiping Zheng | kaiping@apache.org      | National University of Singapore              |
 
 ## Committers
 
-| Name         | Email                   | Organization                     |
-| ------------ | ----------------------- | -------------------------------- |
-| Chonho Lee   | chonho@apache.org       | Osaka University                 |
-| Sheng Wang   | wangsh@apache.org       | DAMO Academy, Alibaba Group      |
-| Wanqi Xue    | xuewanqi@apache.org     | Nanyang Technological University |
-| Xiangrui Cai | caixr@apache.org        | Nankai University                |
-| Sai Ho Yeung | chrishkchris@apache.org | National University of Singapore |
+| Name         | Email               | Organization                     |
+| ------------ | ------------------- | -------------------------------- |
+| Chonho Lee   | chonho@apache.org   | Osaka University                 |
+| Sheng Wang   | wangsh@apache.org   | DAMO Academy, Alibaba Group      |
+| Wanqi Xue    | xuewanqi@apache.org | Nanyang Technological University |
+| Xiangrui Cai | caixr@apache.org    | Nankai University                |
 
 ## Contributors
 

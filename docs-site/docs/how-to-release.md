@@ -44,7 +44,27 @@ in SINGA.
 
 5. Package the release candidate. The release should be packaged into :
    apache-singa-VERSION.tar.gz. The release should not include any binary files
-   including git files. Upload the release the
+   including git files. However, the CMake compilation depends on the git tag to
+   get the version numbers; to remove this dependency, you need to manually
+   update the CMakeLists.txt file to set the version numbers.
+
+   ```
+   # remove the following lines
+   include(GetGitRevisionDescription)
+   git_describe(VERSION --tags --dirty=-d)
+   string(REGEX REPLACE "^([0-9]+)\\..*" "\\1" VERSION_MAJOR "${VERSION}")
+   string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*" "\\1" VERSION_MINOR "${VERSION}")
+   string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*" "\\1" VERSION_PATCH "${VERSION}")
+
+   # set the numbers manually
+   SET(PACKAGE_VERSION 3.0.0)
+   SET(VERSION 3.0.0)
+   SET(SINGA_MAJOR_VERSION 3)  # 0 -
+   SET(SINGA_MINOR_VERSION 0)  # 0 - 9
+   SET(SINGA_PATCH_VERSION 0)  # 0 - 99
+   ```
+
+   Upload the package to the
    [stage repo](https://dist.apache.org/repos/dist/dev/singa/). The tar file,
    signature, KEY and SHA256 checksum file should be included. MD5 is no longer
    used. Policy is
