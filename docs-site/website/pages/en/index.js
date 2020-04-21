@@ -56,7 +56,7 @@ function HomeSplash(props) {
       />
       <div className="index-hero-inner">
         <img
-          alt="SINGA-Ocean"
+          alt="SINGA-hero-banner"
           className="index-hero-logo"
           src={`${siteConfig.baseUrl}img/singa.png`}
         />
