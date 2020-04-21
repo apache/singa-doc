@@ -61,13 +61,13 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "yarn run lint:website",
       "yarn run prettier:js",
+      "yarn run lint:website",
       "git add"
     ],
     "*.md": [
-      "yarn run lint:docs",
       "yarn run prettier:md",
+      "yarn run lint:docs",
       "git add"
     ]
   },

@@ -37,8 +37,8 @@ const siteConfig = {
   title: "Apache SINGA", // Title for your website.
   tagline: "Distributed deep learning system",
   // temp staging github page using feynmanDNA's github
-  url: "https://feynmandna.github.io",
-  // url: "https://singa.apache.org", // Your website URL
+  // url: "https://feynmandna.github.io",
+  url: "https://singa.apache.org", // Your website URL
   baseUrl: "/", // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
@@ -62,10 +62,12 @@ const siteConfig = {
     // {page: 'help', label: 'Help'},
     { blog: true, label: "News" },
     { href: "https://apache-singa.readthedocs.io/en/latest/", label: "API" },
+    // algolia DocSearch
     { search: true },
     // Determines language drop down position among links
+    // will need crowdin setup later
     { languages: true },
-    // can change help.js to apache.js, optional
+    // main singa code base on github
     { href: mainRepoUrl, label: "GitHub" },
   ],
 
@@ -80,6 +82,16 @@ const siteConfig = {
   headerIcon: "img/singa.png",
   footerIcon: "img/singa-logo-square.png",
   favicon: "img/favicon.ico",
+
+  /* algolia DocSearch setup for header */
+  algolia: {
+    apiKey: "45202133606c0b5fa6d21cddc4725dd8",
+    indexName: "apache_singa",
+    algoliaOptions: {
+      // different search results for the different versions or languages
+      facetFilters: ["language:LANGUAGE", "version:VERSION"],
+    },
+  },
 
   /* Colors for website */
   colors: {
