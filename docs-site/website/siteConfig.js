@@ -89,7 +89,9 @@ const siteConfig = {
     indexName: "apache_singa",
     algoliaOptions: {
       // different search results for the different versions or languages
-      facetFilters: ["language:LANGUAGE", "version:VERSION"],
+      // algoliaOptions: { 'facetFilters': ["version:$VERSION", "language:$LANGUAGE"] },
+      // So as of Apr 2020 Versions crawled by algolia: 2.0.0, 3.0.0, next
+      facetFilters: ["language:en", "version:3.0.0"],
     },
   },
 
