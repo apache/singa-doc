@@ -122,4 +122,4 @@ cp python/singa/xx.py  <path to conda>/lib/python3.7/site-packages/singa/
 
 ## Workflow
 
-Please refer to the [git workflow page](./git-workflow).
+Please refer to the [git workflow page](./git-workflow.md).
