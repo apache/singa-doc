@@ -5,7 +5,7 @@ title: Installation
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-## From Conda
+## Using Conda
 
 Conda is a package manager for Python, CPP and other packages.
 
@@ -55,6 +55,43 @@ $ python -c "from singa import tensor"
 ```
 
 then SINGA is installed successfully.
+
+## Using Pip
+
+1. CPU only
+
+```bash
+pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
+```
+
+You can install a specific version of SINGA via `singa==<version>`, where the
+`<version>` field should be replaced, e.g., `3.0.0`. The available SINGA
+versions are listed at the link.
+
+To install the latest develop version, replace the link with
+http://singa.apache.org/docs/next/wheel-cpu-dev.html
+
+2. GPU With CUDA and cuDNN
+
+```bash
+pip install singa -f http://singa.apache.org/docs/next/wheel-cuda.html --trusted-host singa.apache.org
+```
+
+You can also configure SINGA version and the CUDA version, like
+`singa==3.0.0+cuda10.2`. The available combinations of SINGA version and CUDA
+version are listed at the link.
+
+To install the latest develop version, replace the link with
+http://singa.apache.org/docs/next/wheel-cuda-dev.html
+
+Note: the Python version of your local Python environment will be used to find
+the corresponding wheel package. For example, if your local Python is 3.6, then
+the wheel package compiled on Python 3.6 will be selected by pip and installed.
+In fact, the wheel file's name include SINGA version, CUDA version and Python
+version. Therefore, `pip` knows which wheel file to download and install.
+
+Refer to the comments at the top of the `setup.py` file for how to build the
+wheel packages.
 
 ## Using Docker
 
