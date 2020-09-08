@@ -27,9 +27,6 @@ class CNN(model.Model):
 
     def __init__(self, num_classes=10, num_channels=1):
         super(CNN, self).__init__()
-        self.num_classes = num_classes
-        self.input_size = 28
-        self.dimension = 4
         self.conv1 = layer.Conv2d(num_channels, 20, 5, padding=0, activation="RELU")
         self.conv2 = layer.Conv2d(20, 50, 5, padding=0, activation="RELU")
         self.linear1 = layer.Linear(500)
@@ -89,7 +86,7 @@ for b in range(num_train_batch):
     ty.copy_from_numpy(y)
 
     # Training with one batch
-    out, loss = model(tx, ty, dist_option, spars)
+    out, loss = model(tx, ty)
 ```
 
 A Google Colab notebook of this example is available

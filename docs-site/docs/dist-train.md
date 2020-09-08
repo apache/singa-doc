@@ -351,8 +351,8 @@ distributed training in the `train_one_batch` method. Please refer to the
 example code on top of this page. We could just copy the code for the options
 and use it in other models.
 
-With the options, we can put the arguments `dist_option` and `spars` when we 
-start the training with `out, loss = model(tx, ty, dist_option, spars)`
+With the defined options, we can put the arguments `dist_option` and `spars` when we 
+start the training with `model(tx, ty, dist_option, spars)`
 
 ### No Optimizations
 
