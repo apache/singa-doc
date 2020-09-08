@@ -18,59 +18,63 @@ API. The graph is constructed and optimized at the C++ backend automatically.
 
 ## Example
 
-The following code illustrates the usage of the `Module` API.
+The following code illustrates the usage of the `Model` API.
 
-1. Implement the new model as a subclass the Module class.
+1. Implement the new model as a subclass the Model class.
 
 ```Python
-class CNN(module.Module):
+class CNN(model.Model):
 
-    def __init__(self, optimizer):
+    def __init__(self, num_classes=10, num_channels=1):
         super(CNN, self).__init__()
-        # define layers
-        self.conv1 = autograd.Conv2d(1, 20, 5, padding=0)
-        self.conv2 = autograd.Conv2d(20, 50, 5, padding=0)
-        self.linear1 = autograd.Linear(4 * 4 * 50, 500)
-        self.linear2 = autograd.Linear(500, 10)
-        self.pooling1 = autograd.MaxPool2d(2, 2, padding=0)
-        self.pooling2 = autograd.MaxPool2d(2, 2, padding=0)
-
-        self.optimizer = optimizer
+        self.num_classes = num_classes
+        self.input_size = 28
+        self.dimension = 4
+        self.conv1 = layer.Conv2d(num_channels, 20, 5, padding=0, activation="RELU")
+        self.conv2 = layer.Conv2d(20, 50, 5, padding=0, activation="RELU")
+        self.linear1 = layer.Linear(500)
+        self.linear2 = layer.Linear(num_classes)
+        self.pooling1 = layer.MaxPool2d(2, 2, padding=0)
+        self.pooling2 = layer.MaxPool2d(2, 2, padding=0)
+        self.relu = layer.ReLU()
+        self.flatten = layer.Flatten()
+        self.softmax_cross_entropy = layer.SoftMaxCrossEntropy()
 
     def forward(self, x):
-        # define the forward operations
         y = self.conv1(x)
-        y = autograd.relu(y)
         y = self.pooling1(y)
         y = self.conv2(y)
-        y = autograd.relu(y)
         y = self.pooling2(y)
-        y = autograd.flatten(y)
+        y = self.flatten(y)
         y = self.linear1(y)
-        y = autograd.relu(y)
+        y = self.relu(y)
         y = self.linear2(y)
         return y
 
-    def loss(self, x, ty):
-        # define the training loss
-        return autograd.softmax_cross_entropy(x, ty)
-
-    def optim(self, loss):
-        # update the parameters using SGD algorithms
-        self.optimizer.backward_and_update(loss)
+    def train_one_batch(self, x, y):
+        out = self.forward(x)
+        loss = self.softmax_cross_entropy(out, y)
+        self.optimizer(loss)
+        return out, loss
 ```
 
-2. Create an instance of the model, and do some configurations
+2. Create an instance of model, optimizer, device, etc. Compile the model
 
 ```python
-model = CNN(sgd)
-# set the mode of running the operations:
-# True for training; False for evaluation
-model.train(mode=True)
-# set the device for running the operations
-model.on_device(dev)
-# whether to create the graph or run the operations imperatively
-model.graph(mode=True)
+model = CNN()
+
+# initialize optimizer and attach it to the model
+sgd = opt.SGD(lr=0.005, momentum=0.9, weight_decay=1e-5)
+
+# initialize device
+dev = device.create_cuda_gpu()
+
+# input and target placeholders for the model
+tx = tensor.Tensor((batch_size, 1, IMG_SIZE, IMG_SIZE), dev, tensor.float32)
+ty = tensor.Tensor((batch_size, num_classes), dev, tensor.int32)
+
+# compile the model before training
+model.compile([tx], is_train=True, use_graph=True, sequential=False)
 ```
 
 3. Train the model iteratively
@@ -84,11 +88,8 @@ for b in range(num_train_batch):
     tx.copy_from_numpy(x)
     ty.copy_from_numpy(y)
 
-    # run forward propagation
-    out = model(tx)
-    loss = model.loss(out, ty)
-    # run backward propagation
-    model.optim(loss)
+    # Training with one batch
+    out, loss = model(tx, ty, dist_option, spars)
 ```
 
 A Google Colab notebook of this example is available
@@ -116,13 +117,19 @@ as an example. The operation is called in the `forward` function of the MLP
 class
 
 ```python
-class MLP(module.Module):
+class MLP(model.Model):
+
+    def __init__(self, data_size=10, perceptron_size=100, num_classes=10):
+        super(MLP, self).__init__()
+        self.linear1 = layer.Linear(perceptron_size)
+        ...
 
     def forward(self, inputs):
-        x = autograd.matmul(inputs, self.w0)
+        y = self.linear1(inputs)
         ...
 ```
 
+The `Linear` layer is composed of the `mutmul` operator.
 `autograd` implements the `matmul` operator by calling the function `Mult`
 exposed from CPP via SWIG.
 
@@ -148,7 +155,7 @@ The `Exec` function of `Device` buffers the function and its arguments. In
 addition, it also has the information about the blocks (a block is a chunk of
 memory for a tensor) to be read and written by this function.
 
-Once `Module.forward()` has been executed once, all operations are buffered by
+Once `Model.forward()` has been executed once, all operations are buffered by
 `Device`. Next, the read/write information of all operations are analyzed to
 create the computational graph. For example, if a block `b` is written by one
 operation O1 and is later read by another operation O2, we would know O2 depends

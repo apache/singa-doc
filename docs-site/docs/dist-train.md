@@ -42,37 +42,66 @@ a [Colab notebook]() for it.
 1. Define the neural network model:
 
 ```python
-class CNN:
-    def __init__(self):
-        self.conv1 = autograd.Conv2d(1, 20, 5, padding=0)
-        self.conv2 = autograd.Conv2d(20, 50, 5, padding=0)
-        self.linear1 = autograd.Linear(4 * 4 * 50, 500)
-        self.linear2 = autograd.Linear(500, 10)
-        self.pooling1 = autograd.MaxPool2d(2, 2, padding=0)
-        self.pooling2 = autograd.MaxPool2d(2, 2, padding=0)
+class CNN(model.Model):
+
+    def __init__(self, num_classes=10, num_channels=1):
+        super(CNN, self).__init__()
+        self.num_classes = num_classes
+        self.input_size = 28
+        self.dimension = 4
+        self.conv1 = layer.Conv2d(num_channels, 20, 5, padding=0, activation="RELU")
+        self.conv2 = layer.Conv2d(20, 50, 5, padding=0, activation="RELU")
+        self.linear1 = layer.Linear(500)
+        self.linear2 = layer.Linear(num_classes)
+        self.pooling1 = layer.MaxPool2d(2, 2, padding=0)
+        self.pooling2 = layer.MaxPool2d(2, 2, padding=0)
+        self.relu = layer.ReLU()
+        self.flatten = layer.Flatten()
+        self.softmax_cross_entropy = layer.SoftMaxCrossEntropy()
 
     def forward(self, x):
         y = self.conv1(x)
-        y = autograd.relu(y)
         y = self.pooling1(y)
         y = self.conv2(y)
-        y = autograd.relu(y)
         y = self.pooling2(y)
-        y = autograd.flatten(y)
+        y = self.flatten(y)
         y = self.linear1(y)
-        y = autograd.relu(y)
+        y = self.relu(y)
         y = self.linear2(y)
         return y
+
+    def train_one_batch(self, x, y, dist_option='fp32', spars=0):
+        out = self.forward(x)
+        loss = self.softmax_cross_entropy(out, y)
+
+        # Allow different options for distributed training
+        # See the section "Optimizations for Distributed Training"
+        if dist_option == 'fp32':
+            self.optimizer(loss)
+        elif dist_option == 'fp16':
+            self.optimizer.backward_and_update_half(loss)
+        elif dist_option == 'partialUpdate':
+            self.optimizer.backward_and_partial_update(loss)
+        elif dist_option == 'sparseTopK':
+            self.optimizer.backward_and_sparse_update(loss,
+                                                      topK=True,
+                                                      spars=spars)
+        elif dist_option == 'sparseThreshold':
+            self.optimizer.backward_and_sparse_update(loss,
+                                                      topK=False,
+                                                      spars=spars)
+        return out, loss
 
 # create model
 model = CNN()
 ```
 
-2. Create the `DistOpt` instance:
+2. Create the `DistOpt` instance and attach it to the created model:
 
 ```python
 sgd = opt.SGD(lr=0.005, momentum=0.9, weight_decay=1e-5)
 sgd = opt.DistOpt(sgd)
+model.set_optimizer(sgd)
 dev = device.create_cuda_gpu_on(sgd.local_rank)
 ```
 
@@ -126,11 +155,12 @@ def synchronize(tensor, dist_opt):
 #Synchronize the initial parameter
 tx = tensor.Tensor((batch_size, 1, IMG_SIZE, IMG_SIZE), dev, tensor.float32)
 ty = tensor.Tensor((batch_size, num_classes), dev, tensor.int32)
+model.compile([tx], is_train=True, use_graph=graph, sequential=True)
 ...
-out = model.forward(tx)
-loss = autograd.softmax_cross_entropy(out, ty)
-for p, g in autograd.backward(loss):
-    synchronize(p, sgd)
+#Use the same random seed for different ranks
+seed = 0
+dev.SetRandSeed(seed)
+np.random.seed(seed)
 ```
 
 Here, `world_size` represents the total number of processes in all the nodes you
@@ -149,6 +179,8 @@ for epoch in range(max_epoch):
         loss = autograd.softmax_cross_entropy(out, ty)
         # do backpropagation and all-reduce
         sgd.backward_and_update(loss)
+        # Train the model
+        out, loss = model(tx, ty)
 ```
 
 ### Execution Instruction
@@ -321,10 +353,18 @@ SINGA provides multiple optimization strategies for distributed training to
 reduce the communication cost. Refer to the API for `DistOpt` for the
 configuration of each strategy.
 
+When we use `model.Model` to build a model, we need to put the options for
+distributed training in the `train_one_batch` method. Please refer to the
+example code on top of this page. We could just copy the code for the options
+and use it in other models.
+
+With the options, we can put the arguments `dist_option` and `spars` when we 
+start the training with `out, loss = model(tx, ty, dist_option, spars)`
+
 ### No Optimizations
 
 ```python
-sgd.backward_and_update(loss)
+out, loss = model(tx, ty)
 ```
 
 `loss` is the output tensor from the loss function, e.g., cross-entropy for
@@ -333,7 +373,7 @@ classification tasks.
 ### Half-precision Gradients
 
 ```python
-sgd.backward_and_update_half(loss)
+out, loss = model(tx, ty, dist_option = 'fp16')
 ```
 
 It converts each gradient value to 16-bit representation (i.e., half-precision)
@@ -342,7 +382,7 @@ before calling all-reduce.
 ### Partial Synchronization
 
 ```python
-sgd.backward_and_partial_update(loss)
+out, loss = model(tx, ty, dist_option = 'partialUpdate')
 ```
 
 In each iteration, every rank do the local sgd update. Then, only a chunk of
@@ -351,10 +391,6 @@ The chunk size is configured when creating the `DistOpt` instance.
 
 ### Gradient Sparsification
 
-```python
-sgd.backward_and_sparse_update(loss)
-```
-
 It applies sparsification schemes to select a subset of gradients for
 all-reduce. There are two scheme:
 
@@ -362,14 +398,14 @@ all-reduce. There are two scheme:
   elements selected.
 
 ```python
-sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = True)
+out, loss = model(tx, ty, dist_option = 'sparseTopK', spars = spars)
 ```
 
 - All gradients whose absolute value are larger than predefined threshold spars
   are selected.
 
 ```python
-sgd.backward_and_sparse_update(loss = loss, spars = spars, topK = False)
+out, loss = model(tx, ty, dist_option = 'sparseThreshold', spars = spars)
 ```
 
 The hyper-parameters are configured when creating the `DistOpt` instance.
