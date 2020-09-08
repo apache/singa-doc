@@ -46,9 +46,6 @@ class CNN(model.Model):
 
     def __init__(self, num_classes=10, num_channels=1):
         super(CNN, self).__init__()
-        self.num_classes = num_classes
-        self.input_size = 28
-        self.dimension = 4
         self.conv1 = layer.Conv2d(num_channels, 20, 5, padding=0, activation="RELU")
         self.conv2 = layer.Conv2d(20, 50, 5, padding=0, activation="RELU")
         self.linear1 = layer.Linear(500)
@@ -145,13 +142,12 @@ test_x, test_y = data_partition(test_x, test_y,
 
 A partition of the dataset is returned for this `dev`.
 
+Here, `world_size` represents the total number of processes in all the nodes you
+are using for distributed training.
+
 4. Initialize and synchronize the model parameters among all workers:
 
 ```python
-def synchronize(tensor, dist_opt):
-    dist_opt.all_reduce(tensor.data)
-    tensor /= dist_opt.world_size
-
 #Synchronize the initial parameter
 tx = tensor.Tensor((batch_size, 1, IMG_SIZE, IMG_SIZE), dev, tensor.float32)
 ty = tensor.Tensor((batch_size, num_classes), dev, tensor.int32)
@@ -162,9 +158,6 @@ seed = 0
 dev.SetRandSeed(seed)
 np.random.seed(seed)
 ```
-
-Here, `world_size` represents the total number of processes in all the nodes you
-are using for distributed training.
 
 5. Run BackPropagation and distributed SGD
 
