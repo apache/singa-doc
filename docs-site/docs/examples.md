@@ -50,6 +50,18 @@ example is given below.
 | ---------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Bert-Squad | [SQuAD v1.1](https://rajpurkar.github.io/SQuAD-explorer/explore/1.1/dev/) | [Colab](https://colab.research.google.com/drive/1kud-lUPjS_u-TkDAzihBTw0Vqr0FjCE-) |
 
+## Text Classification
+
+| Model       | Dataset     | Links      |
+| ----------- | ----------- | ---------- |
+| Simple LSTM | IMDB        | [python]() |
+
+## Text Ranking
+| Model       | Dataset     | Links      |
+| ----------- | ----------- | ---------- |
+| BiLSTM      | InsuranceQA | [python]() |
+
+
 ## Misc.
 
 - Restricted Boltzmann Machine over the MNIST dataset, [source](),
