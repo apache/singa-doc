@@ -168,10 +168,6 @@ for epoch in range(max_epoch):
         y = train_y[idx[b * batch_size: (b + 1) * batch_size]]
         tx.copy_from_numpy(x)
         ty.copy_from_numpy(y)
-        out = model.forward(tx)
-        loss = autograd.softmax_cross_entropy(out, ty)
-        # do backpropagation and all-reduce
-        sgd.backward_and_update(loss)
         # Train the model
         out, loss = model(tx, ty)
 ```
