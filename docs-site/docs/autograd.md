@@ -190,21 +190,21 @@ for epoch in range(epochs):
             sgd.update(p, gp)
 ```
 
-### Using the Module API
+### Using the Model API
 
 The following
-[example](https://github.com/apache/singa/blob/master/examples/autograd/cnn_module.py)
-implements a CNN model using the Module provided by the module.
+[example](https://github.com/apache/singa/blob/master/examples/cnn/model/cnn.py)
+implements a CNN model using the [Model API](./graph).
 
-#### Define the subclass of Module
+#### Define the subclass of Model
 
-Define the model class, it should be the subclass of the Module. In this way,
-all operations used during traing phase will form a calculation graph and will
-be analyzed. The operations in the graph will be scheduled and executed
-efficiently. Layers can also be included in the module class.
+Define the model class, it should be the subclass of Model. In this way, all
+operations used during the training phase will form a computational graph and
+will be analyzed. The operations in the graph will be scheduled and executed
+efficiently. Layers can also be included in the model class.
 
 ```python
-class MLP(module.Module):  # the model is a subclass of Module
+class MLP(model.Model):  # the model is a subclass of Model
 
     def __init__(self, optimizer):
         super(MLP, self).__init__()
@@ -262,5 +262,5 @@ for i in range(niters):
 ### Python API
 
 Refer
-[here](https://singa.readthedocs.io/en/latest/docs/autograd.html#module-singa.autograd)
+[here](https://singa.readthedocs.io/en/latest/autograd.html#module-singa.autograd)
 for more details of Python API.

@@ -65,7 +65,7 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-
 ```
 
 You can install a specific version of SINGA via `singa==<version>`, where the
-`<version>` field should be replaced, e.g., `3.0.0`. The available SINGA
+`<version>` field should be replaced, e.g., `3.1.0`. The available SINGA
 versions are listed at the link.
 
 To install the latest develop version, replace the link with
@@ -78,7 +78,7 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-cuda.html --trusted
 ```
 
 You can also configure SINGA version and the CUDA version, like
-`singa==3.0.0+cuda10.2`. The available combinations of SINGA version and CUDA
+`singa==3.1.0+cuda10.2`. The available combinations of SINGA version and CUDA
 version are listed at the link.
 
 To install the latest develop version, replace the link with
