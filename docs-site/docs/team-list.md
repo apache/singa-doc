@@ -34,26 +34,26 @@ Zhejiang University, NetEase, Osaka University, yzBigData, etc.
 
 ## Committers
 
-| Name         | Email               | Organization                     |
-| ------------ | ------------------- | -------------------------------- |
-| Chonho Lee   | chonho@apache.org   | Osaka University                 |
-| Sheng Wang   | wangsh@apache.org   | DAMO Academy, Alibaba Group      |
-| Wanqi Xue    | xuewanqi@apache.org | Nanyang Technological University |
-| Xiangrui Cai | caixr@apache.org    | Nankai University                |
+| Name         | Email                  | Organization                                  |
+| ------------ | ---------------------- | --------------------------------------------- |
+| Xiangrui Cai | caixr@apache.org       | Nankai University                             |
+| Chonho Lee   | chonho@apache.org      | Osaka University                              |
+| Shicong Lin  | shicong@apache.org     | National University of Singapore              |
+| Sheng Wang   | wangsh@apache.org      | DAMO Academy, Alibaba Group                   |
+| Rulin Xing   | rulin@apache.org       | Huazhong University of Science and Technology |
+| Wanqi Xue    | xuewanqi@apache.org    | Nanyang Technological University              |
+| Joddiy Zhang | joddiyzhang@apache.org | National University of Singapore              |
 
 ## Contributors
 
-| Name               | Email                        | Organization                                  |
-| ------------------ | ---------------------------- | --------------------------------------------- |
-| Haibo Chen         | hzchenhaibo@corp.netease.com | NetEase                                       |
-| Xin Ji             | vincent.j.xin@gmail.com      | Visenze, Singapore                            |
-| Anthony K. H. Tung | atung@comp.nus.edu.sg        | National University of Singapore              |
-| Ji Wang            | wangji@mzhtechnologies.com   | Hangzhou MZH Technologies                     |
-| Yuan Wang          | wangyuan@corp.netease.com    | NetEase                                       |
-| Wenfeng Wu         | dcswuw@gmail.com             | Freelancer, China                             |
-| Chang Yao          | yaochang2009@gmail.com       | Hangzhou MZH Technologies                     |
-| Shicheng Chen      | chengsc@comp.nus.edu.sg      | National University of Singapore              |
-| Joddiy Zhang       | joddiyzhang@gmail.com        | National University of Singapore              |
-| Shicong Lin        | dcslin@nus.edu.sg            | National University of Singapore              |
-| Kaiyuan Yang       | yangky@comp.nus.edu.sg       | National University of Singapore              |
-| Rulin Xing         | xjdkcsq3@gmail.com           | Huazhong University of Science and Technology |
+| Name               | Email                        | Organization                     |
+| ------------------ | ---------------------------- | -------------------------------- |
+| Haibo Chen         | hzchenhaibo@corp.netease.com | NetEase                          |
+| Shicheng Chen      | chengsc@comp.nus.edu.sg      | National University of Singapore |
+| Xin Ji             | vincent.j.xin@gmail.com      | Visenze, Singapore               |
+| Anthony K. H. Tung | atung@comp.nus.edu.sg        | National University of Singapore |
+| Ji Wang            | wangji@mzhtechnologies.com   | Hangzhou MZH Technologies        |
+| Yuan Wang          | wangyuan@corp.netease.com    | NetEase                          |
+| Wenfeng Wu         | dcswuw@gmail.com             | Freelancer, China                |
+| Kaiyuan Yang       | yangky@comp.nus.edu.sg       | National University of Singapore |
+| Chang Yao          | yaochang2009@gmail.com       | Hangzhou MZH Technologies        |

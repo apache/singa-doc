@@ -45,6 +45,16 @@ array([[1., 0., 0.],
  [0. 0.]]
 ```
 
+`tensor` transformation up to 6 dims
+
+```python
+>>> a = tensor.random((2,3,4,5,6,7))
+>>> a.shape
+(2, 3, 4, 5, 6, 7)
+>>> a.reshape((2,3,4,5,7,6)).transpose((3,2,1,0,4,5)).shape
+(5, 4, 3, 2, 7, 6)
+```
+
 ### Tensor Arithmetic Methods
 
 `tensor` is evaluated in real time.
@@ -56,6 +66,39 @@ array([[1., 0., 0.],
 >>> t / 5
 [[0.2 0.  0. ]
  [0.  0.2 0. ]]
+```
+
+`tensor` broadcasting arithmetic:
+
+```python
+>>> a
+[[1. 2. 3.]
+ [4. 5. 6.]]
+>>> b
+[[1. 2. 3.]]
+>>> a + b
+[[2. 4. 6.]
+ [5. 7. 9.]]
+>>> a * b
+[[ 1.  4.  9.]
+ [ 4. 10. 18.]]
+>>> a / b
+[[1.  1.  1. ]
+ [4.  2.5 2. ]]
+>>> a/=b # inplace operation
+>>> a
+[[1.  1.  1. ]
+ [4.  2.5 2. ]]
+```
+
+`tensor` broadcasting on matrix multiplication (GEMM)
+
+```python
+>>> from singa import tensor
+>>> a = tensor.random((2,2,2,3))
+>>> b = tensor.random((2,3,4))
+>>> tensor.mult(a,b).shape
+(2, 2, 2, 4)
 ```
 
 ### Tensor Functions
@@ -86,55 +129,54 @@ between `device`s via `to_device()` function.
 >>> x.to_device(device.get_default_device())
 ```
 
-### Simple Neural Network Example
+### use Tensor to train MLP
 
 ```python
-from singa import device
-from singa import tensor
-from singa import opt
-from singa import autograd
-class MLP:
-    def __init__(self):
-        self.linear1 = autograd.Linear(3, 4)
-        self.linear2 = autograd.Linear(4, 5)
-    def forward(self, x):
-        y=self.linear1(x)
-        return self.linear2(y)
-def train(model, x, t, dev, epochs=10):
-    for i in range(epochs):
-        y = model.forward(x)
-        loss = autograd.mse_loss(y, t)
-        print("loss: ", loss)
-        sgd = opt.SGD()
-        for p, gp in autograd.backward(loss):
-            sgd.update(p, gp)
-        sgd.step()
-    print("training completed")
-if __name__ == "__main__":
-    autograd.training = True
-    model = MLP()
-    dev = device.get_default_device()
-    x = tensor.Tensor((2, 3), dev)
-    t = tensor.Tensor((2, 5), dev)
-    x.gaussian(1,1)
-    t.gaussian(1,1)
-    train(model, x, t, dev)
+
+"""
+  code snipet from examples/mlp/module.py
+"""
+
+label = get_label()
+data = get_data()
+
+dev = device.create_cuda_gpu_on(0)
+sgd = opt.SGD(0.05)
+
+# define tensor for input data and label
+tx = tensor.Tensor((400, 2), dev, tensor.float32)
+ty = tensor.Tensor((400,), dev, tensor.int32)
+model = MLP(data_size=2, perceptron_size=3, num_classes=2)
+
+# attached model to graph
+model.set_optimizer(sgd)
+model.compile([tx], is_train=True, use_graph=True, sequential=False)
+model.train()
+
+for i in range(1001):
+    tx.copy_from_numpy(data)
+    ty.copy_from_numpy(label)
+    out, loss = model(tx, ty, 'fp32', spars=None)
+
+    if i % 100 == 0:
+        print("training loss = ", tensor.to_numpy(loss)[0])
 ```
 
 Output:
 
-```
-loss:  [4.917431]
-loss:  [2.5147934]
-loss:  [2.0670078]
-loss:  [1.9179827]
-loss:  [1.8192691]
-loss:  [1.7269677]
-loss:  [1.6308627]
-loss:  [1.52674]
-loss:  [1.4122975]
-loss:  [1.2866782]
-training completed
+```bash
+$ python3 examples/mlp/module.py
+training loss =  0.6158037
+training loss =  0.52852553
+training loss =  0.4571422
+training loss =  0.37274635
+training loss =  0.30146334
+training loss =  0.24906921
+training loss =  0.21128304
+training loss =  0.18390492
+training loss =  0.16362564
+training loss =  0.148164
+training loss =  0.13589878
 ```
 
 ## Tensor Implementation
