@@ -143,7 +143,7 @@ class Index extends React.Component {
                 {
                   content: `SINGA has a simple [software stack and Python interface](./docs/software-stack) to improve usability.`,
                   imageAlign: "left",
-                  image: `${siteConfig.baseUrl}img/singav3-sw.png`,
+                  image: `${siteConfig.baseUrl}img/singav3.1-sw.png`,
                   imageAlt: "Usability",
                   title: "Usability",
                 },

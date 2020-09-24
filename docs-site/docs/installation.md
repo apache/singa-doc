@@ -15,14 +15,14 @@ After installing miniconda, execute the one of the following commands to install
 SINGA.
 
 1. CPU only
-   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ntkhi-Z6XTR8WYPXiLwujHd2dOm0772V)
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ntkhi-Z6XTR8WYPXiLwujHd2dOm0772V?usp=sharing)
 
 ```shell
 $ conda install -c nusdbsystem -c conda-forge singa-cpu
 ```
 
 2. GPU with CUDA and cuDNN (CUDA driver >=384.81 is required)
-   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1do_TLJe18IthLOnBOsHCEe-FFPGk1sPJ)
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1do_TLJe18IthLOnBOsHCEe-FFPGk1sPJ?usp=sharing)
 
 ```shell
 $ conda install -c nusdbsystem -c conda-forge singa-gpu
@@ -59,6 +59,7 @@ then SINGA is installed successfully.
 ## Using Pip
 
 1. CPU only
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17RA056Brwk0vBQTFaZ-l9EbqwADO0NA9?usp=sharing)
 
 ```bash
 pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
@@ -72,6 +73,7 @@ To install the latest develop version, replace the link with
 http://singa.apache.org/docs/next/wheel-cpu-dev.html
 
 2. GPU With CUDA and cuDNN
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1W30IPCqj5fG8ADAQsFqclaCLyIclVcJL?usp=sharing)
 
 ```bash
 pip install singa -f http://singa.apache.org/docs/next/wheel-cuda.html --trusted-host singa.apache.org

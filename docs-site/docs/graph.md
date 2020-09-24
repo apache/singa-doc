@@ -16,6 +16,15 @@ need to define the neural network model using the
 [Model](https://github.com/apache/singa/blob/master/python/singa/model.py) API.
 The graph is constructed and optimized at the C++ backend automatically.
 
+In this way, on the one hand, users implement a network using the
+[Model](./graph) API following the imperative programming style like PyTorch.
+Different to PyTorch which recreates the operations in every iteration, SINGA
+buffers the operations to create a computational graph implicitly (when this
+feature is enabled) after the first iteration. Therefore, on the other hand,
+SINGA has a similar computational graph as the one created by libraries using
+declarative programming, e.g., TensorFlow. Consequently, it can enjoy the
+optimizations done over the graph.
+
 ## Example
 
 The following code illustrates the usage of the `Model` API.

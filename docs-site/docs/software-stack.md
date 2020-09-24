@@ -14,19 +14,9 @@ wraps some CPP data structures and provides additional high-level classes for
 neural network training, which makes it convenient to implement complex neural
 network models.
 
-SINGA's programming model enjoys the advantages of imperative programming and
-declarative programming. Users define the network structure and the training
-procedure (data flow) via imperative programming like PyTorch.  
-Different to PyTorch which recreates the operations in every iteration, SINGA
-buffers the operations to create a computational graph implicitly (when this
-feature is enabled) after the first iteration. The graph is similar to that
-created by libraries using declarative programming, e.g., TensorFlow. Therefore,
-SINGA can apply the memory and speed optimization techniques over the
-computational graph.
-
 Next, we introduce the software stack in a bottom-up manner.
 
-![SINGA V3 software stack](assets/singav3-sw.png) <br/> **Figure 1 - SINGA V3
+![SINGA V3 software stack](assets/singav3.1-sw.png) <br/> **Figure 1 - SINGA V3
 software stack.**
 
 ## Low-level Backend
@@ -144,6 +134,14 @@ efficiency and memory optimization.
 just need to inherit `Model` and define the forward propagation of the model by
 creating and calling the layers or operators. `Model` will do autograd and
 update the parameters via `Opt` automatically when training data is fed into it.
+With the `Model` API, SINGA enjoys the advantages of imperative programming and
+declarative programming. Users implement a network using the [Model](./graph)
+API following the imperative programming style like PyTorch. Different to
+PyTorch which recreates the operations in every iteration, SINGA buffers the
+operations to create a computational graph implicitly (when this feature is
+enabled) after the first iteration. The graph is similar to that created by
+libraries using declarative programming, e.g., TensorFlow. Therefore, SINGA can
+apply the memory and speed optimization techniques over the computational graph.
 
 ### ONNX
 
