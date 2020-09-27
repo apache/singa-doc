@@ -190,73 +190,72 @@ for epoch in range(epochs):
             sgd.update(p, gp)
 ```
 
-### Using the Module API
+### Using the Model API
 
 The following
 [example](https://github.com/apache/singa/blob/master/examples/autograd/cnn_module.py)
-implements a CNN model using the Module provided by the module.
+implements a CNN model using the Model provided by the model.
 
-#### Define the subclass of Module
+#### Define the subclass of Model
 
-Define the model class, it should be the subclass of the Module. In this way,
+Define the model class, it should be the subclass of the Model. In this way,
 all operations used during traing phase will form a calculation graph and will
 be analyzed. The operations in the graph will be scheduled and executed
-efficiently. Layers can also be included in the module class.
+efficiently. Layers can also be included in the model class.
 
 ```python
-class MLP(module.Module):  # the model is a subclass of Module
+class MLP(model.Model):  # the model is a subclass of Model
 
-    def __init__(self, optimizer):
+    def __init__(self, data_size=10, perceptron_size=100, num_classes=10):
         super(MLP, self).__init__()
 
         # init the operators, layers and other objects
-        self.w0 = Tensor(shape=(2, 3), requires_grad=True, stores_grad=True)
-        self.w0.gaussian(0.0, 0.1)
-        self.b0 = Tensor(shape=(3,), requires_grad=True, stores_grad=True)
-        self.b0.set_value(0.0)
-
-        self.w1 = Tensor(shape=(3, 2), requires_grad=True, stores_grad=True)
-        self.w1.gaussian(0.0, 0.1)
-        self.b1 = Tensor(shape=(2,), requires_grad=True, stores_grad=True)
-        self.b1.set_value(0.0)
-
-        # init the optimizer
-        self.optimizer = optimizer
+        self.relu = layer.ReLU()
+        self.linear1 = layer.Linear(perceptron_size)
+        self.linear2 = layer.Linear(num_classes)
+        self.softmax_cross_entropy = layer.SoftMaxCrossEntropy()
 
     def forward(self, inputs):  # define the forward function
-        x = autograd.matmul(inputs, self.w0)
-        x = autograd.add_bias(x, self.b0)
-        x = autograd.relu(x)
-        x = autograd.matmul(x, self.w1)
-        x = autograd.add_bias(x, self.b1)
-        return x
+        y = self.linear1(inputs)
+        y = self.relu(y)
+        y = self.linear2(y)
+        return y
 
-    def loss(self, out, target): # define the loss function
-        # can use the loss operations provided by SINGA or self-defined function
-        return autograd.softmax_cross_entropy(out, target)
+    def train_one_batch(self, x, y):
+        out = self.forward(x)
+        loss = self.softmax_cross_entropy(out, y)
+        self.optimizer(loss)
+        return out, loss
 
-    def optim(self, loss):       # define the optim function
-        # can use the optimizer provided by SINGA or self-defined function
-        return self.optimizer.backward_and_update(loss)
+    def set_optimizer(self, optimizer):  # attach an optimizer
+        self.optimizer = optimizer
 ```
 
 #### Training
 
 ```python
 # create a model instance
-model = MLP(sgd)
-# declare what device to train on
-model.on_device(dev)
-# declare execution mode and order
-model.graph(graph, sequential)
+model = MLP()
+# initialize optimizer and attach it to the model
+sgd = opt.SGD(lr=0.005, momentum=0.9, weight_decay=1e-5)
+model.set_optimizer(sgd)
+# input and target placeholders for the model
+tx = tensor.Tensor((batch_size, 1, IMG_SIZE, IMG_SIZE), dev, tensor.float32)
+ty = tensor.Tensor((batch_size, num_classes), dev, tensor.int32)
+# compile the model before training
+model.compile([tx], is_train=True, use_graph=True, sequential=False)
 
-for i in range(niters):
-    out = model(inputs)
-    loss = model.loss(out, target)
-    model.optim(loss)
+# train the model iteratively
+for b in range(num_train_batch):
+    # generate the next mini-batch
+    x, y = ...
 
-    if i % (niters / 10) == 0 and rank_in_global == 0:
-        print("training loss = ", tensor.to_numpy(loss)[0], flush=True)
+    # Copy the data into input tensors
+    tx.copy_from_numpy(x)
+    ty.copy_from_numpy(y)
+
+    # Training with one batch
+    out, loss = model(tx, ty)
 ```
 
 ### Python API
