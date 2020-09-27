@@ -258,6 +258,28 @@ for b in range(num_train_batch):
     out, loss = model(tx, ty)
 ```
 
+#### Save a model checkpoint
+
+```python
+# define the path to save the checkpoint
+checkpointpath="checkpoint.zip"
+
+# save a checkpoint
+model.save_states(fpath=checkpointpath)
+```
+
+#### Load a model checkpoint
+
+```python
+# define the path to load the checkpoint
+checkpointpath="checkpoint.zip"
+
+# load a checkpoint
+import os
+if os.path.exists(checkpointpath):
+    model.load_states(fpath=checkpointpath)
+```
+
 ### Python API
 
 Refer
