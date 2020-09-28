@@ -13,7 +13,7 @@ edge, all operations form a computational graph. With the computational graph,
 speed and memory optimization can be conducted by scheduling the execution of
 the operations and memory allocation/release intelligently. In SINGA, users only
 need to define the neural network model using the
-[Module](https://github.com/apache/singa/blob/master/python/singa/module.py)
+[Model](https://github.com/apache/singa/blob/master/python/singa/model.py)
 API. The graph is constructed and optimized at the C++ backend automatically.
 
 ## Example
@@ -62,6 +62,7 @@ model = CNN()
 
 # initialize optimizer and attach it to the model
 sgd = opt.SGD(lr=0.005, momentum=0.9, weight_decay=1e-5)
+model.set_optimizer(sgd)
 
 # initialize device
 dev = device.create_cuda_gpu()
@@ -94,7 +95,7 @@ A Google Colab notebook of this example is available
 
 More examples:
 
-- [MLP](https://github.com/apache/singa/blob/master/examples/mlp/module.py)
+- [MLP](https://github.com/apache/singa/blob/master/examples/mlp/model.py)
 - [CNN](https://github.com/apache/singa/blob/master/examples/cnn/model/cnn.py)
 - [ResNet](https://github.com/apache/singa/blob/master/examples/cnn/model/resnet.py)
 
@@ -109,7 +110,7 @@ SINGA constructs the computational graph in three steps:
 3. create the nodes and edges based on the dependencies
 
 Take the matrix multiplication operation from the dense layer of a
-[MLP model](https://github.com/apache/singa/blob/master/examples/mlp/module.py)
+[MLP model](https://github.com/apache/singa/blob/master/examples/mlp/model.py)
 as an example. The operation is called in the `forward` function of the MLP
 class
 
@@ -315,7 +316,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
   - Model
     - Using layer: ResNet50 in
       [resnet.py](https://github.com/apache/singa/blob/master/examples/cnn/autograd/resnet_cifar10.py)
-    - Using module: ResNet50 in
+    - Using model: ResNet50 in
       [resnet.py](https://github.com/apache/singa/blob/master/examples/cnn/model/resnet.py)
   - GPU: NVIDIA RTX 2080Ti
 - Notations
@@ -350,7 +351,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0000</td>
       </tr>
       <tr>
-          <td nowrap>module:disable graph</td>
+          <td nowrap>model:disable graph</td>
           <td>4995</td>
           <td>14.1264</td>
           <td>14.1579</td>
@@ -359,7 +360,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0049</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph, bfs</td>
+          <td nowrap>model:enable graph, bfs</td>
           <td>3283</td>
           <td>13.7438</td>
           <td>14.5520</td>
@@ -368,7 +369,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0328</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph, serial</td>
+          <td nowrap>model:enable graph, serial</td>
           <td>3265</td>
           <td>13.7420</td>
           <td>14.5540</td>
@@ -387,7 +388,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0000</td>
       </tr>
       <tr>
-          <td nowrap>module:disable graph</td>
+          <td nowrap>model:disable graph</td>
           <td>10109</td>
           <td>13.2952</td>
           <td>7.5315</td>
@@ -396,7 +397,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0123</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph, bfs</td>
+          <td nowrap>model:enable graph, bfs</td>
           <td>6839</td>
           <td>13.1059</td>
           <td>7.6302</td>
@@ -405,7 +406,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0269</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph, serial</td>
+          <td nowrap>model:enable graph, serial</td>
           <td>6845</td>
           <td>13.0489</td>
           <td>7.6635</td>
@@ -421,7 +422,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
   - Model
     - using Layer: ResNet50 in
       [resnet_dist.py](https://github.com/apache/singa/blob/master/examples/cnn/autograd/resnet_dist.py)
-    - using Module: ResNet50 in
+    - using Model: ResNet50 in
       [resnet.py](https://github.com/apache/singa/blob/master/examples/cnn/model/resnet.py)
   - GPU: NVIDIA RTX 2080Ti \* 2
   - MPI: two MPI processes on one node
@@ -449,7 +450,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0000</td>
       </tr>
       <tr>
-          <td nowrap>module:disable graph</td>
+          <td nowrap>model:disable graph</td>
           <td>5427</td>
           <td>17.8232</td>
           <td>11.2213</td>
@@ -458,7 +459,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>0.9725</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph, bfs</td>
+          <td nowrap>model:enable graph, bfs</td>
           <td>3389</td>
           <td>18.2310</td>
           <td>10.9703</td>
@@ -467,7 +468,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>0.9507</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph, serial</td>
+          <td nowrap>model:enable graph, serial</td>
           <td>3437</td>
           <td>17.0389</td>
           <td>11.7378</td>
@@ -486,7 +487,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0000</td>
       </tr>
       <tr>
-          <td nowrap>module:disable graph</td>
+          <td nowrap>model:disable graph</td>
           <td>10503</td>
           <td>14.7746</td>
           <td>6.7684</td>
@@ -495,7 +496,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0060</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph, bfs</td>
+          <td nowrap>model:enable graph, bfs</td>
           <td>6935</td>
           <td>14.8553</td>
           <td>6.7316</td>
@@ -504,7 +505,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
           <td>1.0006</td>
       </tr>
       <tr>
-          <td nowrap>module:enable graph, serial</td>
+          <td nowrap>model:enable graph, serial</td>
           <td>7027</td>
           <td>14.3271</td>
           <td>6.9798</td>
