@@ -124,14 +124,11 @@ class
 
 ```python
 class MLP(model.Model):
-<<<<<<< HEAD
-=======
 
     def __init__(self, data_size=10, perceptron_size=100, num_classes=10):
         super(MLP, self).__init__()
         self.linear1 = layer.Linear(perceptron_size)
         ...
->>>>>>> upstream/master
 
     def forward(self, inputs):
         y = self.linear1(inputs)
