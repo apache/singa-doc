@@ -71,6 +71,7 @@ model = CNN()
 
 # initialize optimizer and attach it to the model
 sgd = opt.SGD(lr=0.005, momentum=0.9, weight_decay=1e-5)
+model.set_optimizer(sgd)
 
 # initialize device
 dev = device.create_cuda_gpu()

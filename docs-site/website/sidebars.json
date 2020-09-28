@@ -9,9 +9,11 @@
       "device",
       "tensor",
       "autograd",
+      "optimizer",
       "graph",
       "onnx",
-      "dist-train"
+      "dist-train",
+      "time-profiling"
     ],
     "Development": [
       "download-singa",
