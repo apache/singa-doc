@@ -23,7 +23,6 @@ The dependencies are:
   - Make sure the path to cmake executable is in the system path, or use full
     path when calling cmake.
 - SWIG
-
   - Can be downloaded from http://swig.org/
   - Make sure the path to swig executable is in the system path, or use full
     path when calling swig. Use a recent version such as 3.0.12.
@@ -38,7 +37,6 @@ The dependencies are:
   - Change the build settings to Release and x64.
   - build libprotobuf project.
 - Openblas
-
   - Download a suitable source version such as 0.2.20 from
     http://www.openblas.net
   - Extract the source in the dependencies folder.
@@ -68,20 +66,20 @@ The dependencies are:
 - Download SINGA source code
 - Compile the protobuf files:
 
-  - Goto src/proto folder
+  - Go to src/proto folder
 
   ```shell
   mkdir python_out
   protoc.exe *.proto --python_out python_out
   ```
 
-- Generate swig interfaces for C++ and Python: Goto src/api
+- Generate swig interfaces for C++ and Python: Go to src/api
 
   ```shell
   swig -python -c++ singa.i
   ```
 
-- generate Visual Studio solution for SINGA: Goto SINGA source code root folder
+- generate Visual Studio solution for SINGA: Go to SINGA source code root folder
 
   ```shell
   mkdir build
@@ -118,9 +116,9 @@ The dependencies are:
   - change target name to \_singa_wrap
   - change target extension to .pyd
   - change configuration type to Dynamic Library (.dll)
-  - goto Additional Library Directories and add the path to python, openblas,
+  - go to Additional Library Directories and add the path to python, openblas,
     protobuf and glog libraries
-  - goto Additional Dependencies and add libopenblas.lib, libglog.lib and
+  - go to Additional Dependencies and add libopenblas.lib, libglog.lib and
     libprotobuf.lib
 
 - build singa project
@@ -138,7 +136,7 @@ The dependencies are:
   SingaEnv\Scripts\activate
   ```
 
-- goto build/python folder and run:
+- go to build/python folder and run:
 
   ```shell
   python setup.py install
@@ -178,9 +176,9 @@ A video tutorial for the build process can be found here:
   - In Additional Include Directories, add path of GLOG_INCLUDE_DIR,
     CBLAS_INCLUDE_DIR and Protobuf_INCLUDE_DIR which were used in step 2 above.
     Add also build and build/include folders.
-  - Goto Additional Library Directories and add the path to openblas, protobuf
+  - Go to Additional Library Directories and add the path to openblas, protobuf
     and glog libraries. Add also build/src/singa_objects.dir/Release.
-  - Goto Additional Dependencies and add libopenblas.lib, libglog.lib and
+  - Go to Additional Dependencies and add libopenblas.lib, libglog.lib and
     libprotobuf.lib. Fix the names of the two libraries: gtest.lib and
     singa_objects.lib.
 
@@ -258,7 +256,7 @@ In addition to the dependencies in section 1 above, we will need the following:
     ..
   ```
 
-* Generate swig interfaces for C++ and Python: Goto src/api
+* Generate swig interfaces for C++ and Python: Go to src/api
 
   ```shell
   swig -python -c++ singa.i
@@ -303,10 +301,10 @@ In addition to the dependencies in section 1 above, we will need the following:
   - change target name to \_singa_wrap
   - change target extension to .pyd
   - change configuration type to Dynamic Library (.dll)
-  - goto Additional Library Directories and add the path to python, openblas,
+  - go to Additional Library Directories and add the path to python, openblas,
     protobuf and glog libraries
   - Add also the library path to singa-kernel, cnmem, cuda and cudnn.
-  - goto Additional Dependencies and add libopenblas.lib, libglog.lib and
+  - go to Additional Dependencies and add libopenblas.lib, libglog.lib and
     libprotobuf.lib.
   - Add also: singa-kernel.lib, cnmem.lib, cudnn.lib, cuda.lib , cublas.lib,
     curand.lib and cudart.lib.
@@ -326,7 +324,7 @@ In addition to the dependencies in section 1 above, we will need the following:
   SingaEnv\Scripts\activate
   ```
 
-- goto build/python folder and run:
+- go to build/python folder and run:
 
   ```shell
   python setup.py install
@@ -368,10 +366,10 @@ A video tutorial for this part can be found here:
   - In Additional Include Directories, add path of GLOG_INCLUDE_DIR,
     CBLAS_INCLUDE_DIR and Protobuf_INCLUDE_DIR which were used in step 5.2
     above. Add also build, build/include, CUDA and cuDNN include folders.
-  - Goto Additional Library Directories and add the path to openblas, protobuf
+  - Go to Additional Library Directories and add the path to openblas, protobuf
     and glog libraries. Add also build/src/singa_objects.dir/Release,
     singa-kernel, cnmem, CUDA and cuDNN library paths.
-  - Goto Additional Dependencies and add libopenblas.lib; libglog.lib;
+  - Go to Additional Dependencies and add libopenblas.lib; libglog.lib;
     libprotobuf.lib; cnmem.lib; cudnn.lib; cuda.lib; cublas.lib; curand.lib;
     cudart.lib; singa-kernel.lib. Fix the names of the two libraries: gtest.lib
     and singa_objects.lib.

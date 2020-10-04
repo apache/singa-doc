@@ -153,7 +153,7 @@ propagation.
 ```python
 def forward(x, t):
     # x is the input data (a batch of images)
-    # t the the label vector (a batch of integers)
+    # t is the label vector (a batch of integers)
     y = conv1(x)           # Conv layer
     y = autograd.relu(y)   # ReLU operation
     y = bn1(y)             # BN layer
