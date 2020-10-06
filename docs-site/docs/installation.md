@@ -76,7 +76,7 @@ http://singa.apache.org/docs/next/wheel-cpu-dev.html
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1W30IPCqj5fG8ADAQsFqclaCLyIclVcJL?usp=sharing)
 
 ```bash
-pip install singa -f http://singa.apache.org/docs/next/wheel-cuda.html --trusted-host singa.apache.org
+pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html  --trusted-host singa.apache.org
 ```
 
 You can also configure SINGA version and the CUDA version, like
@@ -84,7 +84,7 @@ You can also configure SINGA version and the CUDA version, like
 version are listed at the link.
 
 To install the latest develop version, replace the link with
-http://singa.apache.org/docs/next/wheel-cuda-dev.html
+http://singa.apache.org/docs/next/wheel-gpu-dev.html
 
 Note: the Python version of your local Python environment will be used to find
 the corresponding wheel package. For example, if your local Python is 3.6, then
@@ -179,4 +179,4 @@ building tools or conda-build, on local host OS or in a Docker container.
   The Python linked by SINGA must be the same as the Python interpreter. You can
   check your interpreter by `which python` and check the Python linked by SINGA
   via `otool -L <path to _singa_wrap.so>`. This problem should be resolved if
-  SINGA is installation via conda.
+  SINGA is installed via conda.

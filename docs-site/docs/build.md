@@ -290,7 +290,7 @@ $ make
 ### USE_OPENCL
 
 SINGA uses opencl-headers and viennacl (version 1.7.1 or newer) for OpenCL
-support, which can be installed using via
+support, which can be installed via
 
 ```shell
 # On Ubuntu 16.04
