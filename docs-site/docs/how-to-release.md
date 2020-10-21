@@ -96,11 +96,12 @@ in SINGA.
    cd VERSION
    sha512sum apache-singa-VERSION.tar.gz > apache-singa-VERSION.tar.gz.sha512
    gpg --armor --output apache-singa-VERSION.tar.gz.asc --detach-sig apache-singa-VERSION.tar.gz
+   cd ..
    svn add VERSION
-   svn update
+   svn commit
    ```
 
-6) Call for vote by sending an email
+6) Call for vote by sending an email. An example is provided as follows.
 
    ```
    To: dev@singa.apache.org
@@ -108,76 +109,100 @@ in SINGA.
 
    Hi all,
 
-   I have created a build for Apache SINGA X.Y.Z, release candidate N.
-   The artifacts to be voted on are located here:  xxxx
-   The hashes of the artifacts are as follows: xxx
-   Release artifacts are signed with the following key: xxx
-   Please vote on releasing this package. The vote is open for at least
-   72 hours and passes if a majority of at least three +1 votes are cast.
+   I have created a build for Apache SINGA 3.1.0, release candidate 2.
 
-   [ ] +1 Release this package as Apache SINGA X.Y.Z
-   [ ] 0 I don't feel strongly about it, but I'm okay with the release
-   [ ] -1 Do not release this package because...
+   The release note is at
+   https://github.com/apache/singa/blob/master/RELEASE_NOTES.
 
-   Here is my vote:
-   +1
+   The artifacts to be voted on are located here:
+   https://dist.apache.org/repos/dist/dev/singa/3.1.0.rc2/apache-singa-3.1.0.rc2.tar.gz
+    
+   The hashes of the artifacts are as follows:
+   SHA512: 84545499ad36da108c6a599edd1d853f82d331bc03273b5278515554866f0c698e881f956b2eabcb6b29c07fa9fa4ff1add5a777b58db8a6a2362cf383b5c04d 
+
+   Release artifacts are signed with the followingkey:
+   https://dist.apache.org/repos/dist/dev/singa/KEYS
+
+   The signature file is:
+   https://dist.apache.org/repos/dist/dev/singa/3.1.0.rc2/apache-singa-3.1.0.rc2.tar.gz.asc
+
+   The Github tag is at:
+   https://github.com/apache/singa/releases/tag/3.1.0.rc2
+
+   The documentation website is at
+   http://singa.apache.org/docs/next/installation/
+
+   Some examples are available for testing:
+   https://github.com/apache/singa/tree/master/examples
    ```
+
+Please vote on releasing this package. The vote is open for at least 72 hours
+and passes if a majority of at least three +1 votes are cast.
+
+[ ] +1 Release this package as Apache SINGA X.Y.Z [ ] 0 I don't feel strongly
+about it, but I'm okay with the release [ ] -1 Do not release this package
+because...
+
+Here is my vote: +1
+
+```
 
 7) Wait at least 48 hours for test responses. Any PMC, committer or contributor
-   can test features for releasing, and feedback. Everyone should check these
-   before vote +1. If the vote passes, then send the result email. Otherwise,
-   repeat from the beginning.
+can test features for releasing, and feedback. Everyone should check these
+before vote +1. If the vote passes, then send the result email. Otherwise,
+repeat from the beginning.
 
-   ```
-   To: dev@singa.apache.org
-   Subject: [RESULT] [VOTE] Release apache-singa-X.Y.Z (release candidate N)
+```
 
-   Thanks to everyone who has voted and given their comments.
-   The tally is as follows.
+To: dev@singa.apache.org Subject: [RESULT][vote] Release apache-singa-X.Y.Z
+(release candidate N)
 
-   N binding +1s:
-   <names>
+Thanks to everyone who has voted and given their comments. The tally is as
+follows.
 
-   N non-binding +1s:
-   <names>
+N binding +1s: <names>
 
-   No 0s or -1s.
+N non-binding +1s: <names>
 
-   I am delighted to announce that the proposal to release
-   Apache SINGA X.Y.Z has passed.
-   ```
+No 0s or -1s.
+
+I am delighted to announce that the proposal to release Apache SINGA X.Y.Z has
+passed.
+
+````
 
 8) Upload the package for
-   [distribution](http://www.apache.org/dev/release-publishing.html#distribution)
-   to https://dist.apache.org/repos/dist/release/singa/.
+[distribution](http://www.apache.org/dev/release-publishing.html#distribution)
+to https://dist.apache.org/repos/dist/release/singa/.
 
 9) Update the Download page of SINGA website. The tar.gz file MUST be downloaded
-   from mirror, using closer.cgi script; other artifacts MUST be downloaded from
-   main Apache site. More details
-   [here](http://www.apache.org/dev/release-download-pages.html). Some feedback
-   we got during the previous releases: "Download pages must only link to formal
-   releases, so must not include links to GitHub.", "Links to KEYS, sigs and
-   hashes must not use dist.apache.org; instead use
-   https://www.apache.org/dist/singa/...;", "Also you only need one KEYS link,
-   and there should be a description of how to use KEYS + sig or hash to verify
-   the downloads."
+from mirror, using closer.cgi script; other artifacts MUST be downloaded from
+main Apache site. More details
+[here](http://www.apache.org/dev/release-download-pages.html). Some feedback
+we got during the previous releases: "Download pages must only link to formal
+releases, so must not include links to GitHub.", "Links to KEYS, sigs and
+hashes must not use dist.apache.org; instead use
+https://www.apache.org/dist/singa/...;", "Also you only need one KEYS link,
+and there should be a description of how to use KEYS + sig or hash to verify
+the downloads."
 
 10) Remove the RC tag and compile the conda packages.
 
 11) Publish the release information.
 
-    ```
-    To: announce@apache.org, dev@singa.apache.org
-    Subject: [ANNOUNCE] Apache SINGA X.Y.Z released
+ ```
+ To: announce@apache.org, dev@singa.apache.org
+ Subject: [ANNOUNCE] Apache SINGA X.Y.Z released
 
-    We are pleased to announce that SINGA X.Y.Z is released.
+ We are pleased to announce that SINGA X.Y.Z is released.
 
-    SINGA is a general distributed deep learning platform
-    for training big deep learning models over large datasets.
-    The release is available at: http://singa.apache.org/downloads.html
-    The main features of this release include XXX
-    We look forward to hearing your feedback, suggestions,
-    and contributions to the project.
+ SINGA is a general distributed deep learning platform
+ for training big deep learning models over large datasets.
+ The release is available at: http://singa.apache.org/downloads.html
+ The main features of this release include XXX
+ We look forward to hearing your feedback, suggestions,
+ and contributions to the project.
 
-    On behalf of the SINGA team, {SINGA Team Member Name}
-    ```
+ On behalf of the SINGA team, {SINGA Team Member Name}
+ ```
+````

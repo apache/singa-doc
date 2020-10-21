@@ -26,6 +26,7 @@ Zhejiang University, NetEase, Osaka University, yzBigData, etc.
 | Beng Chin Ooi | ooibc@apache.org        | National University of Singapore              |
 | Moaz Reyad    | moaz@apache.org         | Université Grenoble Alpes                     |
 | Kian-Lee Tan  | tankianlee@apache.org   | National University of Singapore              |
+| Sheng Wang    | wangsh@apache.org       | DAMO Academy, Alibaba Group                   |
 | Wei Wang      | wangwei@apache.org      | National University of Singapore              |
 | Zhongle Xie   | zhongle@apache.org      | National University of Singapore              |
 | Sai Ho Yeung  | chrishkchris@apache.org | National University of Singapore              |
@@ -39,7 +40,6 @@ Zhejiang University, NetEase, Osaka University, yzBigData, etc.
 | Xiangrui Cai | caixr@apache.org       | Nankai University                             |
 | Chonho Lee   | chonho@apache.org      | Osaka University                              |
 | Shicong Lin  | shicong@apache.org     | National University of Singapore              |
-| Sheng Wang   | wangsh@apache.org      | DAMO Academy, Alibaba Group                   |
 | Rulin Xing   | rulin@apache.org       | Huazhong University of Science and Technology |
 | Wanqi Xue    | xuewanqi@apache.org    | Nanyang Technological University              |
 | Joddiy Zhang | joddiyzhang@apache.org | National University of Singapore              |

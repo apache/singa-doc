@@ -36,8 +36,9 @@ $ conda search -c nusdbsystem singa
 
 Loading channels: done
 # Name                       Version           Build  Channel
-singa                      2.1.0.dev        cpu_py36  nusdbsystem
-singa                      2.1.0.dev        cpu_py37  nusdbsystem
+singa                      3.1.0.rc2        cpu_py36  nusdbsystem
+singa                      3.1.0.rc2 cudnn7.6.5_cuda10.2_py36  nusdbsystem
+singa                      3.1.0.rc2 cudnn7.6.5_cuda10.2_py37  nusdbsystem
 ```
 
 <!--- > Please note that using the nightly built images is not recommended except for SINGA development and testing. Using stable releases is recommended. -->
@@ -45,7 +46,7 @@ singa                      2.1.0.dev        cpu_py37  nusdbsystem
 The following command installs a specific version of SINGA,
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa=X.Y.Z.dev=cpu_py37
+$ conda install -c nusdbsystem -c conda-forge singa=X.Y.Z=cpu_py36
 ```
 
 If there is no error message from
@@ -76,7 +77,7 @@ http://singa.apache.org/docs/next/wheel-cpu-dev.html
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1W30IPCqj5fG8ADAQsFqclaCLyIclVcJL?usp=sharing)
 
 ```bash
-pip install singa -f http://singa.apache.org/docs/next/wheel-cuda.html --trusted-host singa.apache.org
+pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
 ```
 
 You can also configure SINGA version and the CUDA version, like
@@ -84,7 +85,7 @@ You can also configure SINGA version and the CUDA version, like
 version are listed at the link.
 
 To install the latest develop version, replace the link with
-http://singa.apache.org/docs/next/wheel-cuda-dev.html
+http://singa.apache.org/docs/next/wheel-gpu-dev.html
 
 Note: the Python version of your local Python environment will be used to find
 the corresponding wheel package. For example, if your local Python is 3.6, then
