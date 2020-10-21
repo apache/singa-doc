@@ -180,4 +180,4 @@ building tools or conda-build, on local host OS or in a Docker container.
   The Python linked by SINGA must be the same as the Python interpreter. You can
   check your interpreter by `which python` and check the Python linked by SINGA
   via `otool -L <path to _singa_wrap.so>`. This problem should be resolved if
-  SINGA is installation via conda.
+  SINGA is installed via conda.

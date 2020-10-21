@@ -7,12 +7,12 @@ title: Software Stack
 
 SINGA's software stack includes two major levels, the low level backend classes
 and the Python interface level. Figure 1 illustrates them together with the
-hardware. The backend components provides basic data structures for deep
-learning models, hardware abstractions for scheduling and executing operations,
-and communication components for distributed training. The Python interface
-wraps some CPP data structures and provides additional high-level classes for
-neural network training, which makes it convenient to implement complex neural
-network models.
+hardware. The backend components provide basic data structures for deep learning
+models, hardware abstractions for scheduling and executing operations, and
+communication components for distributed training. The Python interface wraps
+some CPP data structures and provides additional high-level classes for neural
+network training, which makes it convenient to implement complex neural network
+models.
 
 Next, we introduce the software stack in a bottom-up manner.
 
@@ -41,7 +41,7 @@ the following specific device classes:
 
 `Tensor` class represents a multi-dimensional array, which stores model
 variables, e.g., the input images and feature maps from the convolution layer.
-Each `Tensor` instance (i.e. a tensor) is allocated on a a device, which manages
+Each `Tensor` instance (i.e. a tensor) is allocated on a device, which manages
 the memory of the tensor and schedules the (computation) operations against
 tensors. Most machine learning algorithms could be expressed using (dense or
 sparse) the tensor abstraction and its operations. Therefore, SINGA would be
@@ -72,7 +72,8 @@ The neural network specific operators are also implemented separately, e.g.,
 Typically, users create a `Device` instance and use it to create multiple
 `Tensor` instances. When users call the Tensor functions or neural network
 operations, the corresponding implementation for the resident device will be
-invoked In other words, the implementation of operators is transparent to users.
+invoked. In other words, the implementation of operators is transparent to
+users.
 
 The Tensor and Device abstractions are extensible to support a wide range of
 hardware device using different programming languages. A new hardware device
@@ -136,7 +137,7 @@ creating and calling the layers or operators. `Model` will do autograd and
 update the parameters via `Opt` automatically when training data is fed into it.
 With the `Model` API, SINGA enjoys the advantages of imperative programming and
 declarative programming. Users implement a network using the [Model](./graph)
-API following the imperative programming style like PyTorch. Different to
+API following the imperative programming style like PyTorch. Different from
 PyTorch which recreates the operations in every iteration, SINGA buffers the
 operations to create a computational graph implicitly (when this feature is
 enabled) after the first iteration. The graph is similar to that created by
@@ -145,7 +146,7 @@ apply the memory and speed optimization techniques over the computational graph.
 
 ### ONNX
 
-To support ONNX, SINGA implmenets a [sonnx](./onnx) module, which includes
+To support ONNX, SINGA implements a [sonnx](./onnx) module, which includes:
 
 - SingaFrontend for saving SINGA model into onnx format.
 - SingaBackend for loading onnx format model into SINGA for training and
