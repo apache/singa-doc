@@ -13,7 +13,8 @@
       "graph",
       "onnx",
       "dist-train",
-      "time-profiling"
+      "time-profiling",
+      "half-precision"
     ],
     "Development": [
       "download-singa",
