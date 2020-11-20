@@ -35,6 +35,12 @@ $ yarn run build # or npm run build
 
 The generated html files are under `website/build/singa-doc/`.
 
+To host the website locally for testing, under `website/build/singa-doc/` type:
+
+```sh
+$ python -m http.server
+```
+
 ## Update and Add Pages
 
 ### Navigation Bar
