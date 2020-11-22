@@ -17,7 +17,7 @@
       "half-precision"
     ],
     "Development": [
-      "download-singa",
+      "downloads",
       "build",
       "contribute-code",
       "contribute-docs",
