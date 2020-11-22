@@ -1,5 +1,5 @@
 ---
-id: download-singa
+id: downloads
 title: Download SINGA
 ---
 
@@ -17,6 +17,29 @@ the following commands
 ```
 
 You can also check the SHA512 or MD5 values to see if the download is completed.
+
+## V3.1.0 (30 October 2020):
+
+- [Apache SINGA 3.1.0](http://www.apache.org/dyn/closer.cgi/singa/3.1.0/apache-singa-3.1.0.tar.gz)
+  [\[SHA512\]](https://www.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.sha512)
+  [\[ASC\]](https://www.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.asc)
+- [Release Notes 3.1.0](releases/RELEASE_NOTES_3.1.0)
+- Major changes:
+  - Update Tensor core:
+    - Support tensor transformation (reshape, transpose) for tensors up to 6 dimensions.
+    - Implement traverse_unary_transform in Cuda backend, which is similar to CPP backend one.
+  - Add new tensor operators into the autograd module.
+  - Reconstruct sonnx to
+    - Support creating operators from both layer and autograd.
+    - Re-write SingaRep to provide a more powerful intermediate representation of SINGA.
+    - Add a SONNXModel which implements from Model to provide uniform API and features.
+  - Replace the Travis CI with Github workflow. Add quality and coverage management.
+  - Add compiling and packaging scripts to create wheel packages for distribution.
+  - Fix bugs
+    - Fix IMDB LSTM model example training script.
+    - Fix Tensor operation Mult on Broadcasting use cases.
+    - Gaussian function on Tensor now can run on Tensor with odd size.
+    - Updated a testing helper function gradients() in autograd to lookup param gradient by param python object id for testing purpose.
 
 ## V3.0.0 (18 April 2020):
 

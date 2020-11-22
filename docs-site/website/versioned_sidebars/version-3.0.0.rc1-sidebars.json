@@ -13,7 +13,7 @@
       "version-3.0.0.rc1-dist-train"
     ],
     "Development": [
-      "version-3.0.0.rc1-download-singa",
+      "version-3.0.0.rc1-downloads",
       "version-3.0.0.rc1-build",
       "version-3.0.0.rc1-contribute-code",
       "version-3.0.0.rc1-contribute-docs",

@@ -22,7 +22,7 @@
       "version-2.0.0-model-zoo-imagenet-vgg"
     ],
     "Development": [
-      "version-2.0.0-download-singa",
+      "version-2.0.0-downloads",
       "version-2.0.0-build",
       "version-2.0.0-contribute-code",
       "version-2.0.0-contribute-docs",
