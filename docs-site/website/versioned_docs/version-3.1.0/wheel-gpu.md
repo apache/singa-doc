@@ -1,6 +1,6 @@
 ---
 id: version-3.1.0-wheel-gpu
-title: Wheel Packages with CUDA Enabled
+title: CUDA Enabled
 original_id: wheel-gpu
 ---
 

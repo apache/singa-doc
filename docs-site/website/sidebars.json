@@ -13,10 +13,11 @@
       "graph",
       "onnx",
       "dist-train",
-      "time-profiling"
+      "time-profiling",
+      "half-precision"
     ],
     "Development": [
-      "download-singa",
+      "downloads",
       "build",
       "contribute-code",
       "contribute-docs",

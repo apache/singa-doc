@@ -1,6 +1,6 @@
 ---
 id: version-3.1.0-wheel-cpu
-title: CPU only Wheel Packages
+title: CPU only
 original_id: wheel-cpu
 ---
 

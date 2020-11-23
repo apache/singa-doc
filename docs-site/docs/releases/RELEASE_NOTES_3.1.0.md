@@ -25,7 +25,7 @@ This release includes following changes:
 - Add SGD operators to opt module, including RMSProp, Adam, and AdaGrad.
 
 - Extend the sonnx module to support DenseNet121, ShuffleNetv1, ShuffleNetv2,
-  SqueezeNet, VGG19, GPT2, and RoBERTa,
+  SqueezeNet, VGG19, GPT2, and RoBERTa.
 
 - Reconstruct sonnx to
 

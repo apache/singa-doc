@@ -16,7 +16,7 @@
       "version-3.1.0-time-profiling"
     ],
     "Development": [
-      "version-3.1.0-download-singa",
+      "version-3.1.0-downloads",
       "version-3.1.0-build",
       "version-3.1.0-contribute-code",
       "version-3.1.0-contribute-docs",
@@ -32,6 +32,12 @@
       "version-3.1.0-security",
       "version-3.1.0-team-list",
       "version-3.1.0-history-singa"
+    ],
+    "Wheel Package": [
+      "version-3.1.0-wheel-cpu",
+      "version-3.1.0-wheel-cpu-dev",
+      "version-3.1.0-wheel-gpu",
+      "version-3.1.0-wheel-gpu-dev"
     ]
   }
 }

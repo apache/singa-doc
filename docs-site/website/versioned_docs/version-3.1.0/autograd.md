@@ -193,8 +193,7 @@ for epoch in range(epochs):
 
 ### Using the Model API
 
-The following <<<<<<< HEAD
-[example](https://github.com/apache/singa/blob/master/examples/cnn/model/cnn.py)
+The following [example](https://github.com/apache/singa/blob/master/examples/cnn/model/cnn.py)
 implements a CNN model using the [Model API](./graph).
 
 #### Define the subclass of Model

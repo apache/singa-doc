@@ -1,5 +1,5 @@
 ---
-id: download-singa
+id: downloads
 title: Download SINGA
 ---
 
