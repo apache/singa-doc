@@ -16,14 +16,14 @@ Conda是一个Python、CPP等包的包管理器。
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ntkhi-Z6XTR8WYPXiLwujHd2dOm0772V?usp=sharing)
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa-cpu
+$ conda install -c nusdbsystem -c conda-forge singa-cpu=3.1.0
 ```
 
 2. 使用带CUDA和cuDNN的GPU（需要CUDA驱动>=384.81）
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1do_TLJe18IthLOnBOsHCEe-FFPGk1sPJ?usp=sharing)
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa-gpu
+$ conda install -c nusdbsystem -c conda-forge singa-gpu=3.1.0
 ```
 
 3. 安装特定版本的SINGA，下面的命令列出了所有可用的SINGA软件包：
