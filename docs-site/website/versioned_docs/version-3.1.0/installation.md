@@ -15,21 +15,35 @@ Currently, SINGA has conda packages for Linux and MacOSX.
 After installing miniconda, execute the one of the following commands to install
 SINGA.
 
+**It is preferable to use python 3.6 as the conda virtual environment.**
+
 1. CPU only
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ntkhi-Z6XTR8WYPXiLwujHd2dOm0772V?usp=sharing)
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa-cpu
+$ conda install -c nusdbsystem -c conda-forge singa-cpu=3.1.0
 ```
+
+Please note that we need to specify the version of singa-cpu during the installation.
 
 2. GPU with CUDA and cuDNN (CUDA driver >=384.81 is required)
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1do_TLJe18IthLOnBOsHCEe-FFPGk1sPJ?usp=sharing)
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa-gpu
+$ conda install -c nusdbsystem -c conda-forge singa-gpu=3.1.0
 ```
 
-3. Install a specific version of SINGA. The following command lists all the
+Please note that we need to specify the version of singa-gpu during the installation.
+
+3. GPU with CUDA and cuDNN (CUDA driver >=384.81 is required), and also with the distributed training module
+
+```shell
+$ conda install -c nusdbsystem -c conda-forge singa-dist=3.1.0
+```
+
+Please note that we need to specify the version of singa-dist during the installation.
+
+4. Install a specific version of SINGA. The following command lists all the
    available SINGA packages.
 
 ```shell
