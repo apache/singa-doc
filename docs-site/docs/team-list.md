@@ -27,9 +27,9 @@ Zhejiang University, NetEase, Osaka University, yzBigData, etc.
 | Moaz Reyad    | moaz@apache.org         | Université Grenoble Alpes                     |
 | Kian-Lee Tan  | tankianlee@apache.org   | National University of Singapore              |
 | Sheng Wang    | wangsh@apache.org       | DAMO Academy, Alibaba Group                   |
-| Wei Wang      | wangwei@apache.org      | National University of Singapore              |
-| Zhongle Xie   | zhongle@apache.org      | National University of Singapore              |
-| Sai Ho Yeung  | chrishkchris@apache.org | National University of Singapore              |
+| Wei Wang      | wangwei@apache.org      | ByteDance                                     |
+| Zhongle Xie   | zhongle@apache.org      | Hangzhou MZH Technologies                     |
+| Sai Ho Yeung  | chrishkchris@apache.org | Cermati.com                                   |
 | Meihui Zhang  | meihuizhang@apache.org  | Beijing Institute of Technology               |
 | Kaiping Zheng | kaiping@apache.org      | National University of Singapore              |
 
@@ -39,10 +39,10 @@ Zhejiang University, NetEase, Osaka University, yzBigData, etc.
 | ------------ | ---------------------- | --------------------------------------------- |
 | Xiangrui Cai | caixr@apache.org       | Nankai University                             |
 | Chonho Lee   | chonho@apache.org      | Osaka University                              |
-| Shicong Lin  | shicong@apache.org     | National University of Singapore              |
+| Shicong Lin  | shicong@apache.org     | Cubist Systematic Strategies                  |
 | Rulin Xing   | rulin@apache.org       | Huazhong University of Science and Technology |
 | Wanqi Xue    | xuewanqi@apache.org    | Nanyang Technological University              |
-| Joddiy Zhang | joddiyzhang@apache.org | National University of Singapore              |
+| Joddiy Zhang | joddiyzhang@apache.org | Shopee                                        |
 
 ## Contributors
 
