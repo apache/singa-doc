@@ -1,0 +1,43 @@
+{
+  "version-3.1.0_Viet-docs": {
+    "Getting Started": [
+      "version-3.1.0_Viet-installation",
+      "version-3.1.0_Viet-software-stack",
+      "version-3.1.0_Viet-examples"
+    ],
+    "Guides": [
+      "version-3.1.0_Viet-device",
+      "version-3.1.0_Viet-tensor",
+      "version-3.1.0_Viet-autograd",
+      "version-3.1.0_Viet-optimizer",
+      "version-3.1.0_Viet-graph",
+      "version-3.1.0_Viet-onnx",
+      "version-3.1.0_Viet-dist-train",
+      "version-3.1.0_Viet-time-profiling"
+    ],
+    "Development": [
+      "version-3.1.0_Viet-downloads",
+      "version-3.1.0_Viet-build",
+      "version-3.1.0_Viet-contribute-code",
+      "version-3.1.0_Viet-contribute-docs",
+      "version-3.1.0_Viet-how-to-release",
+      "version-3.1.0_Viet-git-workflow"
+    ]
+  },
+  "version-3.1.0_Viet-community": {
+    "Community": [
+      "version-3.1.0_Viet-source-repository",
+      "version-3.1.0_Viet-mail-lists",
+      "version-3.1.0_Viet-issue-tracking",
+      "version-3.1.0_Viet-security",
+      "version-3.1.0_Viet-team-list",
+      "version-3.1.0_Viet-history-singa"
+    ],
+    "Wheel Package": [
+      "version-3.1.0_Viet-wheel-cpu",
+      "version-3.1.0_Viet-wheel-cpu-dev",
+      "version-3.1.0_Viet-wheel-gpu",
+      "version-3.1.0_Viet-wheel-gpu-dev"
+    ]
+  }
+}
