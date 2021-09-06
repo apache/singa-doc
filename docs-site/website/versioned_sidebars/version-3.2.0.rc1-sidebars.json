@@ -1,0 +1,38 @@
+{
+  "version-3.2.0.rc1-docs": {
+    "Getting Started": [
+      "version-3.2.0.rc1-installation",
+      "version-3.2.0.rc1-software-stack",
+      "version-3.2.0.rc1-examples"
+    ],
+    "Guides": [
+      "version-3.2.0.rc1-device",
+      "version-3.2.0.rc1-tensor",
+      "version-3.2.0.rc1-autograd",
+      "version-3.2.0.rc1-optimizer",
+      "version-3.2.0.rc1-graph",
+      "version-3.2.0.rc1-onnx",
+      "version-3.2.0.rc1-dist-train",
+      "version-3.2.0.rc1-time-profiling",
+      "version-3.2.0.rc1-half-precision"
+    ],
+    "Development": [
+      "version-3.2.0.rc1-downloads",
+      "version-3.2.0.rc1-build",
+      "version-3.2.0.rc1-contribute-code",
+      "version-3.2.0.rc1-contribute-docs",
+      "version-3.2.0.rc1-how-to-release",
+      "version-3.2.0.rc1-git-workflow"
+    ]
+  },
+  "version-3.2.0.rc1-community": {
+    "Community": [
+      "version-3.2.0.rc1-source-repository",
+      "version-3.2.0.rc1-mail-lists",
+      "version-3.2.0.rc1-issue-tracking",
+      "version-3.2.0.rc1-security",
+      "version-3.2.0.rc1-team-list",
+      "version-3.2.0.rc1-history-singa"
+    ]
+  }
+}
