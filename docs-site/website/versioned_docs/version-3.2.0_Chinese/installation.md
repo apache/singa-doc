@@ -16,14 +16,14 @@ Conda是一个Python、CPP等包的包管理器。
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ntkhi-Z6XTR8WYPXiLwujHd2dOm0772V?usp=sharing)
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa-cpu=3.1.0
+$ conda install -c nusdbsystem -c conda-forge singa-cpu=3.2.0.rc1
 ```
 
 2. 使用带CUDA和cuDNN的GPU（需要CUDA驱动>=384.81）
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1do_TLJe18IthLOnBOsHCEe-FFPGk1sPJ?usp=sharing)
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa-gpu=3.1.0
+$ conda install -c nusdbsystem -c conda-forge singa-gpu=3.2.0.rc1
 ```
 
 3. 安装特定版本的SINGA，下面的命令列出了所有可用的SINGA软件包：
@@ -33,9 +33,9 @@ $ conda search -c nusdbsystem singa
 
 Loading channels: done
 # Name                       Version           Build  Channel
-singa                      3.1.0.rc2        cpu_py36  nusdbsystem
-singa                      3.1.0.rc2 cudnn7.6.5_cuda10.2_py36  nusdbsystem
-singa                      3.1.0.rc2 cudnn7.6.5_cuda10.2_py37  nusdbsystem
+singa                      3.2.0.rc1        cpu_py36  nusdbsystem
+singa                      3.2.0.rc1 cudnn7.6.5_cuda10.2_nccl2.6.4.1_mpich3.3.2_py36 nusdbsystem
+singa                          3.2.0        cpu_py36  nusdbsystem
 ```
 
 <!--- > Please note that using the nightly built images is not recommended except for SINGA development and testing. Using stable releases is recommended. -->
@@ -62,7 +62,7 @@ $ python -c "from singa import tensor"
 pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
 ```
 
-您可以通过`singa==<version>`安装特定版本的SINGA，其中`<version>`字段应被替换，例如`3.1.0`。可用的SINGA版本在链接中列出。
+您可以通过`singa==<version>`安装特定版本的SINGA，其中`<version>`字段应被替换，例如`3.2.0`。可用的SINGA版本在链接中列出。
 
 要安装最新的开发版本，请将链接替换为
 http://singa.apache.org/docs/next/wheel-cpu-dev.html
@@ -74,7 +74,7 @@ http://singa.apache.org/docs/next/wheel-cpu-dev.html
 pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
 ```
 
-您也可以配置SINGA版本和CUDA版本，比如`singa==3.1.0+cuda10.2`，SINGA版本和CUDA版本的可用组合在链接中列出。
+您也可以配置SINGA版本和CUDA版本，比如`singa==3.2.0+cuda10.2`，SINGA版本和CUDA版本的可用组合在链接中列出。
 
 要安装最新的开发版本，请将链接替换为
 http://singa.apache.org/docs/next/wheel-gpu-dev.html
