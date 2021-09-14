@@ -45,6 +45,29 @@ function Versions(props) {
           <header className="postHeader">
             <h1>{siteConfig.title} Versions</h1>
           </header>
+          <h3 id="rc">Other Languages</h3>
+          <p>
+            Here you can find the documentation of Apache SINGA in other languages
+          </p>
+          <table className="versions">
+            <tbody>
+              {versions_otherlang.map(
+                version =>
+                  <tr key={version}>
+                    <th>{version}</th>
+                    <td>
+                      <a
+                        href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
+                          props.language ? props.language + "/" : ""
+                          }${version}/installation`}
+                      >
+                        Documentation
+                        </a>
+                    </td>
+                  </tr>
+              )}
+            </tbody>
+          </table>
           <h3 id="latest">Current version (Stable)</h3>
           <p>Current stable version of Apache SINGA</p>
           <table className="versions">
@@ -166,29 +189,6 @@ function Versions(props) {
             You can find past versions of this project on{" "}
             <a href={repoUrl}>GitHub</a>.
           </p>
-          <h3 id="rc">Other Languages</h3>
-          <p>
-            Here you can find the documentation of Apache SINGA in other languages
-          </p>
-          <table className="versions">
-            <tbody>
-              {versions_otherlang.map(
-                version =>
-                  <tr key={version}>
-                    <th>{version}</th>
-                    <td>
-                      <a
-                        href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
-                          props.language ? props.language + "/" : ""
-                          }${version}/installation`}
-                      >
-                        Documentation
-                        </a>
-                    </td>
-                  </tr>
-              )}
-            </tbody>
-          </table>
         </div>
       </Container>
     </div>
