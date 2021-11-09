@@ -28,7 +28,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   * New examples
     - Add one cifar-10 distributed CNN example for benchmarking the performance 
       of the distributed training.
-    - Add one large CNN example for training with a dataset from the filesysetm.
+    - Add one large CNN example for training with a dataset from the filesystem.
   * Enhance distributed training
     - Improve the data augmentation module for faster distributed training.
     - Add device synchronization for more accurate time measurements during the distributed 

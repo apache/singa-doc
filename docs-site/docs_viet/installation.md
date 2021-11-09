@@ -14,19 +14,26 @@ Hiện nay SINGA có gói conda packages dùng cho Linux và MacOSX.
 Sau khi cài đặt miniconda, thực hiện các lệnh sau để cài đặt
 SINGA.
 
-1. Cho CPU
+**Khuyến khích sử dụng python 3.6 cho conda virtual environment.**
+
+1. CPU only
    [![Mở trên Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ntkhi-Z6XTR8WYPXiLwujHd2dOm0772V?usp=sharing)
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa-cpu
+$ conda install -c nusdbsystem -c conda-forge singa-cpu=3.2.0.rc1
 ```
+
+Lưu ý rằng khi cài đặt cần phải chỉ định phiên bản singa-cpu.
 
 2. GPU với CUDA và cuDNN (yêu cầu CUDA driver >=384.81)
    [![Mở trên Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1do_TLJe18IthLOnBOsHCEe-FFPGk1sPJ?usp=sharing)
 
 ```shell
-$ conda install -c nusdbsystem -c conda-forge singa-gpu
+$ conda install -c nusdbsystem -c conda-forge singa-gpu=3.2.0.rc1
 ```
+
+Lưu ý rằng khi cài đặt cần phải chỉ định phiên bản singa-gpu.
+
 
 3. Cài đặt SINGA với phiên bản cụ thể. Câu lệnh sau cho danh sách tất cả gói chương trình SINGA đang hoạt động.
 
@@ -35,9 +42,9 @@ $ conda search -c nusdbsystem singa
 
 Loading channels: done
 # Name                       Version           Build  Channel
-singa                      3.1.0.rc2        cpu_py36  nusdbsystem
-singa                      3.1.0.rc2 cudnn7.6.5_cuda10.2_py36  nusdbsystem
-singa                      3.1.0.rc2 cudnn7.6.5_cuda10.2_py37  nusdbsystem
+singa                      3.2.0.rc1        cpu_py36  nusdbsystem
+singa                      3.2.0.rc1 cudnn7.6.5_cuda10.2_nccl2.6.4.1_mpich3.3.2_py36 nusdbsystem
+singa                          3.2.0        cpu_py36  nusdbsystem
 ```
 
 <!--- > Lưu ý rằng việc sử dụng nightly built images không được khuyến khích ngoại trừ trong quá trình phát triển và kiểm định. Khuyến khích việc sử dụng phiên bản phát hành ổn định. -->
@@ -66,7 +73,7 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-
 ```
 
 Bạn có thể cài đặt một phiên bản SINGA cụ thể sử dụng `singa==<version>`, thay thông tin
-`<version>`, v.d, `3.1.0`. Xem danh sách các phiên bản SINGA đang hoạt động ở đường dẫn. 
+`<version>`, v.d, `3.2.0`. Xem danh sách các phiên bản SINGA đang hoạt động ở đường dẫn. 
 
 Để cài đặt phiên bản phát triển mới nhất, thay đường dẫn bằng 
 http://singa.apache.org/docs/next/wheel-cpu-dev.html
@@ -79,7 +86,7 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-
 ```
 
 Bạn có thể thiết lập phiên bản SINGA và CUDA, như
-`singa==3.1.0+cuda10.2`. Danh sách tổ hợp phiên bản SINGA với CUDA được cung cấp trong đường dẫn.
+`singa==3.2.0+cuda10.2`. Danh sách tổ hợp phiên bản SINGA với CUDA được cung cấp trong đường dẫn.
 
 Để cài đặt phiên bản phát triển mới nhất, thay đường dẫn bằng 
 http://singa.apache.org/docs/next/wheel-gpu-dev.html

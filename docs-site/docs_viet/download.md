@@ -17,13 +17,40 @@ title: Tải SINGA
 
 Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu việc tải về đã hoàn thành chưa. 
 
+## V3.2.0 (15 tháng 8 năm 2021):
+
+- [Apache SINGA 3.2.0](http://www.apache.org/dyn/closer.cgi/singa/3.2.0/apache-singa-3.2.0.tar.gz)
+  [\[SHA512\]](https://www.apache.org/dist/singa/3.2.0/apache-singa-3.2.0.tar.gz.sha512)
+  [\[ASC\]](https://www.apache.org/dist/singa/3.2.0/apache-singa-3.2.0.tar.gz.asc)
+- [Release Notes 3.2.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.2.0)
+- Những thay đổi chính:
+  * Thêm ví dụ:
+    - Thêm ví dụ cho cifar-10 distributed CNN để so sánh hiệu quả khi training có phân bổ.
+    - Thêm ví dụ cho model CNN lớn khi training với dataset từ filesystem.
+  * Cải thiện training có phân bổ
+    - Cải thiện mô-đun data augmentation giúp tăng tốc training có phân bổ.
+    - Thêm chức năng đồng bộ hóa thiết bị để tính thời gian chính xác khi traing có phân bổ.
+  * Thêm hỗ trợ cho định dạng half-precision floating-point (fp16) trong deep learning models và
+    computational kernels.
+  * Cập nhật onnx APIs mới và chỉnh sửa các ví dụ cho onnx tương ứng, bao gồm DenseNet121, ShuffleNetv1, 
+    ShuffleNetv2, SqueezeNet, VGG19.
+  * Thêm phương pháp thay đổi kích thước ảnh theo kích thước ngang dọc mong muốn. 
+  * Sử dụng phiên bản docusaurus để đơn giản hóa quá trình tạo trang web. 
+  * Nâng cấp chất lượng mã code 
+    - Đồng bộ hóa định dạng docstrings mô tả nội dung và việc sử dụng các mô-đun. 
+    - Đồng bộ hóa các tham số  trong command-line arguments.
+  * Sửa lỗi bugs
+    - Sửa CI build error bằng việc tải tbb binaries.
+    - Thêm lựa chọn vô hiệu hóa graph để truy cập tham số và biến số gradient trong quá trình training có phân bổ .
+    - Xử lý các cảnh báo về những hàm functions hết hiệu lực trong mô-đun distributed optimizer. 
+
 ## V3.1.0 (30 tháng 10 năm 2020):
 
-- [Apache SINGA 3.1.0](http://www.apache.org/dyn/closer.cgi/singa/3.1.0/apache-singa-3.1.0.tar.gz)
-  [\[SHA512\]](https://www.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.sha512)
-  [\[ASC\]](https://www.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.asc)
+- [Apache SINGA 3.1.0](https://archive.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz)
+  [\[SHA512\]](https://archive.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.sha512)
+  [\[ASC\]](https://archive.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.asc)
 - [Release Notes 3.1.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.1.0)
-- Thay đổi chung:
+- Thay đổi chính:
   - Cập nhật Tensor core:
     - Hỗ trợ tensor transformation (reshape, transpose) cho tensors có tới 6 chiều (dimensions).
     - Áp dụn traverse_unary_transform ở Cuda backend, tương tự như CPP backend one.
