@@ -28,10 +28,14 @@ const React = require("react")
 const CompLibrary = require("../../core/CompLibrary.js")
 
 const Container = CompLibrary.Container
-const GridBlock = CompLibrary.GridBlock
+const MarkdownBlock = CompLibrary.MarkdownBlock
 const Showcase = require(`${process.cwd()}/core/Showcase.js`)
 // TODO: add <translate> tags
 // const translate = require('../../server/translate.js').translate;
+
+//
+const iconRi = require("react-icons/ri")
+const iconBs = require("react-icons/bs")
 
 const siteConfig = require(`${process.cwd()}/siteConfig.js`)
 
@@ -104,65 +108,239 @@ class Index extends React.Component {
             learning models
           </div>
         </div>
-        <div className="mainContainer">
-          <Container padding={["bottom", "top"]} className="mainPageContainer">
-            <GridBlock
-              contents={[
-                {
-                  content: `SINGA [parallelizes the training and optimizes the communication cost](./docs/dist-train) to improve training scalability.`,
-                  imageAlign: "left",
-                  image: `${siteConfig.baseUrl}img/benchmark.png`,
-                  imageAlt: "Scalbility",
-                  title: "Scalablility",
-                },
-              ]}
-              layout="twoColumn"
-            />
-          </Container>
-          <Container
-            padding={["bottom", "top"]}
-            className="mainPageContainer"
-            background="light"
-          >
-            <GridBlock
-              contents={[
-                {
-                  content: `SINGA [builds a computational graph](./docs/graph) to optimizes the training speed and memory footprint.`,
-                  imageAlign: "right",
-                  image: `${siteConfig.baseUrl}img/GraphOfMLP.png`,
-                  imageAlt: "Efficiency",
-                  title: "Efficiency",
-                },
-              ]}
-              layout="twoColumn"
-            />
-          </Container>
-          <Container padding={["bottom", "top"]} className="mainPageContainer">
-            <GridBlock
-              contents={[
-                {
-                  content: `SINGA has a simple [software stack and Python interface](./docs/software-stack) to improve usability.`,
-                  imageAlign: "left",
-                  image: `${siteConfig.baseUrl}img/singav3.1-sw.png`,
-                  imageAlt: "Usability",
-                  title: "Usability",
-                },
-              ]}
-              layout="twoColumn"
-            />
-          </Container>
-          <div className="productShowcaseSection paddingBottom">
-            <h2 style={{ color: "#904600" }}>Users of Apache SINGA</h2>
-            <p>
-              Apache SINGA powers the following organizations and companies...
-            </p>
-            <Showcase users={pinnedUsersToShowcase} />
-            <div className="more-users">
-              <a className="button" href={`${pageUrl("users", language)}`}>
-                All Apache SINGA Users
-              </a>
+
+        <div className="mainPageContainer">
+          <Container padding="top, bottom">
+            <div
+              style={{
+                fontWeight: "bold",
+                textAlign: "left",
+                fontSize: "35px",
+                paddingBottom: "10px",
+              }}
+            >
+              Features
             </div>
-          </div>
+            <div className="container-2">
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Easy installation</h2>
+                <p>
+                  <MarkdownBlock>
+                    Easy installation using
+                    [Conda](https://singa.apache.org/docs/installation/#using-conda),
+                    [Pip](https://singa.apache.org/docs/installation/#using-pip),
+                    [Docker](https://singa.apache.org/docs/installation/#using-docker)
+                    and [from
+                    Source](https://singa.apache.org/docs/installation/#using-docker)
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Various examples</h2>
+                <p>
+                  <MarkdownBlock>
+                    Various example deep learning tasks are provided in SINGA
+                    repo on
+                    [Github](https://github.com/apache/singa/tree/master/examples)
+                    and on [Google Colab](https://colab.research.google.com/)
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Distributed training</h2>
+                <p>
+                  <MarkdownBlock>
+                    SINGA supports data parallel training across multiple GPUs
+                    (on a single node or across different nodes)
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Memory optimization</h2>
+                <p>
+                  <MarkdownBlock>
+                    The optimization of memory are implemented in the
+                    [Device](https://singa.apache.org/docs/device/) class
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Automatic gradient calculation</h2>
+                <p>
+                  <MarkdownBlock>
+                    SINGA records the [computation
+                    graph](https://singa.apache.org/docs/graph/) and applies the
+                    backward propagation automatically after forward propagation
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Various optimizers</h2>
+                <p>
+                  <MarkdownBlock>
+                    SINGA supports various popular optimizers including
+                    stochastic gradient descent with momentum, Adam, RMSProp,
+                    and AdaGrad, etc
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Interoperability</h2>
+                <p>
+                  <MarkdownBlock>
+                    SINGA supports loading [ONNX](https://onnx.ai/) format
+                    models and saving models defined using SINGA APIs into ONNX
+                    format, which enables AI developers to use models across
+                    different libraries and tools
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Time profiling</h2>
+                <p>
+                  <MarkdownBlock>
+                    SINGA supports the time profiling of each of the operators
+                    buffered in the graph
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                <iconRi.RiNumbersLine className="icon" />
+                <h2>Half precision</h2>
+                <p>
+                  <MarkdownBlock>
+                    Half precision is supported to bring benefits, e.g., less
+                    GPU memory, supporting larger networks and faster training,
+                    etc
+                  </MarkdownBlock>
+                </p>
+              </div>
+            </div>
+          </Container>
+          <Container padding="top, bottom" background="light">
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              SINGA has a simple software stack and Python interface to improve
+              usability
+            </p>
+            <img
+              style={{ width: "50%" }}
+              className="containerImg"
+              src={`${siteConfig.baseUrl}img/singav3-sw.png`}
+              alt="Usability"
+            />
+          </Container>
+          <Container padding="top, bottom">
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              SINGA parallelizes the training and optimizes the communication
+              cost to improve training scalability
+            </p>
+            <img
+              style={{ width: "45%" }}
+              className="containerImg"
+              src={`${siteConfig.baseUrl}img/benchmark.png`}
+              alt="Scalability"
+            />
+          </Container>
+          <Container padding="top, bottom" background="light">
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              SINGA builds a computational graph to optimizes the training speed
+              and memory footprint
+            </p>
+            <img
+              style={{ width: "60%" }}
+              className="containerImg"
+              src={`${siteConfig.baseUrl}img/GraphOfMLP.png`}
+              alt="Efficiency"
+            />
+          </Container>
+
+          <Container padding={["bottom", "top"]}>
+            <div
+              style={{
+                fontWeight: "bold",
+                textAlign: "left",
+                fontSize: "30px",
+                paddingBottom: "40px",
+              }}
+            >
+              Install SINGA
+            </div>
+
+            <div className="container-3">
+              <button className="container-3-button">
+                <a href="https://singa.apache.org/docs/installation/#using-conda">
+                  Using Conda
+                  <span style={{ float: "right" }}>
+                    <iconBs.BsDownload />
+                  </span>
+                </a>
+              </button>
+              <button className="container-3-button">
+                <a href="https://singa.apache.org/docs/installation/#using-pip">
+                  Using Pip
+                  <span style={{ float: "right" }}>
+                    <iconBs.BsDownload />
+                  </span>
+                </a>
+              </button>
+              <button className="container-3-button">
+                <a href="https://singa.apache.org/docs/installation/#using-docker">
+                  Using Docker
+                  <span style={{ float: "right" }}>
+                    <iconBs.BsDownload />
+                  </span>
+                </a>
+              </button>
+              <button className="container-3-button">
+                <a href="https://singa.apache.org/docs/installation/#from-source">
+                  From Source
+                  <span style={{ float: "right" }}>
+                    <iconBs.BsDownload />
+                  </span>
+                </a>
+              </button>
+            </div>
+          </Container>
+          <Container>
+            <div className="productShowcaseSection paddingBottom">
+              <h2 style={{ color: "#904600" }}>Users of Apache SINGA</h2>
+              <p>
+                Apache SINGA powers the following organizations and companies...
+              </p>
+              <Showcase users={pinnedUsersToShowcase} />
+              <div className="more-users">
+                <a className="button" href={`${pageUrl("users", language)}`}>
+                  All Apache SINGA Users
+                </a>
+              </div>
+            </div>
+          </Container>
         </div>
       </div>
     )

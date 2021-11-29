@@ -100,6 +100,7 @@ const siteConfig = {
     // many of the colors are over-written in custom.css
     primaryColor: "#d27400",
     secondaryColor: "#808080", // 2nd layer of toolbar in smaller screen
+    $myColor: "#2f3f4d",
   },
 
   /* Blog setting */
@@ -110,18 +111,17 @@ const siteConfig = {
   twitter: true,
 
   /* Custom fonts for website */
-  /*
-  fonts: {
-    myFont: [
-      "Times New Roman",
-      "Serif"
-    ],
-    myOtherFont: [
-      "-apple-system",
-      "system-ui"
-    ]
-  },
-  */
+
+  // fonts: {
+  //   myFont: [
+  //     "Serif",
+  //     "Times New Roman",
+  //   ],
+  //   myOtherFont: [
+  //     "-apple-system",
+  //     "system-ui"
+  //   ]
+  // },
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
   copyright: `Copyright © ${new Date().getFullYear()}
@@ -139,6 +139,12 @@ const siteConfig = {
 
   // Add custom scripts here that would be placed in <script> tags.
   scripts: ["https://buttons.github.io/buttons.js"],
+
+  // Adding Google fonts:
+  stylesheets: [
+    "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700",
+    "https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Source+Sans+Pro:wght@200;300&display=swap",
+  ],
 
   // On page navigation for the current documentation page.
   onPageNav: "separate",
