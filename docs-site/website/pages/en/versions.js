@@ -47,25 +47,25 @@ function Versions(props) {
           </header>
           <h3 id="rc">Other Languages</h3>
           <p>
-            Here you can find the documentation of Apache SINGA in other languages
+            Here you can find the documentation of Apache SINGA in other
+            languages
           </p>
           <table className="versions">
             <tbody>
-              {versions_otherlang.map(
-                version =>
-                  <tr key={version}>
-                    <th>{version}</th>
-                    <td>
-                      <a
-                        href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
-                          props.language ? props.language + "/" : ""
-                          }${version}/installation`}
-                      >
-                        Documentation
-                        </a>
-                    </td>
-                  </tr>
-              )}
+              {versions_otherlang.map(version => (
+                <tr key={version}>
+                  <th>{version}</th>
+                  <td>
+                    <a
+                      href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
+                        props.language ? props.language + "/" : ""
+                      }${version}/installation`}
+                    >
+                      Documentation
+                    </a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <h3 id="latest">Current version (Stable)</h3>
@@ -78,7 +78,7 @@ function Versions(props) {
                   <a
                     href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
                       props.language ? props.language + "/" : ""
-                      }installation`}
+                    }installation`}
                   >
                     Documentation
                   </a>
@@ -87,7 +87,7 @@ function Versions(props) {
                   <a
                     href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
                       props.language ? props.language + "/" : ""
-                      }releases/RELEASE_NOTES_${latestVersion}.html`}
+                    }releases/RELEASE_NOTES_${latestVersion}.html`}
                   >
                     Release Notes
                   </a>
@@ -108,7 +108,7 @@ function Versions(props) {
                   <a
                     href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
                       props.language ? props.language + "/" : ""
-                      }next/installation`}
+                    }next/installation`}
                   >
                     Documentation
                   </a>
@@ -126,7 +126,7 @@ function Versions(props) {
             <a
               href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
                 props.language ? props.language + "/" : ""
-                }download-singa#incubating-v010-8-october-2015`}
+              }download-singa#incubating-v010-8-october-2015`}
             >
               this page
             </a>{" "}
@@ -136,14 +136,15 @@ function Versions(props) {
             <tbody>
               {versions.map(
                 version =>
-                  version !== latestVersion && !versions_otherlang.includes(version) && (
+                  version !== latestVersion &&
+                  !versions_otherlang.includes(version) && (
                     <tr key={version}>
                       <th>{version}</th>
                       <td>
                         <a
                           href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
                             props.language ? props.language + "/" : ""
-                            }${version}/installation`}
+                          }${version}/installation`}
                         >
                           Documentation
                         </a>
@@ -152,7 +153,7 @@ function Versions(props) {
                         <a
                           href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
                             props.language ? props.language + "/" : ""
-                            }releases/RELEASE_NOTES_${version}.html`}
+                          }releases/RELEASE_NOTES_${version}.html`}
                         >
                           Release Notes
                         </a>
@@ -175,7 +176,7 @@ function Versions(props) {
                         <a
                           href={`${siteConfig.baseUrl}${siteConfig.docsUrl}/${
                             props.language ? props.language + "/" : ""
-                            }releases/RELEASE_NOTES_${version}.html`}
+                          }releases/RELEASE_NOTES_${version}.html`}
                         >
                           Release Notes
                         </a>

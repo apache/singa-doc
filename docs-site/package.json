@@ -75,5 +75,8 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "dependencies": {
+    "react-icons": "^4.3.1"
   }
 }
