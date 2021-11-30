@@ -127,7 +127,7 @@ class Index extends React.Component {
             </div>
             <div className="container-2">
               <div className="container-2-box">
-                {/* <iconGr.GrInstall className="icon" /> */}
+                <iconGr.GrInstall className="icon" />
                 <h2>Easy installation</h2>
                 <p>
                   <MarkdownBlock>
@@ -136,12 +136,12 @@ class Index extends React.Component {
                     [Pip](https://singa.apache.org/docs/installation/#using-pip),
                     [Docker](https://singa.apache.org/docs/installation/#using-docker)
                     and [from
-                    Source](https://singa.apache.org/docs/installation/#using-docker)
+                    Source](https://singa.apache.org/docs/installation/#from-source)
                   </MarkdownBlock>
                 </p>
               </div>
               <div className="container-2-box">
-                {/* <iconGi.GiMeepleCircle className="icon" /> */}
+                <iconGi.GiMeepleCircle className="icon" />
                 <h2>Model zoo</h2>
                 <p>
                   <MarkdownBlock>
@@ -153,7 +153,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                {/* <iconBs.BsDistributeVertical className="icon" /> */}
+                <iconBs.BsDistributeVertical className="icon" /> 
                 <h2>Distributed training</h2>
                 <p>
                   <MarkdownBlock>
@@ -163,7 +163,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                {/* <iconFa.FaCalculator className="icon" /> */}
+                <iconFa.FaCalculator className="icon" /> 
                 <h2>Automatic gradient calculation</h2>
                 <p>
                   <MarkdownBlock>
@@ -174,7 +174,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                {/* <iconFa.FaMemory className="icon" style={{fontSize: "22px"}}/> */}
+                <iconFa.FaMemory className="icon" style={{fontSize: "22px"}}/>
                 <h2>Memory optimization</h2>
                 <p>
                   <MarkdownBlock>
@@ -184,8 +184,8 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                {/* <iconGr.GrOptimize className="icon" /> */}
-                <h2>Various optimizers</h2>
+                <iconGr.GrOptimize className="icon" /> 
+                <h2>Parameter optimization</h2>
                 <p>
                   <MarkdownBlock>
                     SINGA supports various popular optimizers including
@@ -195,7 +195,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                {/* <iconCg.CgArrowsExchangeAlt className="icon" style={{fontSize: "30px"}}/> */}
+                <iconCg.CgArrowsExchangeAlt className="icon" style={{fontSize: "30px"}}/>
                 <h2>Interoperability</h2>
                 <p>
                   <MarkdownBlock>
@@ -207,7 +207,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                {/* <iconIm.ImClock className="icon" /> */}
+                <iconIm.ImClock className="icon" />
                 <h2>Time profiling</h2>
                 <p>
                   <MarkdownBlock>
@@ -217,7 +217,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                {/* <iconBs.BsHeptagonHalf className="icon" /> */}
+                <iconBs.BsHeptagonHalf className="icon" /> 
                 <h2>Half precision</h2>
                 <p>
                   <MarkdownBlock>
