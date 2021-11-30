@@ -34,8 +34,12 @@ const Showcase = require(`${process.cwd()}/core/Showcase.js`)
 // const translate = require('../../server/translate.js').translate;
 
 //
-const iconRi = require("react-icons/ri")
+const iconGr = require("react-icons/gr")
+const iconGi = require("react-icons/gi")
 const iconBs = require("react-icons/bs")
+const iconFa = require("react-icons/fa")
+const iconCg = require("react-icons/cg")
+const iconIm = require("react-icons/im")
 
 const siteConfig = require(`${process.cwd()}/siteConfig.js`)
 
@@ -123,7 +127,7 @@ class Index extends React.Component {
             </div>
             <div className="container-2">
               <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
+                {/* <iconGr.GrInstall className="icon" /> */}
                 <h2>Easy installation</h2>
                 <p>
                   <MarkdownBlock>
@@ -137,11 +141,11 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
-                <h2>Various examples</h2>
+                {/* <iconGi.GiMeepleCircle className="icon" /> */}
+                <h2>Model zoo</h2>
                 <p>
                   <MarkdownBlock>
-                    Various example deep learning tasks are provided in SINGA
+                    Various example deep learning models are provided in SINGA
                     repo on
                     [Github](https://github.com/apache/singa/tree/master/examples)
                     and on [Google Colab](https://colab.research.google.com/)
@@ -149,7 +153,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
+                {/* <iconBs.BsDistributeVertical className="icon" /> */}
                 <h2>Distributed training</h2>
                 <p>
                   <MarkdownBlock>
@@ -159,17 +163,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
-                <h2>Memory optimization</h2>
-                <p>
-                  <MarkdownBlock>
-                    The optimization of memory are implemented in the
-                    [Device](https://singa.apache.org/docs/device/) class
-                  </MarkdownBlock>
-                </p>
-              </div>
-              <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
+                {/* <iconFa.FaCalculator className="icon" /> */}
                 <h2>Automatic gradient calculation</h2>
                 <p>
                   <MarkdownBlock>
@@ -180,7 +174,17 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
+                {/* <iconFa.FaMemory className="icon" style={{fontSize: "22px"}}/> */}
+                <h2>Memory optimization</h2>
+                <p>
+                  <MarkdownBlock>
+                    The optimization of memory are implemented in the
+                    [Device](https://singa.apache.org/docs/device/) class
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
+                {/* <iconGr.GrOptimize className="icon" /> */}
                 <h2>Various optimizers</h2>
                 <p>
                   <MarkdownBlock>
@@ -191,7 +195,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
+                {/* <iconCg.CgArrowsExchangeAlt className="icon" style={{fontSize: "30px"}}/> */}
                 <h2>Interoperability</h2>
                 <p>
                   <MarkdownBlock>
@@ -203,7 +207,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
+                {/* <iconIm.ImClock className="icon" /> */}
                 <h2>Time profiling</h2>
                 <p>
                   <MarkdownBlock>
@@ -213,7 +217,7 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
-                <iconRi.RiNumbersLine className="icon" />
+                {/* <iconBs.BsHeptagonHalf className="icon" /> */}
                 <h2>Half precision</h2>
                 <p>
                   <MarkdownBlock>
@@ -229,7 +233,7 @@ class Index extends React.Component {
             <p
               style={{
                 textAlign: "center",
-                fontSize: "20px",
+                fontSize: "24px",
                 fontWeight: "bold",
               }}
             >
@@ -237,7 +241,7 @@ class Index extends React.Component {
               usability
             </p>
             <img
-              style={{ width: "50%" }}
+              style={{ width: "35%" }}
               className="containerImg"
               src={`${siteConfig.baseUrl}img/singav3-sw.png`}
               alt="Usability"
@@ -247,7 +251,7 @@ class Index extends React.Component {
             <p
               style={{
                 textAlign: "center",
-                fontSize: "20px",
+                fontSize: "24px",
                 fontWeight: "bold",
               }}
             >
@@ -255,7 +259,7 @@ class Index extends React.Component {
               cost to improve training scalability
             </p>
             <img
-              style={{ width: "45%" }}
+              style={{ width: "27%" }}
               className="containerImg"
               src={`${siteConfig.baseUrl}img/benchmark.png`}
               alt="Scalability"
@@ -265,7 +269,7 @@ class Index extends React.Component {
             <p
               style={{
                 textAlign: "center",
-                fontSize: "20px",
+                fontSize: "24px",
                 fontWeight: "bold",
               }}
             >
@@ -273,7 +277,7 @@ class Index extends React.Component {
               and memory footprint
             </p>
             <img
-              style={{ width: "60%" }}
+              style={{ width: "37%" }}
               className="containerImg"
               src={`${siteConfig.baseUrl}img/GraphOfMLP.png`}
               alt="Efficiency"
