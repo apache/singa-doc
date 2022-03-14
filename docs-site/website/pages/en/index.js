@@ -237,7 +237,7 @@ class Index extends React.Component {
                 fontWeight: "bold",
               }}
             >
-              SINGA has a simple software stack and Python interface to improve
+              SINGA has a well architected software stack and easy-to-use Python interface to improve
               usability
             </p>
             <img
@@ -273,7 +273,7 @@ class Index extends React.Component {
                 fontWeight: "bold",
               }}
             >
-              SINGA builds a computational graph to optimizes the training speed
+              SINGA builds a computational graph to optimize the training speed
               and memory footprint
             </p>
             <img
