@@ -298,14 +298,6 @@ class Index extends React.Component {
 
             <div className="container-3">
               <button className="container-3-button">
-                <a href="https://singa.apache.org/docs/installation/#using-conda">
-                  Using Conda
-                  <span style={{ float: "right" }}>
-                    <iconBs.BsDownload />
-                  </span>
-                </a>
-              </button>
-              <button className="container-3-button">
                 <a href="https://singa.apache.org/docs/installation/#using-pip">
                   Using Pip
                   <span style={{ float: "right" }}>

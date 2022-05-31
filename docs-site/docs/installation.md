@@ -24,9 +24,6 @@ You can install a specific version of SINGA via `singa==<version>`, where the
 `<version>` field should be replaced, e.g., `3.3.0`. The available SINGA
 versions are listed at the link.
 
-To install the latest develop version, replace the link with
-http://singa.apache.org/docs/next/wheel-cpu-dev.html
-
 2. GPU With CUDA and cuDNN
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1W30IPCqj5fG8ADAQsFqclaCLyIclVcJL?usp=sharing)
 
@@ -37,9 +34,6 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-
 You can also configure SINGA version and the CUDA version, like
 `singa==3.3.0+cuda10.2`. The available combinations of SINGA version and CUDA
 version are listed at the link.
-
-To install the latest develop version, replace the link with
-http://singa.apache.org/docs/next/wheel-gpu-dev.html
 
 Note: the Python version of your local Python environment will be used to find
 the corresponding wheel package. For example, if your local Python is 3.6, then
