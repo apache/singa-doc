@@ -12,7 +12,7 @@ original_id: installation
 After installing miniconda, execute the one of the following commands to install
 SINGA.
 
-**It is preferable to use python 3.6 as the conda virtual environment.**
+**SINGA works with python 3.6, 3.7 and 3.8.**
 
 1. CPU only
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17RA056Brwk0vBQTFaZ-l9EbqwADO0NA9?usp=sharing)
