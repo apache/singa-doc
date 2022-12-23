@@ -6,7 +6,7 @@ title: Chuẩn bị trước khi phát hành
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
 Đây là hướng dẫn chuẩn bị cho việc phát hành
-[quá trình chuẩn bị trước khi phát hành](http://www.apache.org/dev/release-publishing.html)
+[quá trình chuẩn bị trước khi phát hành](https://www.apache.org/dev/release-publishing.html)
 SINGA.
 
 1. Lựa chọn người quản lý cho việc phát hành. Người quản lý chịu trách nhiệm 
@@ -14,7 +14,7 @@ SINGA.
    bản phát hành. Nggười quản lý tạo KEY (RSA 4096-bit) và tải nó lên 
    public key server. Để được tin cậy kết nối trên web, người quản lý cần các người dùng Apache khác 
    chứng thực (signed) Key của mình. Anh ta trước tiên cần yêu cầu mentor giúp chứng thực key. 
-   [Cách tạo Key](http://www.apache.org/dev/release-signing.html)?
+   [Cách tạo Key](https://www.apache.org/dev/release-signing.html)?
 
 2. Kiểm tra bản quyền. [FAQ](https://www.apache.org/legal/src-headers.html#faq-docs);
    [Các bản SINGA đã phát hành](https://issues.apache.org/jira/projects/SINGA/issues/SINGA-447)
@@ -23,7 +23,7 @@ SINGA.
      APL;
    - Các chương trình dependencies phải tương thích với APL. Các licenses giống với GNU là không tương thích;
    - Các tệp tin nguồn viết bởi chúng tôi PHẢI bao gồm license header của Apache:
-     http://www.apache.org/legal/src-headers.html. Chúng tôi cung cấp script để chạy header trên tất cả các tệp tin. 
+     https://www.apache.org/legal/src-headers.html. Chúng tôi cung cấp script để chạy header trên tất cả các tệp tin. 
    - Cập nhật tệp tin LICENSE. Nếu code có chứa mã code của một bên thứ 3 trong bản phát hành mà không phải APL, phải nêu rõ ở phần cuối của tập tin THÔNG BÁO.
 
 3. Nâng cấp phiên bản. Kiểm tra mã code và Tài liệu hướng dẫn
@@ -34,7 +34,7 @@ SINGA.
    - Tài liệu hướng dẫn trực tuyến trên trang web Apache là mới nhất.
 
 4. Chuẩn bị tệp tin RELEASE_NOTES (Lưu ý phát hành). Bao gồm các mục, Giới thiệu, Tính năng nổi bật, Lỗi Bugs, (đường dẫn tới JIRA hoặc Github PR), Những thay đổi, Danh sách thư viện Dependency, Các vấn đề không tương thích. Làm theo
-   [ví dụ](http://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt).
+   [ví dụ](https://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt).
 
 5. Gói các phiên bản phát hành. Bản phát hành cần được gói gọn thành:
    apache-singa-VERSION.tar.gz. Trong bản phát hành không nên chứa bất kì tệp tin dạng binary nào, bao gồm cả các tệp tin git. Tuy nhiên, các tệp CMake compilation dựa vào git tag để tạo số phiên bản; để bỏ qua dependency này, bạn cần cập nhật tệp tin CMakeLists.txt theo cách thủ công để tạo số phiên bản.
@@ -58,7 +58,7 @@ SINGA.
    Tải gói chương trình lên 
    [stage repo](https://dist.apache.org/repos/dist/dev/singa/). Cần bao gồm các tệp tin tar,
    signature, KEY và tệp tin SHA256 checksum. Không sử dụng MD5. Xem chính sách tại
-   [đây](http://www.apache.org/dev/release-distribution#sigs-and-sums). Thư mục
+   [đây](https://www.apache.org/dev/release-distribution#sigs-and-sums). Thư mục
    stage  cần bao gồm: 
 
    - apache-singa-VERSION.tar.gz
@@ -120,7 +120,7 @@ SINGA.
    https://github.com/apache/singa/releases/tag/3.1.0.rc2
 
    The documentation website is at
-   http://singa.apache.org/docs/next/installation/
+   https://singa.apache.org/docs/next/installation/
 
    Some examples are available for testing:
    https://github.com/apache/singa/tree/master/examples
@@ -161,11 +161,11 @@ passed.
 ````
 
 8) Tải gói chương trình để
-[phân bổ](http://www.apache.org/dev/release-publishing.html#distribution)
+[phân bổ](https://www.apache.org/dev/release-publishing.html#distribution)
 tới https://dist.apache.org/repos/dist/release/singa/.
 
 9) Cập nhật trang Tải (Download) trên website SINGA. Tệp tin tar.gz PHẢI được tải từ mirror, sử dụng closer.cgi script; các tạo tác khác PHẢI được tải từ trang chủ Apache. Xem chi tiết tại 
-[đây](http://www.apache.org/dev/release-download-pages.html). Một vài nhận xét chúng tôi nhận được trong các đợt phát hành trước: "Trang Tải chỉ nên được dẫn tới các bản phát hành chính thức, vì vậy phải bao gồm đường dẫn tới GitHub.", "Đường dẫn tới KEYS, sigs và
+[đây](https://www.apache.org/dev/release-download-pages.html). Một vài nhận xét chúng tôi nhận được trong các đợt phát hành trước: "Trang Tải chỉ nên được dẫn tới các bản phát hành chính thức, vì vậy phải bao gồm đường dẫn tới GitHub.", "Đường dẫn tới KEYS, sigs và
 hashes không nên sử dụng dist.apache.org; mà nên dùng 
 https://www.apache.org/dist/singa/...;", "Và bạn chỉ cần một đường dẫn tới KEYS,
 và cần có hướng dẫn cách sử dụng KEYS + sig hay hash để chứng thực hoàn tất việc tải."
@@ -182,7 +182,7 @@ và cần có hướng dẫn cách sử dụng KEYS + sig hay hash để chứng
 
  SINGA is a general distributed deep learning platform
  for training big deep learning models over large datasets.
- The release is available at: http://singa.apache.org/downloads.html
+ The release is available at: https://singa.apache.org/downloads.html
  The main features of this release include XXX
  We look forward to hearing your feedback, suggestions,
  and contributions to the project.

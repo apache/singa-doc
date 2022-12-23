@@ -219,7 +219,7 @@ khác nhau, SINGA cung cấp một bộ Tensor functions cho mỗi backend đư�
 
 ### Trình bày C++ APIs qua Python
 
-SWIG(http://www.swig.org/) là công cụ có thể tự động qui đổi C++ APIs
+SWIG(https://www.swig.org/) là công cụ có thể tự động qui đổi C++ APIs
 sang Python APIs. SINGA sử dụng SWIG để trình bày C++ APIs sang Python. Một vài tệp tin
 được tạo bởi SWIG, bao gồm `python/singa/singa_wrap.py`. Các Python
 mô-đun (như, `tensor`, `device` và `autograd`) nhập mô-đun để gọi C++ APIs 

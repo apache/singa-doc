@@ -8,8 +8,8 @@ title: How to Contribute Code
 ## Coding Style
 
 The SINGA codebase follows the Google Style for both
-[CPP](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml) and
-[Python](http://google.github.io/styleguide/pyguide.html) code.
+[CPP](https://google-styleguide.googlecode.com/svn/trunk/cppguide.xml) and
+[Python](https://google.github.io/styleguide/pyguide.html) code.
 
 A simple way to enforce the Google coding styles is to use the linting and
 formating tools in the Visual Studio Code editor:
@@ -56,7 +56,7 @@ different PRs would be identical to get rid of github pull request conflicts.
 First, install LLVM 9.0 which provides clang-format version 9.0.0. The download
 page of LLVM is:
 
-- [LLVM](http://releases.llvm.org/download.html#9.0.0)
+- [LLVM](https://releases.llvm.org/download.html#9.0.0)
 
   - On Ubuntu
 

@@ -205,7 +205,7 @@ Tensor数据在`Block`实例中，定义在`include/singa/core/common.h`中。`B
 ### 将C++ APIs暴露给Python
 
 
-SWIG(http://www.swig.org/)是一个可以自动将C++ API转换为Python API的工具。SINGA使用SWIG将C++ APIs公开到Python中。SWIG会生成几个文件，包括`python/singa/singa_wrap.py`。Python模块(如`tensor`、`device`和`autograd`)导入这个模块来调用C++ API来实现Python类和函数。
+SWIG(https://www.swig.org/)是一个可以自动将C++ API转换为Python API的工具。SINGA使用SWIG将C++ APIs公开到Python中。SWIG会生成几个文件，包括`python/singa/singa_wrap.py`。Python模块(如`tensor`、`device`和`autograd`)导入这个模块来调用C++ API来实现Python类和函数。
 
 ```python
 import tensor

@@ -25,7 +25,7 @@ module.exports = [
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/NetEase.jpg",
-    infoLink: "http://tech.163.com/17/0602/17/CLUL016I00098GJ5.html",
+    infoLink: "https://tech.163.com/17/0602/17/CLUL016I00098GJ5.html",
     pinned: true,
   },
   {
@@ -65,7 +65,7 @@ module.exports = [
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/yzBigData.png",
-    infoLink: "http://www.yzbigdata.com/",
+    infoLink: "https://www.yzbigdata.com/",
     pinned: true,
   },
   {
@@ -121,7 +121,7 @@ module.exports = [
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/CBRE.jpg",
-    infoLink: "http://www.cbre.com",
+    infoLink: "https://www.cbre.com",
     pinned: false,
   },
   {

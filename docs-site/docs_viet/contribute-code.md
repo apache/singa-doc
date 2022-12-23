@@ -7,8 +7,8 @@ title: Tham gia viết code
 
 ## Định dạng mã code
 
-Nền tảng code của SINGA tuân theo định dạng Google cho cả code [CPP](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml) và
-[Python](http://google.github.io/styleguide/pyguide.html).
+Nền tảng code của SINGA tuân theo định dạng Google cho cả code [CPP](https://google-styleguide.googlecode.com/svn/trunk/cppguide.xml) và
+[Python](https://google.github.io/styleguide/pyguide.html).
 
 Một cách đơn giản để thực hiện định dạng lập trình Google là sử dụng linting và các công cụ định dạng trong Visual Studio Code editor:
 
@@ -49,7 +49,7 @@ Tốt nhất là tất cả người tham gia viết mã code sử dụng cùng 
 
 Trước tiên, cài đặt LLVM 9.0 cung cấp clang-format phiên bản 9.0.0. Trang tải LLVM là:
 
-- [LLVM](http://releases.llvm.org/download.html#9.0.0)
+- [LLVM](https://releases.llvm.org/download.html#9.0.0)
 
   - Trên Ubuntu
 

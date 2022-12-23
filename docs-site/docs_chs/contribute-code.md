@@ -7,7 +7,7 @@ title: How to Contribute Code
 
 ## 代码风格
 
-SINGA代码库在[CPP](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml)和[Python](http://google.github.io/styleguide/pyguide.html)代码中都遵循Google风格。
+SINGA代码库在[CPP](https://google-styleguide.googlecode.com/svn/trunk/cppguide.xml)和[Python](https://google.github.io/styleguide/pyguide.html)代码中都遵循Google风格。
 
 强制执行Google编码风格的一个简单方法是使用Visual Studio Code编辑器中的linting和格式化工具:
 
@@ -48,7 +48,7 @@ SINGA代码库在[CPP](http://google-styleguide.googlecode.com/svn/trunk/cppguid
 
 首先，安装LLVM 9.0，它提供了clang-format 9.0.0版本，LLVM的下载页面如下:
 
-- [LLVM](http://releases.llvm.org/download.html#9.0.0)
+- [LLVM](https://releases.llvm.org/download.html#9.0.0)
 
   - Ubuntu系统：
 

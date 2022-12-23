@@ -149,7 +149,7 @@ sudo yum group install "Development Tools"
 
 ```shell
 sudo yum install pcre-devel
-wget http://prdownloads.sourceforge.net/swig/swig-3.0.10.tar.gz
+wget https://prdownloads.sourceforge.net/swig/swig-3.0.10.tar.gz
 tar xvzf swig-3.0.10.tar.gz
 cd swig-3.0.10.tar.gz
 ./configure --prefix=${RUN}
@@ -446,7 +446,7 @@ $ make package
 * Q: Khi chạy SINGA trên Mac OS X, tôi gặp lỗi "Fatal Python error:
   PyThreadState_Get: no current thread Abort trap: 6"
 
-  A: Lỗi này thường xảy ra khi bạn có nhiều phiên bản Python trong hệ thống, và bạn cài SINGA qua pip (vấn đề này có thể được giải quyết nếu cài đặt bằng conda), vd. một bên qua OS và một bên cài đặt qua Homebrew. Python dùng trong PySINGA phải là Python interpreter. Bạn có thể kiểm tra trình thông dịch (interpreter) của mình bằng `which python` và kiểm tra bản Python dùng trong PySINGA qua `otool -L <path to _singa_wrap.so>`. Để sửa lỗi này, bạn compile SINGA với đúng phiên bản mà SINGA cần. Cụ thể, nếu bạn tạo PySINGA từ nguồn, bạn cần cụ thể đường dẫn khi gọi [cmake](http://stackoverflow.com/questions/15291500/i-have-2-versions-of-python-installed-but-cmake-is-using-older-version-how-do)
+  A: Lỗi này thường xảy ra khi bạn có nhiều phiên bản Python trong hệ thống, và bạn cài SINGA qua pip (vấn đề này có thể được giải quyết nếu cài đặt bằng conda), vd. một bên qua OS và một bên cài đặt qua Homebrew. Python dùng trong PySINGA phải là Python interpreter. Bạn có thể kiểm tra trình thông dịch (interpreter) của mình bằng `which python` và kiểm tra bản Python dùng trong PySINGA qua `otool -L <path to _singa_wrap.so>`. Để sửa lỗi này, bạn compile SINGA với đúng phiên bản mà SINGA cần. Cụ thể, nếu bạn tạo PySINGA từ nguồn, bạn cần cụ thể đường dẫn khi gọi [cmake](https://stackoverflow.com/questions/15291500/i-have-2-versions-of-python-installed-but-cmake-is-using-older-version-how-do)
 
         $ cmake -DPYTHON_LIBRARY=`python-config --prefix`/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=`python-config --prefix`/include/python2.7/ ..
 

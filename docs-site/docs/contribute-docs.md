@@ -60,7 +60,7 @@ To generate docs, run "doxygen" from the doc folder (Doxygen >= 1.8 recommended)
 ### Python API
 
 Follow the
-[Google Python DocString Style](http://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings).
+[Google Python DocString Style](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings).
 
 ## Visual Studio Code (vscode)
 

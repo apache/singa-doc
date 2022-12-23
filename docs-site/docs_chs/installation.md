@@ -58,25 +58,25 @@ $ python -c "from singa import tensor"
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17RA056Brwk0vBQTFaZ-l9EbqwADO0NA9?usp=sharing)
 
 ```bash
-pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
+pip install singa -f https://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
 ```
 
 您可以通过`singa==<version>`安装特定版本的SINGA，其中`<version>`字段应被替换，例如`3.1.0`。可用的SINGA版本在链接中列出。
 
 要安装最新的开发版本，请将链接替换为
-http://singa.apache.org/docs/next/wheel-cpu-dev.html
+https://singa.apache.org/docs/next/wheel-cpu-dev.html
 
 2. 使用CUDA和cuDNN的GPU
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1W30IPCqj5fG8ADAQsFqclaCLyIclVcJL?usp=sharing)
 
 ```bash
-pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
+pip install singa -f https://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
 ```
 
 您也可以配置SINGA版本和CUDA版本，比如`singa==3.1.0+cuda10.2`，SINGA版本和CUDA版本的可用组合在链接中列出。
 
 要安装最新的开发版本，请将链接替换为
-http://singa.apache.org/docs/next/wheel-gpu-dev.html
+https://singa.apache.org/docs/next/wheel-gpu-dev.html
 
 注意：你本地Python环境的Python版本将被用来寻找相应的wheel包。例如，如果你本地的Python是3.6，那么就会通过pip选择在Python 3.6上编译的wheel包并安装。事实上，wheel文件的名称包括SINGA版本、CUDA版本和Python版本。因此，`pip`知道要下载和安装哪个wheel文件。
 

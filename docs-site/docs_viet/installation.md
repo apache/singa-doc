@@ -62,27 +62,27 @@ thì bạn đã cài đặt SINGA thành công.
    [![Mở trên Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17RA056Brwk0vBQTFaZ-l9EbqwADO0NA9?usp=sharing)
 
 ```bash
-pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
+pip install singa -f https://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
 ```
 
 Bạn có thể cài đặt một phiên bản SINGA cụ thể sử dụng `singa==<version>`, thay thông tin
 `<version>`, v.d, `3.1.0`. Xem danh sách các phiên bản SINGA đang hoạt động ở đường dẫn. 
 
 Để cài đặt phiên bản phát triển mới nhất, thay đường dẫn bằng 
-http://singa.apache.org/docs/next/wheel-cpu-dev.html
+https://singa.apache.org/docs/next/wheel-cpu-dev.html
 
 2. GPU với CUDA và cuDNN
    [![Mở trên Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1W30IPCqj5fG8ADAQsFqclaCLyIclVcJL?usp=sharing)
 
 ```bash
-pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
+pip install singa -f https://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
 ```
 
 Bạn có thể thiết lập phiên bản SINGA và CUDA, như
 `singa==3.1.0+cuda10.2`. Danh sách tổ hợp phiên bản SINGA với CUDA được cung cấp trong đường dẫn.
 
 Để cài đặt phiên bản phát triển mới nhất, thay đường dẫn bằng 
-http://singa.apache.org/docs/next/wheel-gpu-dev.html
+https://singa.apache.org/docs/next/wheel-gpu-dev.html
 
 Lưu ý: phiên bản Python của Python environment trong máy của bạn sẽ được sử dụng để tìm gói wheel tương ứng. Ví dụ, nếu bạn sử dụng Python 3.6, thì gói wheel kết cấu trong Python 3.6 sẽ được pip chọn để cài đặt. 
 Thực tế, tên của tệp tin wheel bao gồm phiên bản SINGA, phiên bản CUDA và Python. Vì thế, `pip` biết tệp tin wheel nào để tải và cài đặt. 

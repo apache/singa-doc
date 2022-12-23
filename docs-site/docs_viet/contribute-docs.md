@@ -52,7 +52,7 @@ Thực hiện theo
 ### Python API
 
 Thực hiện theo
-[Mẫu Google Python DocString](http://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings).
+[Mẫu Google Python DocString](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings).
 
 ## Visual Studio Code (vscode)
 

@@ -19,10 +19,10 @@ Các thư viện dependencies bao gồm:
   - Visual Studio. Công cụ biên tập mã này miễn phí và có thể được dùng trong việc cài đặt SINGA.
     https://www.visualstudio.com/
 - CMake
-  - Có thể tải về qua http://cmake.org/
+  - Có thể tải về qua https://cmake.org/
   - Đảm bảo đường dẫn khả thi của cmake nằm trong đường dẫn chương trình system path, hoặc sử dụng đường dẫn đầy đủ khi gọi hàm cmake.
 - SWIG
-  - Có thể tải từ http://swig.org/
+  - Có thể tải từ https://swig.org/
   - Đảm bảo đường dẫn khả thi của swig nằm trong đường dẫn chương trình system path, hoặc sử dụng đường dẫn đầy đủ khi gọi hàm swig. Sử dụng các phiên bản cập nhật như 3.0.12.
 
 - Protocol Buffers
@@ -36,10 +36,10 @@ Các thư viện dependencies bao gồm:
   - Cài đặt libprotobuf project.
 - Openblas
   - Tải phiên bản nguồn phù hợp như 0.2.20 từ
-    http://www.openblas.net
+    https://www.openblas.net
   - Giải nén nguồn trong thư mục thư viện dependencies.
   - Nếu bạn không có chương trình Perl, tải perl environment như
-    Strawberry Perl (http://strawberryperl.com/)
+    Strawberry Perl (https://strawberryperl.com/)
   - Cài đặt Visual Studio solution bằng lệnh sau từ thư mục nguồn: 
 
   ```bash

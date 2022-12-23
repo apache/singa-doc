@@ -17,7 +17,7 @@ SINGA.
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17RA056Brwk0vBQTFaZ-l9EbqwADO0NA9?usp=sharing)
 
 ```bash
-pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
+pip install singa -f https://singa.apache.org/docs/next/wheel-cpu.html --trusted-host singa.apache.org
 ```
 
 You can install a specific version of SINGA via `singa==<version>`, where the
@@ -28,7 +28,7 @@ versions are listed at the link.
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1W30IPCqj5fG8ADAQsFqclaCLyIclVcJL?usp=sharing)
 
 ```bash
-pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
+pip install singa -f https://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
 ```
 
 You can also configure SINGA version and the CUDA version, like

@@ -14,7 +14,7 @@ This release includes following changes:
 - Code quality has been promoted by introducing linting check in CI and auto
   code formatter. For linting, the tools, `cpplint` and `pylint`, are used and
   configured to comply
-  [google coding styles](http://google.github.io/styleguide/) details in
+  [google coding styles](https://google.github.io/styleguide/) details in
   `tool/linting/`. Similarly, formatting tools, `clang-format` and `yapf`
   configured with google coding styles, are the recommended one for developers
   to clean code before submitting changes, details in `tool/code-format/`.

@@ -121,35 +121,35 @@ class Footer extends React.Component {
               Foundation
             </a>
             <a
-              href="http://www.apache.org/licenses/"
+              href="https://www.apache.org/licenses/"
               target="_blank"
               rel="noreferrer noopener"
             >
               License
             </a>
             <a
-              href="http://www.apache.org/foundation/sponsorship.html"
+              href="https://www.apache.org/foundation/sponsorship.html"
               target="_blank"
               rel="noreferrer noopener"
             >
               Sponsorship
             </a>
             <a
-              href="http://www.apache.org/foundation/thanks.html"
+              href="https://www.apache.org/foundation/thanks.html"
               target="_blank"
               rel="noreferrer noopener"
             >
               Thanks
             </a>
             <a
-              href="http://www.apache.org/events/current-event"
+              href="https://www.apache.org/events/current-event"
               target="_blank"
               rel="noreferrer noopener"
             >
               Events
             </a>
             <a
-              href="http://www.apache.org/security/"
+              href="https://www.apache.org/security/"
               target="_blank"
               rel="noreferrer noopener"
             >
