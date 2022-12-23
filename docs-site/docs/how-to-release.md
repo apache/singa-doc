@@ -6,7 +6,7 @@ title: How to Prepare a Release
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
 This is a guide for the
-[release preparing process](http://www.apache.org/dev/release-publishing.html)
+[release preparing process](https://www.apache.org/dev/release-publishing.html)
 in SINGA.
 
 1. Select a release manager. The release manager (RM) is the coordinator for the
@@ -15,7 +15,7 @@ in SINGA.
    public key server. The RM needs to get his key endorsed (signed) by other
    Apache user, to be connected to the web of trust. He should first ask the
    mentor to help signing his key.
-   [How to generate the key](http://www.apache.org/dev/release-signing.html)?
+   [How to generate the key](https://www.apache.org/dev/release-signing.html)?
 
 2. Check license. [FAQ](https://www.apache.org/legal/src-headers.html#faq-docs);
    [SINGA Issue](https://issues.apache.org/jira/projects/SINGA/issues/SINGA-447)
@@ -25,7 +25,7 @@ in SINGA.
    - The dependencies are compatible with APL. GNU-like licenses are NOT
      compatible;
    - All source files written by us MUST include the Apache license header:
-     http://www.apache.org/legal/src-headers.html. There's a script in there
+     https://www.apache.org/legal/src-headers.html. There's a script in there
      which helps propagating the header to all files.
    - Update the LICENSE file. If we include any third party code in the release
      package which is not APL, must state it at the end of the NOTICE file.
@@ -40,7 +40,7 @@ in SINGA.
 4. Prepare the RELEASE_NOTES file. Include the following items, Introduction,
    Features, Bugs (link to JIRA or Github PR), Changes, Dependency list,
    Incompatibility issues. Follow this
-   [example](http://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt).
+   [example](https://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt).
 
 5. Package the release candidate. The release should be packaged into :
    apache-singa-VERSION.tar.gz. The release should not include any binary files
@@ -68,7 +68,7 @@ in SINGA.
    [stage repo](https://dist.apache.org/repos/dist/dev/singa/). The tar file,
    signature, KEY and SHA256 checksum file should be included. MD5 is no longer
    used. Policy is
-   [here](http://www.apache.org/dev/release-distribution#sigs-and-sums). The
+   [here](https://www.apache.org/dev/release-distribution#sigs-and-sums). The
    stage folder should include:
 
    - apache-singa-VERSION.tar.gz
@@ -130,7 +130,7 @@ in SINGA.
    https://github.com/apache/singa/releases/tag/3.1.0.rc2
 
    The documentation website is at
-   http://singa.apache.org/docs/next/installation/
+   https://singa.apache.org/docs/next/installation/
 
    Some examples are available for testing:
    https://github.com/apache/singa/tree/master/examples
@@ -172,13 +172,13 @@ passed.
 ````
 
 8) Upload the package for
-[distribution](http://www.apache.org/dev/release-publishing.html#distribution)
+[distribution](https://www.apache.org/dev/release-publishing.html#distribution)
 to https://dist.apache.org/repos/dist/release/singa/.
 
 9) Update the Download page of SINGA website. The tar.gz file MUST be downloaded
 from mirror, using closer.cgi script; other artifacts MUST be downloaded from
 main Apache site. More details
-[here](http://www.apache.org/dev/release-download-pages.html). Some feedback
+[here](https://www.apache.org/dev/release-download-pages.html). Some feedback
 we got during the previous releases: "Download pages must only link to formal
 releases, so must not include links to GitHub.", "Links to KEYS, sigs and
 hashes must not use dist.apache.org; instead use
@@ -198,7 +198,7 @@ the downloads."
 
  SINGA is a general distributed deep learning platform
  for training big deep learning models over large datasets.
- The release is available at: http://singa.apache.org/downloads.html
+ The release is available at: https://singa.apache.org/downloads.html
  The main features of this release include XXX
  We look forward to hearing your feedback, suggestions,
  and contributions to the project.

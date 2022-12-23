@@ -19,12 +19,12 @@ The dependencies are:
   - Visual Studio. The community edition is free and can be used to build SINGA.
     https://www.visualstudio.com/
 - CMake
-  - Can be downloaded from http://cmake.org/
+  - Can be downloaded from https://cmake.org/
   - Make sure the path to cmake executable is in the system path, or use full
     path when calling cmake.
 - SWIG
 
-  - Can be downloaded from http://swig.org/
+  - Can be downloaded from https://swig.org/
   - Make sure the path to swig executable is in the system path, or use full
     path when calling swig. Use a recent version such as 3.0.12.
 
@@ -40,10 +40,10 @@ The dependencies are:
 - Openblas
 
   - Download a suitable source version such as 0.2.20 from
-    http://www.openblas.net
+    https://www.openblas.net
   - Extract the source in the dependencies folder.
   - If you don't have Perl installed, download a perl environment such as
-    Strawberry Perl (http://strawberryperl.com/)
+    Strawberry Perl (https://strawberryperl.com/)
   - Build the Visual Studio solution by running this command in the source
     folder:
 

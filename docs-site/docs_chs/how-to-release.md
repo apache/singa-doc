@@ -5,16 +5,16 @@ title: How to Prepare a Release
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-这是SINGA的[发布准备流程](http://www.apache.org/dev/release-publishing.html)指南。
+这是SINGA的[发布准备流程](https://www.apache.org/dev/release-publishing.html)指南。
 
-1. 选择一个发布管理者。发布管理者（RM）是发布过程的协调者，他的签名文件（.asc）将会与发布一起上传。RM 生成 KEY (RSA 4096 位)并将其上传到公钥服务器，首先需要得到其他Apache用户对他的密钥的认可（签名），才能连接到信任网，RM需要先求助其他项目管理者帮忙认证他的密钥。[如何生成密钥？](http://www.apache.org/dev/release-signing.html)
+1. 选择一个发布管理者。发布管理者（RM）是发布过程的协调者，他的签名文件（.asc）将会与发布一起上传。RM 生成 KEY (RSA 4096 位)并将其上传到公钥服务器，首先需要得到其他Apache用户对他的密钥的认可（签名），才能连接到信任网，RM需要先求助其他项目管理者帮忙认证他的密钥。[如何生成密钥？](https://www.apache.org/dev/release-signing.html)
 
 2. 检查license。 [FAQ](https://www.apache.org/legal/src-headers.html#faq-docs);
    [SINGA Issue](https://issues.apache.org/jira/projects/SINGA/issues/SINGA-447)
 
    - 代码库不能包含与APL不兼容的第三方代码。
    - 依赖项与APL兼容，GNU类license不兼容。
-   - 我们编写的所有源文件都必须包含Apache license头：http://www.apache.org/legal/src-headers.html.
+   - 我们编写的所有源文件都必须包含Apache license头：https://www.apache.org/legal/src-headers.html.
    链接中有一个脚本可以帮助将这个头同步到所有文件。
    - 更新LICENSE文件。如果我们在发行包中包含了任何非APL的第三方代码，必须要在NOTICE文件的最后注明。
 
@@ -25,7 +25,7 @@ title: How to Prepare a Release
    - Conda包运行无误。
    - Apache网站上的在线文档是最新的。
 
-4. 准备好RELEASE_NOTES文件。包括以下项目，介绍，特性，错误（链接到JIRA或Github PR），变更，依赖列表，不兼容问题，可以按照这个[例子]((http://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt))来写。
+4. 准备好RELEASE_NOTES文件。包括以下项目，介绍，特性，错误（链接到JIRA或Github PR），变更，依赖列表，不兼容问题，可以按照这个[例子]((https://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt))来写。
 
 5. 打包候选版本。该版本应该打包成：apache-singa-VERSION.tar.gz。这个版本不应该包含任何二进制文件，包括git文件。但是CMake的编译依赖于git标签来获取版本号；要删除这个依赖，你需要手动更新CMakeLists.txt文件来设置版本号：
 
@@ -106,7 +106,7 @@ title: How to Prepare a Release
    https://github.com/apache/singa/releases/tag/3.1.0.rc2
 
    The documentation website is at
-   http://singa.apache.org/docs/next/installation/
+   https://singa.apache.org/docs/next/installation/
 
    Some examples are available for testing:
    https://github.com/apache/singa/tree/master/examples
@@ -146,9 +146,9 @@ passed.
 
 ````
 
-8) 将软件包上传至 https://dist.apache.org/repos/dist/release/singa/，以便[distribution](http://www.apache.org/dev/release-publishing.html#distribution)。
+8) 将软件包上传至 https://dist.apache.org/repos/dist/release/singa/，以便[distribution](https://www.apache.org/dev/release-publishing.html#distribution)。
 
-9) 更新SINGA网站的下载页面。tar.gz 文件必须从镜像下载，使用 closer.cgi 脚本；其他工件必须从 Apache 主站点下载。更多细节请看[这里](http://www.apache.org/dev/release-download-pages.html)。我们在之前的版本中得到的一些反馈。“下载页面必须只链接到正式发布的版本，所以不能包含到GitHub的链接”，“链接到KEYS, sig和Hash的链接不能使用dist.apache.org而应该使用 https://www.apache.org/dist/singa/...”“而且你只需要一个KEYS链接，而且应该描述如何使用KEYS+sig或Hash来验证下载。”
+9) 更新SINGA网站的下载页面。tar.gz 文件必须从镜像下载，使用 closer.cgi 脚本；其他工件必须从 Apache 主站点下载。更多细节请看[这里](https://www.apache.org/dev/release-download-pages.html)。我们在之前的版本中得到的一些反馈。“下载页面必须只链接到正式发布的版本，所以不能包含到GitHub的链接”，“链接到KEYS, sig和Hash的链接不能使用dist.apache.org而应该使用 https://www.apache.org/dist/singa/...”“而且你只需要一个KEYS链接，而且应该描述如何使用KEYS+sig或Hash来验证下载。”
 
 10) 删除RC标签并编译conda包。
 
@@ -162,7 +162,7 @@ passed.
 
  SINGA is a general distributed deep learning platform
  for training big deep learning models over large datasets.
- The release is available at: http://singa.apache.org/downloads.html
+ The release is available at: https://singa.apache.org/downloads.html
  The main features of this release include XXX
  We look forward to hearing your feedback, suggestions,
  and contributions to the project.

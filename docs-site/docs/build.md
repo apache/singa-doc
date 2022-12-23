@@ -165,7 +165,7 @@ For installing swig
 
 ```shell
 sudo yum install pcre-devel
-wget http://prdownloads.sourceforge.net/swig/swig-3.0.10.tar.gz
+wget https://prdownloads.sourceforge.net/swig/swig-3.0.10.tar.gz
 tar xvzf swig-3.0.10.tar.gz
 cd swig-3.0.10.tar.gz
 ./configure --prefix=${RUN}
@@ -519,7 +519,7 @@ $ make package
   Python linked by PySINGA via `otool -L <path to _singa_wrap.so>`. To fix this
   error, compile SINGA with the correct version of Python. In particular, if you
   build PySINGA from source, you need to specify the paths when invoking
-  [cmake](http://stackoverflow.com/questions/15291500/i-have-2-versions-of-python-installed-but-cmake-is-using-older-version-how-do)
+  [cmake](https://stackoverflow.com/questions/15291500/i-have-2-versions-of-python-installed-but-cmake-is-using-older-version-how-do)
 
         $ cmake -DPYTHON_LIBRARY=`python-config --prefix`/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=`python-config --prefix`/include/python2.7/ ..
 

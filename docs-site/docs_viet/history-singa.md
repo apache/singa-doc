@@ -11,27 +11,27 @@ SINGA được phát triển bởi DB System Group tại ĐH Quốc Gia Singapor
 
 - B.C. Ooi, K.-L. Tan, S. Wang, W. Wang, Q. Cai, G. Chen, J. Gao, Z. Luo, A. K.
   H. Tung, Y. Wang, Z. Xie, M. Zhang, and K. Zheng.
-  [SINGA: A distributed deep learning platform](http://www.comp.nus.edu.sg/~ooibc/singaopen-mm15.pdf).
+  [SINGA: A distributed deep learning platform](https://www.comp.nus.edu.sg/~ooibc/singaopen-mm15.pdf).
   ACM Multimedia (Open Source Software Competition) 2015
 
 - W. Wang, G. Chen, T. T. A. Dinh, B. C. Ooi, K.-L.Tan, J. Gao, and S. Wang.
-  [SINGA: putting deep learning in the hands of multimedia users](http://www.comp.nus.edu.sg/~ooibc/singa-mm15.pdf).
+  [SINGA: putting deep learning in the hands of multimedia users](https://www.comp.nus.edu.sg/~ooibc/singa-mm15.pdf).
   ACM Multimedia 2015.
 
 Rafiki là một mô-đun của SINGA. Vui lòng cite các báo cáo khoa học dưới đây nếu bạn muốn sử dụng Rafiki trong nghiên cứu của mình:
 
 - Wei Wang, Jinyang Gao, Meihui Zhang, Sheng Wang, Gang Chen, Teck Khim Ng, Beng
   Chin Ooi, Jie Shao, Moaz Reyad.
-  [Rafiki: Machine Learning as an Analytics Service System](http://www.vldb.org/pvldb/vol12/p128-wang.pdf).
-  [VLDB 2019](http://vldb.org/2019/)
+  [Rafiki: Machine Learning as an Analytics Service System](https://www.vldb.org/pvldb/vol12/p128-wang.pdf).
+  [VLDB 2019](https://vldb.org/2019/)
   ([BibTex](https://dblp.org/rec/bib2/journals/pvldb/WangWGZCNOS18.bib)).
 
-Các công ty như [NetEase](http://tech.163.com/17/0602/17/CLUL016I00098GJ5.html),
-[yzBigData](http://www.yzbigdata.com/en/index.html),
+Các công ty như [NetEase](https://tech.163.com/17/0602/17/CLUL016I00098GJ5.html),
+[yzBigData](https://www.yzbigdata.com/en/index.html),
 [Shentilium](https://shentilium.com/), [Foodlg](http://www.foodlg.com/) and
 [Medilot](https://medilot.com/technologies) đang sử dụng SINGA cho các ứng dụng của họ.
 
 ## Bản Quyền
 
 SINGA được phát hành bởi
-[Bản Quyền Apache phiên bản 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[Bản Quyền Apache phiên bản 2.0](https://www.apache.org/licenses/LICENSE-2.0)

@@ -18,7 +18,7 @@ title: Download SINGA
 
 ## V3.0.0 (18 April 2020):
 
-- [Apache SINGA 3.0.0](http://www.apache.org/dyn/closer.cgi/singa/3.0.0/apache-singa-3.0.0.tar.gz)
+- [Apache SINGA 3.0.0](https://www.apache.org/dyn/closer.cgi/singa/3.0.0/apache-singa-3.0.0.tar.gz)
   [\[SHA512\]](https://www.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.sha512)
   [\[ASC\]](https://www.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.asc)
 - [Release Notes 3.0.0](releases/RELEASE_NOTES_3.0.0)
@@ -34,7 +34,7 @@ title: Download SINGA
 
 ## 孵化版本（incubating） v2.0.0 (20 April 2019):
 
-- [Apache SINGA 2.0.0 (incubating)](http://www.apache.org/dyn/closer.cgi/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz)
+- [Apache SINGA 2.0.0 (incubating)](https://www.apache.org/dyn/closer.cgi/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz)
   [\[SHA512\]](https://www.apache.org/dist/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz.sha512)
   [\[ASC\]](https://www.apache.org/dist/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz.asc)
 - [Release Notes 2.0.0 (incubating)](releases/RELEASE_NOTES_2.0.0.html)

@@ -19,10 +19,10 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
 
 ## V3.1.0 (30 tháng 10 năm 2020):
 
-- [Apache SINGA 3.1.0](http://www.apache.org/dyn/closer.cgi/singa/3.1.0/apache-singa-3.1.0.tar.gz)
+- [Apache SINGA 3.1.0](https://www.apache.org/dyn/closer.cgi/singa/3.1.0/apache-singa-3.1.0.tar.gz)
   [\[SHA512\]](https://www.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.sha512)
   [\[ASC\]](https://www.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.asc)
-- [Release Notes 3.1.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.1.0)
+- [Release Notes 3.1.0](https://singa.apache.org/docs/releases/RELEASE_NOTES_3.1.0)
 - Thay đổi chung:
   - Cập nhật Tensor core:
     - Hỗ trợ tensor transformation (reshape, transpose) cho tensors có tới 6 chiều (dimensions).
@@ -46,7 +46,7 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
 - [Apache SINGA 3.0.0](https://archive.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.asc)
-- [Ghi Chú Phát Hành 3.0.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.0.0)
+- [Ghi Chú Phát Hành 3.0.0](https://singa.apache.org/docs/releases/RELEASE_NOTES_3.0.0)
 - Các tính năng mới và thay đổi chính, 
   - Nâng cấp ONNX. Thử nghiệm nhiều ONNX models trên SINGA.
   - Thực hiện Distributed training với MPI và tối ưu hoá NCCL Communication qua
@@ -64,7 +64,7 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
 - [Apache SINGA 2.0.0 (incubating)](https://archive.apache.org/dist/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz.asc)
-- [Ghi Chú Phát Hành 2.0.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_2.0.0.html)
+- [Ghi Chú Phát Hành 2.0.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_2.0.0.html)
 - Các tính năng mới và thay đổi chính, 
   - Nâng cấp autograd (cho Convolution networks và recurrent networks)
   - Hỗ trợ ONNX
@@ -78,7 +78,7 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
 - [Apache SINGA 1.2.0 (incubating)](https://archive.apache.org/dist/incubator/singa/1.2.0/apache-singa-incubating-1.2.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/incubator/singa/1.2.0/apache-singa-incubating-1.2.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/1.2.0/apache-singa-incubating-1.2.0.tar.gz.asc)
-- [Release Notes 1.2.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_1.2.0.html)
+- [Release Notes 1.2.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_1.2.0.html)
 - Các tính năng mới và thay đổi chính, 
   - Thực hiện autograd (đang hỗ trợ MLP model)
   - Nâng cấp PySinga để hỗ trợ Python 3
@@ -96,7 +96,7 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
 - [Apache SINGA 1.1.0 (incubating)](https://archive.apache.org/dist/incubator/singa/1.1.0/apache-singa-incubating-1.1.0.tar.gz)
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/1.1.0/apache-singa-incubating-1.1.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/1.1.0/apache-singa-incubating-1.1.0.tar.gz.asc)
-- [Release Notes 1.1.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_1.1.0.html)
+- [Release Notes 1.1.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_1.1.0.html)
 - Các tính năng mới và thay đổi chính, 
   - Tạo Docker images (phiên bản CPU và GPU)
   - Tạo Amazon AMI cho SINGA (phiên bản CPU)
@@ -119,7 +119,7 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
 - [Apache SINGA 1.0.0 (incubating)](https://archive.apache.org/dist/incubator/singa/1.0.0/apache-singa-incubating-1.0.0.tar.gz)
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/1.0.0/apache-singa-incubating-1.0.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/1.0.0/apache-singa-incubating-1.0.0.tar.gz.asc)
-- [Release Notes 1.0.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_1.0.0.html)
+- [Release Notes 1.0.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_1.0.0.html)
 - Các tính năng mới và thay đổi chính,
   - Tạo Tensor nhằm hỗ trợ nhiều model khác nhau.
   - Tạo Device để chạy trên các thiết bị phần cứng khác nhau, bao gồm CPU, 
@@ -139,7 +139,7 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
 - [Apache SINGA 0.3.0 (incubating)](https://archive.apache.org/dist/incubator/singa/0.3.0/apache-singa-incubating-0.3.0.tar.gz)
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/0.3.0/apache-singa-incubating-0.3.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/0.3.0/apache-singa-incubating-0.3.0.tar.gz.asc)
-- [Release Notes 0.3.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_0.3.0.html)
+- [Release Notes 0.3.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_0.3.0.html)
 - Các tính năng mới và thay đổi chính,
   - Training trên nhóm máy GPU: cho phép training các deep learning models trên một nhóm máy GPU
   - Cải thiện Python wrapper khiến cho job configuration trở nên dễ dàng, bao gồm
@@ -156,7 +156,7 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
 - [Apache SINGA 0.2.0 (incubating)](https://archive.apache.org/dist/incubator/singa/0.2.0/apache-singa-incubating-0.2.0.tar.gz)
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/0.2.0/apache-singa-incubating-0.2.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/0.2.0/apache-singa-incubating-0.2.0.tar.gz.asc)
-- [Release Notes 0.2.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_0.2.0.html)
+- [Release Notes 0.2.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_0.2.0.html)
 - Các tính năng mới và thay đổi chính,
   - Training trên GPU cho phép training các models phức tạp trên một node với nhiều card GPU.
   - Chia nhỏ Hybrid neural net hỗ trợ dữ liệu và model song song cùng lúc. 
@@ -179,7 +179,7 @@ Bạn có thể kiểm tra giá trị của SHA512 hoặc MD5 để xem liệu v
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/apache-singa-incubating-0.1.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/apache-singa-incubating-0.1.0.tar.gz.asc)
 - [Amazon EC2 image](https://console.aws.amazon.com/ec2/v2/home?region=ap-southeast-1#LaunchInstanceWizard:ami=ami-b41001e6)
-- [Release Notes 0.1.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_0.1.0.html)
+- [Release Notes 0.1.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_0.1.0.html)
 - Các thay đổi chính gồm có,
   - Cài đặt sử dụng tiện ích GNU build
   - Tập lệnh cho job management với zookeeper

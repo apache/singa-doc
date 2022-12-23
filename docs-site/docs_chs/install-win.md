@@ -17,10 +17,10 @@ title: Build SINGA on Windows
   - Visual Studio，社区版是免费的，可以用来构建SINGA。
     https://www.visualstudio.com/
 - CMake
-  - 可以从 http://cmake.org/ 下载
+  - 可以从 https://cmake.org/ 下载
   - 确保 cmake 可执行文件的路径在系统路径中，或者在调用 cmake 时使用完整路径。
 - SWIG
-  - 可以从 http://swig.org/ 下载
+  - 可以从 https://swig.org/ 下载
   - 确保swig可执行文件的路径在系统路径中，或者在调用swig时使用完整路径。请使用最新的版本，如3.0.12。
 
 - Protocol Buffers
@@ -33,9 +33,9 @@ title: Build SINGA on Windows
   - 构建libprotobuf项目。
 
 - Openblas
-  - 从 http://www.openblas.net 下载合适的源码，如0.2.20。
+  - 从 https://www.openblas.net 下载合适的源码，如0.2.20。
   - 将源码解压到dependencies文件夹中。
-  - 如果你没有安装Perl，请下载一个perl环境，如Strawberry Perl (http://strawberryperl.com/)。
+  - 如果你没有安装Perl，请下载一个perl环境，如Strawberry Perl (https://strawberryperl.com/)。
   - 在源文件夹中运行此命令来构建Visual Studio解决方案：
 
   ```bash

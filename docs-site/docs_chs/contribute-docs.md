@@ -43,7 +43,7 @@ md文件将通过[Docusaurus](https://docusaurus.io/)构建成HTML页面；API�
 
 ### Python API
 
-请遵循[Google Python DocString风格](http://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings).
+请遵循[Google Python DocString风格](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings).
 
 ## Visual Studio Code (vscode)
 

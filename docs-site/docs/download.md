@@ -20,10 +20,10 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 
 ## V3.3.0 (07 June 2022):
 
-- [Apache SINGA 3.3.0](http://www.apache.org/dyn/closer.cgi/singa/3.3.0/apache-singa-3.3.0.tar.gz)
+- [Apache SINGA 3.3.0](https://www.apache.org/dyn/closer.cgi/singa/3.3.0/apache-singa-3.3.0.tar.gz)
   [\[SHA512\]](https://www.apache.org/dist/singa/3.3.0/apache-singa-3.3.0.tar.gz.sha512)
   [\[ASC\]](https://www.apache.org/dist/singa/3.3.0/apache-singa-3.3.0.tar.gz.asc)
-- [Release Notes 3.3.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.3.0)
+- [Release Notes 3.3.0](https://singa.apache.org/docs/releases/RELEASE_NOTES_3.3.0)
 - Major changes:
   * New examples
     - Add one CNN example for the BloodMnist dataset, a sub set of MedMNIST.
@@ -51,7 +51,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 3.2.0](https://archive.apache.org/dist/singa/3.2.0/apache-singa-3.2.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/singa/3.2.0/apache-singa-3.2.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/singa/3.2.0/apache-singa-3.2.0.tar.gz.asc)
-- [Release Notes 3.2.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.2.0)
+- [Release Notes 3.2.0](https://singa.apache.org/docs/releases/RELEASE_NOTES_3.2.0)
 - Major changes:
   * New examples
     - Add one cifar-10 distributed CNN example for benchmarking the performance 
@@ -81,7 +81,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 3.1.0](https://archive.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/singa/3.1.0/apache-singa-3.1.0.tar.gz.asc)
-- [Release Notes 3.1.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.1.0)
+- [Release Notes 3.1.0](https://singa.apache.org/docs/releases/RELEASE_NOTES_3.1.0)
 - Major changes:
   - Update Tensor core:
     - Support tensor transformation (reshape, transpose) for tensors up to 6
@@ -111,7 +111,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 3.0.0](https://archive.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/singa/3.0.0/apache-singa-3.0.0.tar.gz.asc)
-- [Release Notes 3.0.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.0.0)
+- [Release Notes 3.0.0](https://singa.apache.org/docs/releases/RELEASE_NOTES_3.0.0)
 - New features and major changes,
   - Enhanced ONNX. Multiple ONNX models have been tested in SINGA.
   - Distributed training with MPI and NCCL Communication optimization through
@@ -130,7 +130,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 2.0.0 (incubating)](https://archive.apache.org/dist/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/2.0.0/apache-singa-incubating-2.0.0.tar.gz.asc)
-- [Release Notes 2.0.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_2.0.0.html)
+- [Release Notes 2.0.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_2.0.0.html)
 - New features and major updates,
   - Enhance autograd (for Convolution networks and recurrent networks)
   - Support ONNX
@@ -144,7 +144,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 1.2.0 (incubating)](https://archive.apache.org/dist/incubator/singa/1.2.0/apache-singa-incubating-1.2.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/incubator/singa/1.2.0/apache-singa-incubating-1.2.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/1.2.0/apache-singa-incubating-1.2.0.tar.gz.asc)
-- [Release Notes 1.2.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_1.2.0.html)
+- [Release Notes 1.2.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_1.2.0.html)
 - New features and major updates,
   - Implement autograd (currently support MLP model)
   - Upgrade PySinga to support Python 3
@@ -162,7 +162,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 1.1.0 (incubating)](https://archive.apache.org/dist/incubator/singa/1.1.0/apache-singa-incubating-1.1.0.tar.gz)
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/1.1.0/apache-singa-incubating-1.1.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/1.1.0/apache-singa-incubating-1.1.0.tar.gz.asc)
-- [Release Notes 1.1.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_1.1.0.html)
+- [Release Notes 1.1.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_1.1.0.html)
 - New features and major updates,
   - Create Docker images (CPU and GPU versions)
   - Create Amazon AMI for SINGA (CPU version)
@@ -186,7 +186,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 1.0.0 (incubating)](https://archive.apache.org/dist/incubator/singa/1.0.0/apache-singa-incubating-1.0.0.tar.gz)
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/1.0.0/apache-singa-incubating-1.0.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/1.0.0/apache-singa-incubating-1.0.0.tar.gz.asc)
-- [Release Notes 1.0.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_1.0.0.html)
+- [Release Notes 1.0.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_1.0.0.html)
 - New features and major updates,
   - Tensor abstraction for supporting more machine learning models.
   - Device abstraction for running on different hardware devices, including CPU,
@@ -206,7 +206,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 0.3.0 (incubating)](https://archive.apache.org/dist/incubator/singa/0.3.0/apache-singa-incubating-0.3.0.tar.gz)
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/0.3.0/apache-singa-incubating-0.3.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/0.3.0/apache-singa-incubating-0.3.0.tar.gz.asc)
-- [Release Notes 0.3.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_0.3.0.html)
+- [Release Notes 0.3.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_0.3.0.html)
 - New features and major updates,
   - Training on GPU cluster enables training of deep learning models over a GPU
     cluster.
@@ -224,7 +224,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Apache SINGA 0.2.0 (incubating)](https://archive.apache.org/dist/incubator/singa/0.2.0/apache-singa-incubating-0.2.0.tar.gz)
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/0.2.0/apache-singa-incubating-0.2.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/0.2.0/apache-singa-incubating-0.2.0.tar.gz.asc)
-- [Release Notes 0.2.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_0.2.0.html)
+- [Release Notes 0.2.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_0.2.0.html)
 - New features and major updates,
   - Training on GPU enables training of complex models on a single node with
     multiple GPU cards.
@@ -252,7 +252,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   [\[MD5\]](https://archive.apache.org/dist/incubator/singa/apache-singa-incubating-0.1.0.tar.gz.md5)
   [\[ASC\]](https://archive.apache.org/dist/incubator/singa/apache-singa-incubating-0.1.0.tar.gz.asc)
 - [Amazon EC2 image](https://console.aws.amazon.com/ec2/v2/home?region=ap-southeast-1#LaunchInstanceWizard:ami=ami-b41001e6)
-- [Release Notes 0.1.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_0.1.0.html)
+- [Release Notes 0.1.0 (incubating)](https://singa.apache.org/docs/releases/RELEASE_NOTES_0.1.0.html)
 - Major features include,
   - Installation using GNU build utility
   - Scripts for job management with zookeeper
