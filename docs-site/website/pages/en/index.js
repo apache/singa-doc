@@ -40,6 +40,7 @@ const iconBs = require("react-icons/bs")
 const iconFa = require("react-icons/fa")
 const iconCg = require("react-icons/cg")
 const iconIm = require("react-icons/im")
+const iconDi = require("react-icons/di")
 
 const siteConfig = require(`${process.cwd()}/siteConfig.js`)
 
@@ -141,6 +142,15 @@ class Index extends React.Component {
                 </p>
               </div>
               <div className="container-2-box">
+                <iconDi.DiDatabase className="icon" />
+                <h2>Database integration</h2>
+                <p>
+                  <MarkdownBlock>
+                  Models are trained with SINGA and can be queried in the RDBMS
+                  </MarkdownBlock>
+                </p>
+              </div>
+              <div className="container-2-box">
                 <iconGi.GiMeepleCircle className="icon" />
                 <h2>Model zoo</h2>
                 <p>
@@ -216,17 +226,6 @@ class Index extends React.Component {
                   </MarkdownBlock>
                 </p>
               </div>
-              <div className="container-2-box">
-                <iconBs.BsHeptagonHalf className="icon" /> 
-                <h2>Half precision</h2>
-                <p>
-                  <MarkdownBlock>
-                    Half precision is supported to bring benefits, e.g., less
-                    GPU memory, supporting larger networks and faster training,
-                    etc
-                  </MarkdownBlock>
-                </p>
-              </div>
             </div>
           </Container>
           <Container padding="top, bottom" background="light">
@@ -255,6 +254,23 @@ class Index extends React.Component {
                 fontWeight: "bold",
               }}
             >
+              SINGA trains the deep learning models which can be queried as stored procedures of the RDBMS
+            </p>
+            <img
+              style={{ width: "35%" }}
+              className="containerImg"
+              src={`${siteConfig.baseUrl}img/MS_fig.jpg`}
+              alt="DatabaseUse"
+            />
+          </Container>
+          <Container padding="top, bottom" background="light">
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "24px",
+                fontWeight: "bold",
+              }}
+            >
               SINGA parallelizes the training and optimizes the communication
               cost to improve training scalability
             </p>
@@ -265,7 +281,7 @@ class Index extends React.Component {
               alt="Scalability"
             />
           </Container>
-          <Container padding="top, bottom" background="light">
+          <Container padding="top, bottom">
             <p
               style={{
                 textAlign: "center",
