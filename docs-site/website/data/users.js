@@ -64,7 +64,7 @@ module.exports = [
     caption: "TTSH SG",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/TTSH_Logo.gif",
+    image: "/img/users/TTSH_Logo.png",
     infoLink: "https://www.ttsh.com.sg/Pages/default.aspx",
     pinned: true,
   },
@@ -97,7 +97,8 @@ module.exports = [
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/yzBigData.png",
-    infoLink: "http://www.yzbigdata.com/",
+    // infoLink: "http://www.yzbigdata.com/",
+    infoLink: "",
     pinned: true,
   },
   {
@@ -105,7 +106,8 @@ module.exports = [
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/shentilium.png",
-    infoLink: "https://shentilium.com/",
+    // infoLink: "https://shentilium.com/",
+    infoLink: "",
     pinned: true,
   },
   {
@@ -120,8 +122,9 @@ module.exports = [
     caption: "Medilot",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/medilot.svg",
-    infoLink: "https://medilot.com/technologies",
+    image: "/img/users/medilot.png",
+    // infoLink: "https://medilot.com/technologies",
+    infoLink: "",
     pinned: true,
   },
   {
@@ -129,7 +132,8 @@ module.exports = [
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/mzhtech.png",
-    infoLink: "http://www.mzhtechnologies.com/index.html",
+    // infoLink: "http://www.mzhtechnologies.com/index.html",
+    infoLink: "",
     pinned: true,
   },
   {
