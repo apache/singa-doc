@@ -21,7 +21,8 @@ module.exports = [
   // Please contact SINGA team if you
   // want to feature your usage of Apache SINGA
   {
-    caption: "NUS",
+    // caption: "NUS",
+       caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/nus.png",
@@ -29,23 +30,8 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "Alibaba",
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/alibaba.png",
-    infoLink: "https://www.alibabagroup.com/en-US",
-    pinned: true,
-  },
-  {
-    caption: "NetEase",
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/NetEase.jpg",
-    infoLink: "http://tech.163.com/17/0602/17/CLUL016I00098GJ5.html",
-    pinned: true,
-  },
-  {
-    caption: "NUH SG",
+    // caption: "NUH",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/nuhlogo.jpg",
@@ -53,7 +39,26 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "SGH SG",
+    // caption: "Alibaba",
+    caption: "",
+    // You will need to prepend the image path with your baseUrl
+    // if it is not '/', like: '/test-site/img/image.jpg'.
+    image: "/img/users/alibaba.png",
+    infoLink: "https://www.alibabagroup.com/en-US",
+    pinned: true,
+  },
+  {
+    // caption: "NetEase",
+    caption: "",
+    // You will need to prepend the image path with your baseUrl
+    // if it is not '/', like: '/test-site/img/image.jpg'.
+    image: "/img/users/NetEase.jpg",
+    infoLink: "http://tech.163.com/17/0602/17/CLUL016I00098GJ5.html",
+    pinned: true,
+  },
+  {
+    // caption: "SGH",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/sgh.png",
@@ -61,7 +66,8 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "TTSH SG",
+    // caption: "TTSH",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/TTSH_Logo.png",
@@ -69,7 +75,8 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "JurongHealth SG",
+    // caption: "JurongHealth",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/juronghealth.png",
@@ -77,41 +84,17 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "CitiGroup",
+    // caption: "Carnegie Technologies",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/citigroup-logo.jpg",
-    infoLink: "https://www.citigroup.com/citi/",
+    image: "/img/users/carnegietech.png",
+    infoLink: "https://www.carnegietechnologies.com/",
     pinned: true,
   },
   {
-    caption: "ComfortDelGro",
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/ComfortDelgro.png",
-    infoLink: "https://www.comfortdelgro.com/",
-    pinned: true,
-  },
-  {
-    caption: "yzBigData",
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/yzBigData.png",
-    // infoLink: "http://www.yzbigdata.com/",
-    infoLink: "",
-    pinned: true,
-  },
-  {
-    caption: "Shentilium",
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/shentilium.png",
-    // infoLink: "https://shentilium.com/",
-    infoLink: "",
-    pinned: true,
-  },
-  {
-    caption: "Foodlg",
+    // caption: "Foodlg",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/foodlg.png",
@@ -119,7 +102,8 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "Medilot",
+    // caption: "Medilot",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/medilot.png",
@@ -128,7 +112,8 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "MZH Tech",
+    // caption: "MZHTech",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/mzhtech.png",
@@ -137,7 +122,8 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "Secureage Technology",
+    // caption: "SecureAge Technology",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/SecureAge_Logo.png",
@@ -145,15 +131,46 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "Carnegie Technologies",
+    // caption: "CitiGroup",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: "/img/users/carnegietech.png",
-    infoLink: "https://www.carnegietechnologies.com/",
+    image: "/img/users/citigroup-logo.jpg",
+    infoLink: "https://www.citigroup.com/citi/",
     pinned: true,
   },
   {
-    caption: "CBRE",
+    // caption: "ComfortDelgro",
+    caption: "",
+    // You will need to prepend the image path with your baseUrl
+    // if it is not '/', like: '/test-site/img/image.jpg'.
+    image: "/img/users/ComfortDelgro.png",
+    infoLink: "https://www.comfortdelgro.com/",
+    pinned: true,
+  },
+  {
+    // caption: "Shentilium",
+    caption: "",
+    // You will need to prepend the image path with your baseUrl
+    // if it is not '/', like: '/test-site/img/image.jpg'.
+    image: "/img/users/shentilium.png",
+    // infoLink: "https://shentilium.com/",
+    infoLink: "",
+    pinned: true,
+  },
+  {
+    // caption: "yzBigData",
+    caption: "",
+    // You will need to prepend the image path with your baseUrl
+    // if it is not '/', like: '/test-site/img/image.jpg'.
+    image: "/img/users/yzBigData.png",
+    // infoLink: "http://www.yzbigdata.com/",
+    infoLink: "",
+    pinned: true,
+  },
+  {
+    // caption: "CBRE",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/CBRE.jpg",
@@ -161,7 +178,8 @@ module.exports = [
     pinned: true,
   },
   {
-    caption: "Noblis",
+    // caption: "Noblis",
+    caption: "",
     // You will need to prepend the image path with your baseUrl
     // if it is not '/', like: '/test-site/img/image.jpg'.
     image: "/img/users/noblis.png",
