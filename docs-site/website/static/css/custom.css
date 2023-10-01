@@ -143,14 +143,23 @@ table td:first-child > code {
 }
 
 .showcase .link img {
-  width: auto;
-  height: 52px;
+  /* width: auto; */
+  width: 160px;
+  height: 80px;
   max-height: 100%;
   max-width: 100%;
   padding: 20px;
   align-self: center;
   /* border: 1px green solid; */
 }
+
+/*.showcaseSection .logos img{
+  max-height: 128px;
+  padding: 20px;
+  width: 128px:
+}
+*/
+
 
 @media only screen and (max-width: 735px) {
   .showcase .link {
