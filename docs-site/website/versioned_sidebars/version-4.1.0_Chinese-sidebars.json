@@ -1,0 +1,44 @@
+{
+  "version-4.1.0_Chinese-docs": {
+    "Getting Started": [
+      "version-4.1.0_Chinese-installation",
+      "version-4.1.0_Chinese-software-stack",
+      "version-4.1.0_Chinese-examples"
+    ],
+    "Guides": [
+      "version-4.1.0_Chinese-device",
+      "version-4.1.0_Chinese-tensor",
+      "version-4.1.0_Chinese-autograd",
+      "version-4.1.0_Chinese-optimizer",
+      "version-4.1.0_Chinese-graph",
+      "version-4.1.0_Chinese-onnx",
+      "version-4.1.0_Chinese-dist-train",
+      "version-4.1.0_Chinese-time-profiling",
+      "version-4.1.0_Chinese-half-precision"
+    ],
+    "Development": [
+      "version-4.1.0_Chinese-downloads",
+      "version-4.1.0_Chinese-build",
+      "version-4.1.0_Chinese-contribute-code",
+      "version-4.1.0_Chinese-contribute-docs",
+      "version-4.1.0_Chinese-how-to-release",
+      "version-4.1.0_Chinese-git-workflow"
+    ]
+  },
+  "version-4.1.0_Chinese-community": {
+    "Community": [
+      "version-4.1.0_Chinese-source-repository",
+      "version-4.1.0_Chinese-mail-lists",
+      "version-4.1.0_Chinese-issue-tracking",
+      "version-4.1.0_Chinese-security",
+      "version-4.1.0_Chinese-team-list",
+      "version-4.1.0_Chinese-history-singa"
+    ],
+    "Wheel Package": [
+      "version-4.1.0_Chinese-wheel-cpu",
+      "version-4.1.0_Chinese-wheel-cpu-dev",
+      "version-4.1.0_Chinese-wheel-gpu",
+      "version-4.1.0_Chinese-wheel-gpu-dev"
+    ]
+  }
+}

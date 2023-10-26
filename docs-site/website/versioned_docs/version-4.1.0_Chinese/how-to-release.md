@@ -1,52 +1,34 @@
 ---
-id: how-to-release
+id: version-4.1.0_Chinese-how-to-release
 title: How to Prepare a Release
+original_id: how-to-release
 ---
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-This is a guide for the
-[release preparing process](http://www.apache.org/dev/release-publishing.html)
-in SINGA.
+这是SINGA的[发布准备流程](http://www.apache.org/dev/release-publishing.html)指南。
 
-1. Select a release manager. The release manager (RM) is the coordinator for the
-   release process. It is the RM's signature (.asc) that is uploaded together
-   with the release. The RM generates KEY (RSA 4096-bit) and uploads it to a
-   public key server. The RM needs to get his key endorsed (signed) by other
-   Apache user, to be connected to the web of trust. He should first ask the
-   mentor to help signing his key.
-   [How to generate the key](http://www.apache.org/dev/release-signing.html)?
+1. 选择一个发布管理者。发布管理者（RM）是发布过程的协调者，他的签名文件（.asc）将会与发布一起上传。RM 生成 KEY (RSA 4096 位)并将其上传到公钥服务器，首先需要得到其他Apache用户对他的密钥的认可（签名），才能连接到信任网，RM需要先求助其他项目管理者帮忙认证他的密钥。[如何生成密钥？](http://www.apache.org/dev/release-signing.html)
 
-2. Check license. [FAQ](https://www.apache.org/legal/src-headers.html#faq-docs);
+2. 检查license。 [FAQ](https://www.apache.org/legal/src-headers.html#faq-docs);
    [SINGA Issue](https://issues.apache.org/jira/projects/SINGA/issues/SINGA-447)
 
-   - The codebase does not include third-party code which is not compatible to
-     APL;
-   - The dependencies are compatible with APL. GNU-like licenses are NOT
-     compatible;
-   - All source files written by us MUST include the Apache license header:
-     http://www.apache.org/legal/src-headers.html. There's a script in there
-     which helps propagating the header to all files.
-   - Update the LICENSE file. If we include any third party code in the release
-     package which is not APL, must state it at the end of the NOTICE file.
+   - 代码库不能包含与APL不兼容的第三方代码。
+   - 依赖项与APL兼容，GNU类license不兼容。
+   - 我们编写的所有源文件都必须包含Apache license头：http://www.apache.org/legal/src-headers.html.
+   链接中有一个脚本可以帮助将这个头同步到所有文件。
+   - 更新LICENSE文件。如果我们在发行包中包含了任何非APL的第三方代码，必须要在NOTICE文件的最后注明。
 
-3. Bump the version. Check code and documentation
+3. 复查版本。检查代码和文档。
 
-   - The build process is error-free.
-   - Unit tests are included (as much as possible)
-   - Wheel packages run without errors.
-   - The online documentation on the Apache website is up to date.
+   - 编译过程无错误。
+   - (尽可能地)包含进单元测试。
+   - Conda包运行无误。
+   - Apache网站上的在线文档是最新的。
 
-4. Prepare the RELEASE_NOTES file. Include the following items, Introduction,
-   Features, Bugs (link to JIRA or Github PR), Changes, Dependency list,
-   Incompatibility issues. Follow this
-   [example](http://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt).
+4. 准备好RELEASE_NOTES文件。包括以下项目，介绍，特性，错误（链接到JIRA或Github PR），变更，依赖列表，不兼容问题，可以按照这个[例子]((http://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt))来写。
 
-5. Package the release candidate. The release should be packaged into :
-   apache-singa-VERSION.tar.gz. The release should not include any binary files
-   including git files. However, the CMake compilation depends on the git tag to
-   get the version numbers; to remove this dependency, you need to manually
-   update the CMakeLists.txt file to set the version numbers.
+5. 打包候选版本。该版本应该打包成：apache-singa-VERSION.tar.gz。这个版本不应该包含任何二进制文件，包括git文件。但是CMake的编译依赖于git标签来获取版本号；要删除这个依赖，你需要手动更新CMakeLists.txt文件来设置版本号：
 
    ```
    # remove the following lines
@@ -64,24 +46,17 @@ in SINGA.
    SET(SINGA_PATCH_VERSION 0)  # 0 - 99
    ```
 
-   Upload the package to the
-   [stage repo](https://dist.apache.org/repos/dist/dev/singa/). The tar file,
-   signature, KEY and SHA256 checksum file should be included. MD5 is no longer
-   used. Policy is
-   [here](http://www.apache.org/dev/release-distribution#sigs-and-sums). The
-   stage folder should include:
+   将软件包上传到[stage repo](https://dist.apache.org/repos/dist/dev/singa/)。应包括tar文件、签名、KEY和SHA256校验和文件。MD5不再使用，详细规则在[这里](https://dist.apache.org/repos/dist/dev/singa/)。阶段文件夹应该包括：
 
    - apache-singa-VERSION.tar.gz
    - apache-singa-VERSION.acs
    - apache-singa-VERSION.SHA256
 
-   The commands to create these files and upload them to the stage svn repo:
+   创建这些文件并上传到stage svn repo的命令如下：
 
    ```sh
    # in singa repo
    rm -rf .git
-   rm -rf ./.gitignore
-   rm -rf ./.gitmodules
    rm -rf rafiki/*
    cd ..
    tar -czvf apache-singa-VERSION.tar.gz  singa/
@@ -103,9 +78,9 @@ in SINGA.
    svn commit
    ```
 
-6) Call for vote by sending an email. An example is provided as follows.
+6) 通过发送电子邮件的方式进行投票。现举例如下：
 
-   ```
+```
    To: dev@singa.apache.org
    Subject: [VOTE] Release apache-singa-X.Y.Z (release candidate N)
 
@@ -136,23 +111,22 @@ in SINGA.
 
    Some examples are available for testing:
    https://github.com/apache/singa/tree/master/examples
-   ```
+   
 
-Please vote on releasing this package. The vote is open for at least 72 hours
-and passes if a majority of at least three +1 votes are cast.
 
-[ ] +1 Release this package as Apache SINGA X.Y.Z [ ] 0 I don't feel strongly
-about it, but I'm okay with the release [ ] -1 Do not release this package
-because...
+   Please vote on releasing this package. The vote is open for at least 72 hours and passes if a majority of at least three +1 votes are cast.
 
-Here is my vote: +1
+   [ ] +1 Release this package as Apache SINGA X.Y.Z 
+
+   [ ] 0 I don't feel strongly about it, but I'm okay with the release 
+
+   [ ] -1 Do not release this package because...
+
+   Here is my vote: +1
 
 ```
 
-7) Wait at least 48 hours for test responses. Any PMC, committer or contributor
-can test features for releasing, and feedback. Everyone should check these
-before vote +1. If the vote passes, then send the result email. Otherwise,
-repeat from the beginning.
+7) 等待至少48小时的测试回复。任何PMC、提交者或贡献者都可以测试发布的功能，以及反馈。大家在投票+1之前应该检查这些。如果投票通过，则发送如下的结果邮件，否则，从头开始重复刚刚的步骤。
 
 ```
 
@@ -173,24 +147,13 @@ passed.
 
 ````
 
-8) Upload the package for
-[distribution](http://www.apache.org/dev/release-publishing.html#distribution)
-to https://dist.apache.org/repos/dist/release/singa/.
+8) 将软件包上传至 https://dist.apache.org/repos/dist/release/singa/，以便[distribution](http://www.apache.org/dev/release-publishing.html#distribution)。
 
-9) Update the Download page of SINGA website. The tar.gz file MUST be downloaded
-from mirror, using closer.cgi script; other artifacts MUST be downloaded from
-main Apache site. More details
-[here](http://www.apache.org/dev/release-download-pages.html). Some feedback
-we got during the previous releases: "Download pages must only link to formal
-releases, so must not include links to GitHub.", "Links to KEYS, sigs and
-hashes must not use dist.apache.org; instead use
-https://www.apache.org/dist/singa/...;", "Also you only need one KEYS link,
-and there should be a description of how to use KEYS + sig or hash to verify
-the downloads."
+9) 更新SINGA网站的下载页面。tar.gz 文件必须从镜像下载，使用 closer.cgi 脚本；其他工件必须从 Apache 主站点下载。更多细节请看[这里](http://www.apache.org/dev/release-download-pages.html)。我们在之前的版本中得到的一些反馈。“下载页面必须只链接到正式发布的版本，所以不能包含到GitHub的链接”，“链接到KEYS, sig和Hash的链接不能使用dist.apache.org而应该使用 https://www.apache.org/dist/singa/...”“而且你只需要一个KEYS链接，而且应该描述如何使用KEYS+sig或Hash来验证下载。”
 
-10) Remove the RC tag and compile the conda packages.
+10) 删除RC标签并编译conda包。
 
-11) Publish the release information.
+11) 发布release信息：
 
  ```
  To: announce@apache.org, dev@singa.apache.org
@@ -207,4 +170,4 @@ the downloads."
 
  On behalf of the SINGA team, {SINGA Team Member Name}
  ```
-````
+
