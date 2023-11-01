@@ -8,9 +8,6 @@ original_id: installation
 
 ## Sử dụng Pip
 
-[Miniconda3](https://conda.io/miniconda.html) được khuyến khích dùng với SINGA.
-Sau khi cài đặt miniconda, thực hiện các lệnh sau để cài đặt SINGA.
-
 1. Cho CPU
    [![Mở trên Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17RA056Brwk0vBQTFaZ-l9EbqwADO0NA9?usp=sharing)
 
@@ -39,8 +36,8 @@ sách tổ hợp phiên bản SINGA với CUDA được cung cấp trong đườ
 http://singa.apache.org/docs/next/wheel-gpu-dev.html
 
 Lưu ý: phiên bản Python của Python environment trong máy của bạn sẽ được sử dụng
-để tìm gói wheel tương ứng. Ví dụ, nếu bạn sử dụng Python 3.6, thì gói wheel kết
-cấu trong Python 3.6 sẽ được pip chọn để cài đặt. Thực tế, tên của tệp tin wheel
+để tìm gói wheel tương ứng. Ví dụ, nếu bạn sử dụng Python 3.9, thì gói wheel kết
+cấu trong Python 3.9 sẽ được pip chọn để cài đặt. Thực tế, tên của tệp tin wheel
 bao gồm phiên bản SINGA, phiên bản CUDA và Python. Vì thế, `pip` biết tệp tin
 wheel nào để tải và cài đặt.
 
@@ -113,7 +110,7 @@ os) hay trong Docker container.
   ```
 
   Thư mục chứa `_singa_wrap.so` thường ở
-  `~/miniconda3/lib/python3.7/site-packages/singa`. Thông thường, lỗi này được
+  `~/miniconda3/lib/python3.10/site-packages/singa`. Thông thường, lỗi này được
   gây ra bởi sự không tương thích hoặc thiếu các thư viện dependent libraries,
   v.d cuDNN hay protobuf. Cách giải quyết là tạo một virtual environment mới và
   cài đặt SINGA trong environment đó, v.d,
