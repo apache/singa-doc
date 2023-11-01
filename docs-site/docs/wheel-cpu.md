@@ -7,9 +7,9 @@ title: CPU only
 
 ## 4.1.0
 
-- [Python 3.6](https://singa-wheel.s3.ap-southeast-1.amazonaws.com/singa-4.1.0-cp36-cp36m-manylinux2014_x86_64.whl)
-- [Python 3.7](https://singa-wheel.s3.ap-southeast-1.amazonaws.com/singa-4.1.0-cp37-cp37m-manylinux2014_x86_64.whl)
-- [Python 3.8](https://singa-wheel.s3.ap-southeast-1.amazonaws.com/singa-4.1.0-cp38-cp38-manylinux2014_x86_64.whl)
+- [Python 3.9](https://singa-wheel.s3.ap-southeast-1.amazonaws.com/singa-4.1.0-cp39-cp39-manylinux_2_28_x86_64.whl)
+- [Python 3.10](https://singa-wheel.s3.ap-southeast-1.amazonaws.com/singa-4.1.0-cp310-cp310-manylinux_2_28_x86_64.whl)
+- [Python 3.11](https://singa-wheel.s3.ap-southeast-1.amazonaws.com/singa-4.1.0-cp311-cp311-manylinux_2_28_x86_64.whl)
 
 ## 4.0.0
 

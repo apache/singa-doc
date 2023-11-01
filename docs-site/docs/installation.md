@@ -7,11 +7,7 @@ title: Installation
 
 ## Using Pip
 
-[Miniconda3](https://conda.io/miniconda.html) is recommended to use with SINGA.
-After installing miniconda, execute the one of the following commands to install
-SINGA.
-
-**SINGA works with python 3.6, 3.7 and 3.8.**
+**SINGA works with python 3.9, 3.10 and 3.11.**
 
 1. CPU only
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17RA056Brwk0vBQTFaZ-l9EbqwADO0NA9?usp=sharing)
@@ -36,8 +32,8 @@ You can also configure SINGA version and the CUDA version, like
 version are listed at the link.
 
 Note: the Python version of your local Python environment will be used to find
-the corresponding wheel package. For example, if your local Python is 3.6, then
-the wheel package compiled on Python 3.6 will be selected by pip and installed.
+the corresponding wheel package. For example, if your local Python is 3.9, then
+the wheel package compiled on Python 3.9 will be selected by pip and installed.
 In fact, the wheel file's name include SINGA version, CUDA version and Python
 version. Therefore, `pip` knows which wheel file to download and install.
 
@@ -110,7 +106,7 @@ building tools or conda-build, on local host OS or in a Docker container.
   ```
 
   The folder of `_singa_wrap.so` is like
-  `~/miniconda3/lib/python3.7/site-packages/singa`. Normally, the error is
+  `~/miniconda3/lib/python3.10/site-packages/singa`. Normally, the error is
   caused by the mismatch or missing of dependent libraries, e.g. cuDNN or
   protobuf. The solution is to create a new virtual environment and install
   SINGA in that environment, e.g.,

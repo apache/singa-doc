@@ -8,8 +8,6 @@ original_id: installation
 
 ## 使用pip
 
-推荐使用[Miniconda3](https://conda.io/miniconda.html)来配合SINGA使用，安装miniconda后，执行以下命令之一安装SINGA。
-
 1. 只使用CPU
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/17RA056Brwk0vBQTFaZ-l9EbqwADO0NA9?usp=sharing)
 
@@ -34,7 +32,7 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-
 要安装最新的开发版本，请将链接替换为
 http://singa.apache.org/docs/next/wheel-gpu-dev.html
 
-注意：你本地Python环境的Python版本将被用来寻找相应的wheel包。例如，如果你本地的Python是3.6，那么就会通过pip选择在Python 3.6上编译的wheel包并安装。事实上，wheel文件的名称包括SINGA版本、CUDA版本和Python版本。因此，`pip`知道要下载和安装哪个wheel文件。
+注意：你本地Python环境的Python版本将被用来寻找相应的wheel包。例如，如果你本地的Python是3.9，那么就会通过pip选择在Python 3.9上编译的wheel包并安装。事实上，wheel文件的名称包括SINGA版本、CUDA版本和Python版本。因此，`pip`知道要下载和安装哪个wheel文件。
 
 参考setup.py文件顶部的注释，了解如何构建wheel包。
 
@@ -93,7 +91,7 @@ version-(cpu|gpu)[-devel]
   >> import importlib
   >> importlib.import_module('_singa_wrap')
   ```
-  `_singa_wrap.so` 的文件夹是 `~/miniconda3/lib/python3.7/site-packages/singa`。通常情况下，这个错误是由于依赖的库不匹配或缺失造成的，例如 cuDNN 或 protobuf。解决方法是创建一个新的虚拟环境，并在该环境中安装SINGA，例如：
+  `_singa_wrap.so` 的文件夹是 `~/miniconda3/lib/python3.10/site-packages/singa`。通常情况下，这个错误是由于依赖的库不匹配或缺失造成的，例如 cuDNN 或 protobuf。解决方法是创建一个新的虚拟环境，并在该环境中安装SINGA，例如：
   
 
   ```shell
