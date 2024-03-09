@@ -14,16 +14,20 @@ This release includes following changes:
   - Add one CNN example for the BloodMnist dataset, a sub set of MedMNIST.
   - Add one example for the medical image analysis.
 
-- Enhance distributed training 
+- Enhance distributed training
 
-  - Add key information printing, e.g., throughput and communication time, for distributed training.
+  - Add key information printing, e.g., throughput and communication time, for
+    distributed training.
   - Optimize printing and logging modules for faster distributed training.
 
 - Enhance example code
 
-  - Add more datasets and model implementations for the cifar_distributed_cnn example.
-  - Update the running script for the cifar_distributed_cnn example to include more models.
-  - Update the dataset path for the largedataset_cnn example for more flexibility.
+  - Add more datasets and model implementations for the cifar_distributed_cnn
+    example.
+  - Update the running script for the cifar_distributed_cnn example to include
+    more models.
+  - Update the dataset path for the largedataset_cnn example for more
+    flexibility.
   - Add more model implementations for the largedataset_cnn example.
 
 - Enhance the webpage
@@ -35,8 +39,9 @@ This release includes following changes:
 - Debug and add assertions for input tensor data types in the opt.py.
 
 - Change pointer type to void for generalizing data types.
-  
+
 - Fix bugs
 
-  - Fix the python test error due to operations not implemented for some data types.
+  - Fix the python test error due to operations not implemented for some data
+    types.
   - Fix the model of pad from bytes to str.

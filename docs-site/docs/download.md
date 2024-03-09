@@ -25,70 +25,86 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   [\[ASC\]](https://www.apache.org/dist/singa/4.1.0/apache-singa-4.1.0.tar.gz.asc)
 - [Release Notes 4.1.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_4.1.0)
 - Major changes:
-  * New examples
+
+  - New examples
+
     - Add an example for malaria detection using cell images.
     - Add an example for structured data learning.
 
-  * Add support for models running on top of RDBMS
-    - Add support for in-database model definition and selection in RDBMS.
-    - Implement training-free model evaluation metrics for in-database model selection.
-    - Implement a coordinator to balance between training-free and training-based model evaluations
-      for in-database model selection.
+  - Add support for models running on top of RDBMS
 
-  * Enhance distributed training
+    - Add support for in-database model definition and selection in RDBMS.
+    - Implement training-free model evaluation metrics for in-database model
+      selection.
+    - Implement a coordinator to balance between training-free and
+      training-based model evaluations for in-database model selection.
+
+  - Enhance distributed training
+
     - Add implementations for the sum error loss.
     - Improve the optimizer to return model gradients.
-    - Improve the iterative checking for tensors and strings in the ModelMeta class.
+    - Improve the iterative checking for tensors and strings in the ModelMeta
+      class.
 
-  * Enhance example code
-    - Add support for flexible setting of training configurations for models, e.g., learning rates,
-      weight decay, momentum, etc.
+  - Enhance example code
+
+    - Add support for flexible setting of training configurations for models,
+      e.g., learning rates, weight decay, momentum, etc.
     - Add implementations for dynamic models with varying layer sizes.
 
-  * Update the website
+  - Update the website
+
     - Add illustrations for database integration.
     - Update users of Apache SINGA.
 
-  * Fix bugs
+  - Fix bugs
     - Update the NVIDIA_GPGKEY in the Dockerfile for building wheel files.
     - Update the versions of dependencies in the wheel file.
     - Fix the collections module in the model.py file.
 
 ## V4.0.0 (07 April 2023):
 
-- [Apache SINGA 4.0.0]((https://archive.apache.org/dist/singa/4.0.0/apache-singa-4.0.0.tar.gz))
+- [Apache SINGA 4.0.0](<(https://archive.apache.org/dist/singa/4.0.0/apache-singa-4.0.0.tar.gz)>)
   [\[SHA512\]](https://archive.apache.org/dist/singa/4.0.0/apache-singa-4.0.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/singa/4.0.0/apache-singa-4.0.0.tar.gz.asc)
 - [Release Notes 4.0.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_4.0.0)
 - Major changes:
-  * Enhance distributed training
+
+  - Enhance distributed training
+
     - Add support for configuration of number of GPUs to be used.
     - Increase max epoch for better convergence.
     - Print intermediate mini-batch information.
     - Add support for switching between CPU and GPU devices.
 
-  * Enhance example code
-    - Update the args of normalize forward function in the transforms of the BloodMnist example.
+  - Enhance example code
+
+    - Update the args of normalize forward function in the transforms of the
+      BloodMnist example.
     - Update the xceptionnet in the cnn example.
-    - Add arguments for weight decay, momentum and learning rates in the cnn example.
+    - Add arguments for weight decay, momentum and learning rates in the cnn
+      example.
     - Add training scripts for more datasets and model types in the cnn example.
     - Add resnet dist version for the large dataset cnn example.
     - Add cifar 10 multi process for the large dataset cnn example.
-    - Add sparsification implementation for mnist in the large dataset cnn example.
+    - Add sparsification implementation for mnist in the large dataset cnn
+      example.
     - Update the cifar datasets downloading to local directories.
     - Extend the cifar datasets load function for customized directorires.
 
-  * Enhance the webpage
+  - Enhance the webpage
+
     - Update online documentation for distributed training.
 
-  * Promote code quality
+  - Promote code quality
+
     - Update inline comments for prepreocessing and data loading
 
-  * Update the PIL image module
+  - Update the PIL image module
 
-  * Update the runtime Dockerfile
+  - Update the runtime Dockerfile
 
-  * Update the conda files
+  - Update the conda files
 
 ## V3.3.0 (07 June 2022):
 
@@ -97,25 +113,30 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   [\[ASC\]](https://archive.apache.org/dist/singa/3.3.0/apache-singa-3.3.0.tar.gz.asc)
 - [Release Notes 3.3.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.3.0)
 - Major changes:
-  * New examples
+  - New examples
     - Add one CNN example for the BloodMnist dataset, a sub set of MedMNIST.
     - Add one example for the medical image analysis.
-  * Enhance distributed training
-    - Add key information printing, e.g., throughput and communication time, for distributed training.
+  - Enhance distributed training
+    - Add key information printing, e.g., throughput and communication time, for
+      distributed training.
     - Optimize printing and logging modules for faster distributed training.
-  * Enhance example code
-    - Add more datasets and model implementations for the cifar_distributed_cnn example.
-    - Update the running script for the cifar_distributed_cnn example to include more models.
-    - Update the dataset path for the largedataset_cnn example for more flexibility.
+  - Enhance example code
+    - Add more datasets and model implementations for the cifar_distributed_cnn
+      example.
+    - Update the running script for the cifar_distributed_cnn example to include
+      more models.
+    - Update the dataset path for the largedataset_cnn example for more
+      flexibility.
     - Add more model implementations for the largedataset_cnn example.
-  * Enhance the webpage
+  - Enhance the webpage
     - Reconstruct the singa webpage to include project features.
     - Update the Git web site by deploying it via .asf.yaml.
     - Update the Chinese and Vietnamese documentations.
-  * Debug and add assertions for input tensor data types in the opt.py.
-  * Change pointer type to void for generalizing data types.
-  * Fix bugs
-    - Fix the python test error due to operations not implemented for some data types.
+  - Debug and add assertions for input tensor data types in the opt.py.
+  - Change pointer type to void for generalizing data types.
+  - Fix bugs
+    - Fix the python test error due to operations not implemented for some data
+      types.
     - Fix the model of pad from bytes to str.
 
 ## V3.2.0 (15 August 2021):
@@ -125,28 +146,31 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   [\[ASC\]](https://archive.apache.org/dist/singa/3.2.0/apache-singa-3.2.0.tar.gz.asc)
 - [Release Notes 3.2.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_3.2.0)
 - Major changes:
-  * New examples
-    - Add one cifar-10 distributed CNN example for benchmarking the performance 
+  - New examples
+    - Add one cifar-10 distributed CNN example for benchmarking the performance
       of the distributed training.
     - Add one large CNN example for training with a dataset from the filesysetm.
-  * Enhance distributed training
+  - Enhance distributed training
     - Improve the data augmentation module for faster distributed training.
-    - Add device synchronization for more accurate time measurements during the distributed 
-      training.
-  * Add Support for half-precision floating-point format (fp16) in deep learning models and 
-    computational kernels.
-  * Update new onnx APIs and fix onnx examples accordingly, namely, DenseNet121, ShuffleNetv1, 
-    ShuffleNetv2, SqueezeNet, VGG19.
-  * Add a new method to resize images by given width and height.
-  * Use docusaurus versioning to simplify the process of generating the project homepage.
-  * Promote code quality
-    - Unify the formats of docstrings that describe the contents and usage of the module.
+    - Add device synchronization for more accurate time measurements during the
+      distributed training.
+  - Add Support for half-precision floating-point format (fp16) in deep learning
+    models and computational kernels.
+  - Update new onnx APIs and fix onnx examples accordingly, namely, DenseNet121,
+    ShuffleNetv1, ShuffleNetv2, SqueezeNet, VGG19.
+  - Add a new method to resize images by given width and height.
+  - Use docusaurus versioning to simplify the process of generating the project
+    homepage.
+  - Promote code quality
+    - Unify the formats of docstrings that describe the contents and usage of
+      the module.
     - Unify the parameters of command-line arguments.
-  * Fix bugs
+  - Fix bugs
     - Fix the CI build error by downloading the tbb binaries.
-    - Add disabling graph option for accessing parameter or gradient tensors during distributed
-      training.
-    - Solve the warnings of deprecated functions in the distributed optimizer module.
+    - Add disabling graph option for accessing parameter or gradient tensors
+      during distributed training.
+    - Solve the warnings of deprecated functions in the distributed optimizer
+      module.
 
 ## V3.1.0 (30 October 2020):
 
