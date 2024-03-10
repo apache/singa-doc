@@ -16,7 +16,7 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-
 ```
 
 Bạn có thể cài đặt một phiên bản SINGA cụ thể sử dụng `singa==<version>`, thay
-thông tin `<version>`, v.d, `4.1.0`. Xem danh sách các phiên bản SINGA đang hoạt
+thông tin `<version>`, v.d, `4.2.0`. Xem danh sách các phiên bản SINGA đang hoạt
 động ở đường dẫn.
 
 Để cài đặt phiên bản phát triển mới nhất, thay đường dẫn bằng
