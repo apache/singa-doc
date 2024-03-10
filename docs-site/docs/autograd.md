@@ -128,9 +128,7 @@ for i in range(10):
 
 ### Operation + Layer
 
-The following
-[example](https://github.com/apache/singa/blob/master/examples/autograd/mnist_cnn.py)
-implements a CNN model using layers provided by the autograd module.
+The following [example](https://github.com/apache/singa/blob/master/examples/autograd/mnist_cnn.py) implemeNts a CNN model using layers provided by the autograd module.
 
 #### Create the layers
 
