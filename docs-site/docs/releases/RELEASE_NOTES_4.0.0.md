@@ -18,13 +18,16 @@ This release includes following changes:
 
 - Enhance example code
 
-  - Update the args of normalize forward function in the transforms of the BloodMnist example.
+  - Update the args of normalize forward function in the transforms of the
+    BloodMnist example.
   - Update the xceptionnet in the cnn example.
-  - Add arguments for weight decay, momentum and learning rates in the cnn example.
+  - Add arguments for weight decay, momentum and learning rates in the cnn
+    example.
   - Add training scripts for more datasets and model types in the cnn example.
   - Add resnet dist version for the large dataset cnn example.
   - Add cifar 10 multi process for the large dataset cnn example.
-  - Add sparsification implementation for mnist in the large dataset cnn example.
+  - Add sparsification implementation for mnist in the large dataset cnn
+    example.
   - Update the cifar datasets downloading to local directories.
   - Extend the cifar datasets load function for customized directorires.
 
@@ -39,5 +42,5 @@ This release includes following changes:
 - Update the PIL image module
 
 - Update the runtime Dockerfile
-  
+
 - Update the conda files

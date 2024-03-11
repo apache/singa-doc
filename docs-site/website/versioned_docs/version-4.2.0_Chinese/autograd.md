@@ -1,85 +1,72 @@
 ---
-id: autograd
+id: version-4.2.0_Chinese-autograd
 title: Autograd
+original_id: autograd
 ---
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-There are two typical ways to implement autograd, via symbolic differentiation
-like [Theano](http://deeplearning.net/software/theano/index.html) or reverse
-differentiation like
-[Pytorch](https://pytorch.org/docs/stable/notes/autograd.html). SINGA follows
-Pytorch way, which records the computation graph and apply the backward
-propagation automatically after forward propagation. The autograd algorithm is
-explained in details
-[here](https://pytorch.org/docs/stable/notes/autograd.html). We explain the
-relevant modules in Singa and give an example to illustrate the usage.
+实现 autograd 有两种典型的方式，一种是通过
+如[Theano](http://deeplearning.net/software/theano/index.html)的符号微分
+（symbolic differentiation）或通过
+如[Pytorch](https://pytorch.org/docs/stable/notes/autograd.html)的反向微分
+（reverse differentialtion）。SINGA 遵循 Pytorch 方式，即通过记录计算图，并在正
+向传播后自动应用反向传播。自动传播算法的详细解释请参
+阅[这里](https://pytorch.org/docs/stable/notes/autograd.html)。我们接下来对
+SINGA 中的相关模块进行解释，并举例说明其使用方法。
 
-## Relevant Modules
+## 相关模块
 
-There are three classes involved in autograd, namely `singa.tensor.Tensor`,
-`singa.autograd.Operation`, and `singa.autograd.Layer`. In the rest of this
-article, we use tensor, operation and layer to refer to an instance of the
-respective class.
+在 autograd 中涉及三个类，分别
+是`singa.tensor.Tensor`，`singa.autograd.Operation`和`singa.autograd.Layer`。在
+本篇的后续部分中，我们使用 Tensor、Operation 和 Layer 来指代这三个类。
 
 ### Tensor
 
-Three attributes of Tensor are used by autograd,
+Tensor 的三个属性被 autograd 使用：
 
-- `.creator` is an `Operation` instance. It records the operation that generates
-  the Tensor instance.
-- `.requires_grad` is a boolean variable. It is used to indicate that the
-  autograd algorithm needs to compute the gradient of the tensor (i.e., the
-  owner). For example, during backpropagation, the gradients of the tensors for
-  the weight matrix of a linear layer and the feature maps of a convolution
-  layer (not the bottom layer) should be computed.
-- `.stores_grad` is a boolean variable. It is used to indicate that the gradient
-  of the owner tensor should be stored and output by the backward function. For
-  example, the gradient of the feature maps is computed during backpropagation,
-  but is not included in the output of the backward function.
+- `.creator`是一个`Operation`实例。它记录了产生 Tensor 实例的这个操作。
+- `.request_grad`是一个布尔变量。它用于指示 autograd 算法是否需要计算张量的梯度
+  。例如，在反向传播的过程中，线性层的权重矩阵和卷积层（非底层）的特征图的张量梯
+  度应该被计算。
+- `.store_grad`是一个布尔变量。它用于指示张量的梯度是否应该被存储并由后向函数输
+  出。例如，特征图的梯度是在反向传播过程中计算出来的，但不包括在反向函数的输出中
+  。
 
-Programmers can change `requires_grad` and `stores_grad` of a Tensor instance.
-For example, if later is set to True, the corresponding gradient is included in
-the output of the backward function. It should be noted that if `stores_grad` is
-True, then `requires_grad` must be true, not vice versa.
+开发者可以改变 Tensor 实例的`requires_grad`和`stores_grad`。例如，如果将后者设置
+为 True，那么相应的梯度就会被包含在后向函数的输出。需要注意的是，如
+果`stores_grad`是 True，那么 `requires_grad`一定是真，反之亦然。
 
 ### Operation
 
-It takes one or more `Tensor` instances as input, and then outputs one or more
-`Tensor` instances. For example, ReLU can be implemented as a specific Operation
-subclass. When an `Operation` instance is called (after instantiation), the
-following two steps are executed:
+它将一个或多个`Tensor`实例作为输入，然后输出一个或多个`Tensor`实例。例如，ReLU
+可以作为一个具体的 Operation 子类来实现。当一个`Operation`实例被调用时（实例化后
+），会执行以下两个步骤。
 
-1. record the source operations, i.e., the `creator`s of the input tensors.
-2. do calculation by calling member function `.forward()`
+1.记录源操作，即输入张量的`创建者`。 2.通过调用成员函数`.forward()`进行计算。
 
-There are two member functions for forwarding and backwarding, i.e.,
-`.forward()` and `.backward()`. They take `Tensor.data` as inputs (the type is
-`CTensor`), and output `Ctensor`s. To add a specific operation, subclass
-`operation` should implement their own `.forward()` and `.backward()`. The
-`backward()` function is called by the `backward()` function of autograd
-automatically during backward propogation to compute the gradients of inputs
-(according to the `require_grad` field).
+有两个成员函数用于前向和反向传播，即`.forward()`和`.backward()`。它们
+以`Tensor.data`作为输入（类型为`CTensor`），并输出`Ctensor`s。要添加一个特定的操
+作，子类`Operation`应该实现自己的`.forward()`和`.backward()`函数。在后向传播过程
+中，autograd 的`backward()`函数会自动调用`backward()`函数来计算输入的梯度（根
+据`require_grad`字段的参数和约束）。
 
 ### Layer
 
-For those operations that require parameters, we package them into a new class,
-`Layer`. For example, convolution operation is wrapped into a convolution layer.
-`Layer` manages (stores) the parameters and calls the corresponding `Operation`s
-to implement the transformation.
+对于那些需要参数的 Operation，我们把它们封装成一个新的类，`Layer`。例如，卷积操
+作被封装到卷积层(Convolution layer)中。`层`管理（存储）参数，并调用相应
+的`Operation`来实现变换。
 
-## Examples
+## 样例
 
-Multiple examples are provided in the
-[example folder](https://github.com/apache/singa/tree/master/examples/autograd).
-We explain two representative examples here.
+在[example folder](https://github.com/apache/singa/tree/master/examples/autograd)中
+提供了很多样例。在这里我我们分析两个最具代表性的例子。
 
-### Operation only
+### 只使用 Operation
 
-The following codes implement a MLP model using only Operation instances (no
-Layer instances).
+下一段代码展示了一个只使用`Operation`的多层感知机（MLP）模型：
 
-#### Import packages
+#### 调用依赖包
 
 ```python
 from singa.tensor import Tensor
@@ -87,10 +74,9 @@ from singa import autograd
 from singa import opt
 ```
 
-#### Create weight matrix and bias vector
+#### 创建权重矩阵和偏置向量
 
-The parameter tensors are created with both `requires_grad` and `stores_grad`
-set to `True`.
+在将`requires_grad`和`stores_grad`都设置为`True`的情况下，创建参数张量。
 
 ```python
 w0 = Tensor(shape=(2, 3), requires_grad=True, stores_grad=True)
@@ -104,7 +90,7 @@ b1 = Tensor(shape=(1, 2), requires_grad=True, stores_grad=True)
 b1.set_value(0.0)
 ```
 
-#### Training
+#### 训练
 
 ```python
 inputs = Tensor(data=data)  # data matrix
@@ -126,11 +112,13 @@ for i in range(10):
         sgd.update(p, g)
 ```
 
-### Operation + Layer
+### 使用 Operation 和 Layer
 
-The following [example](https://github.com/apache/singa/blob/master/examples/autograd/mnist_cnn.py) implemeNts a CNN model using layers provided by the autograd module.
+下面
+的[例子](https://github.com/apache/singa/blob/master/examples/autograd/mnist_cnn.py)使
+用 autograd 模块提供的层实现了一个 CNN 模型。
 
-#### Create the layers
+#### 创建层
 
 ```python
 conv1 = autograd.Conv2d(1, 32, 3, padding=1, bias=False)
@@ -143,10 +131,9 @@ linear = autograd.Linear(32 * 28 * 28, 10)
 pooling2 = autograd.AvgPool2d(3, 1, padding=1)
 ```
 
-#### Define the forward function
+#### 定义正向传播函数
 
-The operations in the forward pass will be recorded automatically for backward
-propagation.
+在正向传播中的 operations 会被自动记录，用于反向传播。
 
 ```python
 def forward(x, t):
@@ -171,7 +158,7 @@ def forward(x, t):
     return loss, y
 ```
 
-#### Training
+#### 训练
 
 ```python
 autograd.training = True
@@ -190,16 +177,14 @@ for epoch in range(epochs):
 
 ### Using the Model API
 
-The following
-[example](https://github.com/apache/singa/blob/master/examples/cnn/model/cnn.py)
-implements a CNN model using the [Model API](./graph).
+下面
+的[样例](https://github.com/apache/singa/blob/master/examples/cnn/model/cnn.py)使
+用[Model API](./graph)实现了一个 CNN 模型。.
 
-#### Define the subclass of Model
+#### 定义 Model 的子类
 
-Define the model class, it should be the subclass of Model. In this way, all
-operations used during the training phase will form a computational graph and
-will be analyzed. The operations in the graph will be scheduled and executed
-efficiently. Layers can also be included in the model class.
+定义模型类，它应该是 Model 的子类。只有这样，在训练阶段使用的所有操作才会形成一
+个计算图以便进行分析。图中的操作将被按时序规划并有效执行，模型类中也可以包含层。
 
 ```python
 class MLP(model.Model):  # the model is a subclass of Model
@@ -229,7 +214,7 @@ class MLP(model.Model):  # the model is a subclass of Model
         self.optimizer = optimizer
 ```
 
-#### Training
+#### 训练
 
 ```python
 # create a model instance
@@ -256,7 +241,7 @@ for b in range(num_train_batch):
     out, loss = model(tx, ty)
 ```
 
-#### Save a model checkpoint
+#### 保存模型 checkpoint
 
 ```python
 # define the path to save the checkpoint
@@ -266,7 +251,7 @@ checkpointpath="checkpoint.zip"
 model.save_states(fpath=checkpointpath)
 ```
 
-#### Load a model checkpoint
+#### 加载模型 checkpoint
 
 ```python
 # define the path to load the checkpoint
@@ -280,6 +265,5 @@ if os.path.exists(checkpointpath):
 
 ### Python API
 
-Refer
-[here](https://singa.readthedocs.io/en/latest/autograd.html#module-singa.autograd)
-for more details of Python API.
+关于 Python API 的更多细节，请参
+考[这里](https://singa.readthedocs.io/en/latest/autograd.html#module-singa.autograd)。

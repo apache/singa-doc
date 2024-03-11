@@ -17,21 +17,26 @@ This release includes following changes:
 - Add support for models running on top of RDBMS
 
   - Add support for in-database model definition and selection in RDBMS.
-  - Implement training-free model evaluation metrics for in-database model selection.
-  - Implement a coordinator to balance between training-free and training-based model evaluations for in-database model selection.
+  - Implement training-free model evaluation metrics for in-database model
+    selection.
+  - Implement a coordinator to balance between training-free and training-based
+    model evaluations for in-database model selection.
 
 - Enhance distributed training
 
   - Add implementations for the sum error loss.
   - Improve the optimizer to return model gradients.
-  - Improve the iterative checking for tensors and strings in the ModelMeta class.
+  - Improve the iterative checking for tensors and strings in the ModelMeta
+    class.
 
 - Enhance example code
 
-  - Add support for flexible setting of training configurations for models, e.g., learning rates, weight decay, momentum, etc.
+  - Add support for flexible setting of training configurations for models,
+    e.g., learning rates, weight decay, momentum, etc.
   - Add implementations for dynamic models with varying layer sizes.
 
 - Update the website
+
   - Add illustrations for database integration.
   - Update users of Apache SINGA.
 
