@@ -28,7 +28,7 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-
 ```
 
 You can also configure SINGA version and the CUDA version, like
-`singa==4.1.0+cuda10.2`. The available combinations of SINGA version and CUDA
+`singa==4.2.0+cuda10.2`. The available combinations of SINGA version and CUDA
 version are listed at the link.
 
 Note: the Python version of your local Python environment will be used to find
