@@ -17,12 +17,41 @@ the following commands
 ```
 
 You can also check the SHA512 or MD5 values to see if the download is completed.
+## V4.2.0 (15 March 2024):
+
+- [Apache SINGA 4.2.0](http://www.apache.org/dyn/closer.cgi/singa/4.2.0/apache-singa-4.2.0.tar.gz)
+  [\[SHA512\]](https://www.apache.org/dist/singa/4.2.0/apache-singa-4.2.0.tar.gz.sha512)
+  [\[ASC\]](https://www.apache.org/dist/singa/4.2.0/apache-singa-4.2.0.tar.gz.asc)
+- [Release Notes 4.2.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_4.2.0)
+- Major changes:
+
+  * Add support for deep learning models running on top of PolarDB
+    - Implement efficient model selection for a given dataset stored in the database
+    - Add support for dynamic model creation
+    - Add support for flexible setting of model training configurations
+    - Optimize the in-database analytics modules for scalability, efficiency and memory consumption
+
+  * New example
+    - Add a horizontal federated learning example using the Bank dataset
+
+  * Enhance examples
+    - Add sample training data for testing the model selection application
+
+  * Update the website
+    - Update the star button in the main page
+    - Refine the display of star statistics
+
+  * Update the python versions for wheel files
+
+  * Fix bugs
+    - Fix the rat check files
+    - Update the license files
 
 ## V4.1.0 (05 November 2023):
 
-- [Apache SINGA 4.1.0](http://www.apache.org/dyn/closer.cgi/singa/4.1.0/apache-singa-4.1.0.tar.gz)
-  [\[SHA512\]](https://www.apache.org/dist/singa/4.1.0/apache-singa-4.1.0.tar.gz.sha512)
-  [\[ASC\]](https://www.apache.org/dist/singa/4.1.0/apache-singa-4.1.0.tar.gz.asc)
+- [Apache SINGA 4.1.0](https://archive.apache.org/dist/closer.cgi/singa/4.1.0/apache-singa-4.1.0.tar.gz)
+  [\[SHA512\]](https://archive.apache.org/dist/singa/4.1.0/apache-singa-4.1.0.tar.gz.sha512)
+  [\[ASC\]](https://archive.apache.org/dist/singa/4.1.0/apache-singa-4.1.0.tar.gz.asc)
 - [Release Notes 4.1.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_4.1.0)
 - Major changes:
 
