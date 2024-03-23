@@ -51,7 +51,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 
 ## V4.1.0 (05 November 2023):
 
-- [Apache SINGA 4.1.0](https://archive.apache.org/dist/closer.cgi/singa/4.1.0/apache-singa-4.1.0.tar.gz)
+- [Apache SINGA 4.1.0](https://archive.apache.org/dist/singa/4.1.0/apache-singa-4.1.0.tar.gz)
   [\[SHA512\]](https://archive.apache.org/dist/singa/4.1.0/apache-singa-4.1.0.tar.gz.sha512)
   [\[ASC\]](https://archive.apache.org/dist/singa/4.1.0/apache-singa-4.1.0.tar.gz.asc)
 - [Release Notes 4.1.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_4.1.0)
