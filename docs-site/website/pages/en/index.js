@@ -166,7 +166,7 @@ class Index extends React.Component {
                 <h2>Model zoo</h2>
                 <p>
                   <MarkdownBlock>
-                    Various example deep learning models are provided in SINGA
+                    Various domain specific deep learning models, e.g., healthcare and science, are provided in SINGA
                     repo on
                     [Github](https://github.com/apache/singa/tree/master/examples)
                     and on [Google Colab](https://colab.research.google.com/)
