@@ -8,6 +8,10 @@ authorURL: https://twitter.com/ApacheSINGA
 
 The SINGA team is excited to announce the launch of the Healthcare Model Zoo, a repository of different deep-learning models designed to advance the landscape of healthcare applications. This embodies SINGA's commitment to harnessing artificial intelligence to foster improvements in personalized healthcare.
 
-The [Model Zoo](https://github.com/apache/singa/tree/dev-postgresql/examples/healthcare/application) currently publishes curated models for diabetic retinopathy classification, malaria detection, and thyroid eye disease detection. Each model addresses significant health concerns and is crafted to assist healthcare professionals in improving diagnostic accuracy and patient outcomes.
+The Model Zoo currently publishes curated models for diabetic retinopathy classification, malaria detection, and thyroid eye disease detection. Each model addresses significant health concerns and is crafted to assist healthcare professionals in improving diagnostic accuracy and patient outcomes.
+
+> More details are available here: https://github.com/apache/singa/tree/dev-postgresql/examples/healthcare/application
 
 As more healthcare models are being developed, the team is actively inviting developers and researchers to help grow this emerging repository of models. We look forward to hearing your feedback, suggestions, and contributions to enrich the healthcare model zoo!
+
+![singa-banner](assets/singa_banner.jpg)
