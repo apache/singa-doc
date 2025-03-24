@@ -16,7 +16,7 @@ pip install singa -f http://singa.apache.org/docs/next/wheel-cpu.html --trusted-
 ```
 
 您可以通过`singa==<version>`安装特定版本的 SINGA，其中`<version>`字段应被替换，
-例如 `4.3.0`。可用的 SINGA 版本在链接中列出。
+例如 `5.0.0`。可用的 SINGA 版本在链接中列出。
 
 要安装最新的开发版本，请将链接替换为
 http://singa.apache.org/docs/next/wheel-cpu-dev.html
@@ -28,7 +28,7 @@ http://singa.apache.org/docs/next/wheel-cpu-dev.html
 pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
 ```
 
-您也可以配置 SINGA 版本和 CUDA 版本，比如 `s4.3.0+cuda10.2`，SINGA 版本和 CUDA 版
+您也可以配置 SINGA 版本和 CUDA 版本，比如 `s5.0.0+cuda10.2`，SINGA 版本和 CUDA 版
 本的可用组合在链接中列出。
 
 要安装最新的开发版本，请将链接替换为
