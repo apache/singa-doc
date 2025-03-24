@@ -30,7 +30,7 @@ http://singa.apache.org/docs/next/wheel-cpu-dev.html
 pip install singa -f http://singa.apache.org/docs/next/wheel-gpu.html --trusted-host singa.apache.org
 ```
 
-Bạn có thể thiết lập phiên bản SINGA và CUDA, nh�2.0+cuda10.2`. Danh sách tổ hợp
+Bạn có thể thiết lập phiên bản SINGA và CUDA, như `singa==5.0.0+cuda10.2`. Danh sách tổ hợp
 phiên bản SINGA với CUDA được cung cấp trong đường dẫn.
 
 Để cài đặt phiên bản phát triển mới nhất, thay đường dẫn bằng
