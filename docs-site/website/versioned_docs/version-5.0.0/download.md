@@ -47,9 +47,9 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 
 ## V4.3.0 (7 September 2024):
 
-- [Apache SINGA 4.3.0](http://www.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz)
-  [\[SHA512\]](https://www.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz.sha512)
-  [\[ASC\]](https://www.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz.asc)
+- [Apache SINGA 4.3.0](http://archive.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz)
+  [\[SHA512\]](https://archive.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz.sha512)
+  [\[ASC\]](https://archive.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz.asc)
 - [Release Notes 4.3.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_4.3.0)
 - Major changes:
   * Add the implementation for the Transformer example.
