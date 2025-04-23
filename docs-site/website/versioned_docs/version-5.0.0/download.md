@@ -18,9 +18,36 @@ the following commands
 ```
 
 You can also check the SHA512 or MD5 values to see if the download is completed.
+## V5.0.0 (14 April 2025):
+
+- [Apache SINGA 5.0.0](http://www.apache.org/dyn/closer.cgi/singa/5.0.0/apache-singa-5.0.0.tar.gz)
+  [\[SHA512\]](https://www.apache.org/dist/singa/5.0.0/apache-singa-5.0.0.tar.gz.sha512)
+  [\[ASC\]](https://www.apache.org/dist/singa/5.0.0/apache-singa-5.0.0.tar.gz.asc)
+- [Release Notes 5.0.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_5.0.0)
+- Major changes:
+  * Add the implementations of the healthcare model zoo.
+    * Add the implementation for the cardiovascular disease.
+    * Add the implementation for the diabetic disease.
+    * Add the implementation for the hematologic disease.
+    * Add the implementation for the kidney disease.
+    * Add the implementation for the malaria disease.
+    * Add the implementation for the thyroid eye disease.
+
+  * Optimize the distributed training by updating the MSOptimizer and MSSGD.
+
+  * Improve the efficiency of the transformer example.
+
+  * Add the sparsification version of the model for the model selection example.
+
+  * Update data processing for the benchmark dataset.
+
+  * Update the pom.xml file to include paths for datasets.
+
+  * Update the online documentations for the healthcare model zoo.
+
 ## V4.3.0 (7 September 2024):
 
-- [Apache SINGA 4.3.0](http://www.apache.org/dyn/closer.cgi/singa/4.3.0/apache-singa-4.3.0.tar.gz)
+- [Apache SINGA 4.3.0](http://www.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz)
   [\[SHA512\]](https://www.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz.sha512)
   [\[ASC\]](https://www.apache.org/dist/singa/4.3.0/apache-singa-4.3.0.tar.gz.asc)
 - [Release Notes 4.3.0](http://singa.apache.org/docs/releases/RELEASE_NOTES_4.3.0)
