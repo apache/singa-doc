@@ -89,7 +89,7 @@ function HomeSplash(props) {
               title="GitHub Stars"
             />
           </span> */}
-	  <a
+	  {/* <a
             className="github-button" // part of the https://buttons.github.io/buttons.js script in siteConfig.js
             href={`https://github.com/apache/singa`}
             data-count-href="/apache/singa/stargazers"
@@ -99,7 +99,7 @@ function HomeSplash(props) {
             aria-label="Star this project on GitHub"
           >
             {"Star"}
-          </a>
+          </a> */}
         </div>
       </div>
     </div>
