@@ -7,13 +7,13 @@ title: Git Workflow
 
 ## For Developers
 
-1. Fork the [SINGA Github repository](https://github.com/apache/singa) to your
-   own Github account.
+1. Fork the [SINGA GitHub repository](https://github.com/apache/singa) to your
+   own GitHub account.
 
-2. Clone the **repo** (short for repository) from your Github
+2. Clone the **repo** (short for repository) from your GitHub
 
    ```shell
-   git clone https://github.com/<Github account>/singa.git
+   git clone https://github.com/<GitHub account>/singa.git
    git remote add upstream https://github.com/apache/singa.git
    ```
 
@@ -54,9 +54,9 @@ title: Git Workflow
    ```
 
 5. [Rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) `feature-foo`
-   onto the `dev` branch and push commits to your own Github account (the new
+   onto the `dev` branch and push commits to your own GitHub account (the new
    branch). The rebase operation is to make the commit history clean. The
-   following git instructors should be executed after committing the current
+   following Git instructions should be executed after committing the current
    work:
 
    ```shell
@@ -77,15 +77,15 @@ title: Git Workflow
    rebase; and your branch now has the latest code from the dev branch and your
    own branch.
 
-6. Open a pull request (PR) against the dev branch of apache/singa on Github
+6. Open a pull request (PR) against the dev branch of apache/singa on GitHub
    website. If you want to inform other contributors who worked on the same
-   files, you can find the file(s) on Github and click "Blame" to see a
+   files, you can find the file(s) on GitHub and click "Blame" to see a
    line-by-line annotation of who changed the code last. Then, you can add
    @username in the PR description to ping them immediately. Please state that
    the contribution is your original work and that you license the work to the
    project under the project's open source license. Further commits (e.g., bug
    fix) to your new branch will be added to this pull request automatically by
-   Github.
+   GitHub.
 
 7. Wait for committers to review the PR. During this time, the dev of SINGA may
    have been updated by others, and then you need to
@@ -98,7 +98,7 @@ title: Git Workflow
    [The Golden Rule of Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
    for the details of when to avoid using rebase. Another simple solution to
    update the PR (to fix conflicts or commit errors) is to checkout a new branch
-   from the latest dev branch of Apache SINGAS repo; copy and paste the
+   from the latest dev branch of Apache SINGA repo; copy and paste the
    updated/added code; commit and send a new PR.
 
 ## For Committers
@@ -112,8 +112,8 @@ repo. Before merging each PR, the committer should
 
 There are two approaches to merge a pull request:
 
-- On Github. Follow the [instructions](https://gitbox.apache.org/setup/) to
-  connect your Apache account with your Github account. After that you can
+- On GitHub. Follow the [instructions](https://gitbox.apache.org/setup/) to
+  connect your Apache account with your GitHub account. After that you can
   directly merge PRs on GitHub.
 - To merge pull request https://github.com/apache/singa/pull/xxx via command
   line, the following instructions should be executed,

@@ -136,7 +136,7 @@ class MLP(model.Model):
         ...
 ```
 
-The `Linear` layer is composed of the `mutmul` operator. `autograd` implements
+The `Linear` layer is composed of the `matmul` operator. `autograd` implements
 the `matmul` operator by calling the function `Mult` exposed from CPP via SWIG.
 
 ```python
@@ -203,7 +203,7 @@ four operations to the CUDA stream: addition, free `a`, malloc `b`, and
 multiplication. The memory pool is then able to share the memory released by `a`
 with `b` instead of ask the GPU to do real malloc for `b`.
 
-Other optimization techniques e.g., from compliers, such as common
+Other optimization techniques e.g., from compilers, such as common
 sub-expression elimination and parallelizing operations on different CUDA
 streams can also be applied.
 
@@ -339,7 +339,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
 - Result
   <table style="text-align: center">
       <tr>
-          <th style="text-align: center">Batchsize</th>
+          <th style="text-align: center">Batch size</th>
           <th style="text-align: center">Cases</th>
           <th style="text-align: center">Mem(MB)</th>
           <th style="text-align: center">Time(s)</th>
@@ -438,7 +438,7 @@ Tensor GpuConvBackwardx(const Tensor &dy, const Tensor &W, const Tensor &x,
 - Result
   <table style="text-align: center">
       <tr>
-          <th style="text-align: center">Batchsize</th>
+          <th style="text-align: center">Batch size</th>
           <th style="text-align: center">Cases</th>
           <th style="text-align: center">Mem(MB)</th>
           <th style="text-align: center">Time(s)</th>

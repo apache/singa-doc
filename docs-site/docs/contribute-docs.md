@@ -21,7 +21,7 @@ Try to follow the
 
 1. Remove 'please' from an instruction. 'Please click...' VS 'Click ...'.
 2. Follow the
-   [standard captitalization rules](https://owl.purdue.edu/owl/general_writing/mechanics/help_with_capitals.html).
+   [standard capitalization rules](https://owl.purdue.edu/owl/general_writing/mechanics/help_with_capitals.html).
 3. Use 'you' instead of 'we' in the instructions.
 4. Use present tense and avoid 'will'
 5. Prefer active voice than passive voice.
@@ -31,9 +31,9 @@ In addition, to make the documentation consistent,
 1. Keep the line short, e.g., length<=80
 2. Use the relative path assuming that we are in the root folder of the repo,
    e.g., `doc-site/docs` refers to `singa-doc/docs-site/docs`
-3. Higlight the command, path, class function and variable using backticks,
+3. Highlight the command, path, class function and variable using backticks,
    e.g., `Tensor`, `singa-doc/docs-site/docs`.
-4. To hightlight other terms/concepts, use _graph_ or **graph**
+4. To highlight other terms/concepts, use _graph_ or **graph**
 
 The [prettier tool](https://prettier.io/) used by this project will auto-format
 the code according to the

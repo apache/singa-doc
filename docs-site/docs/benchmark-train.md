@@ -11,7 +11,7 @@ as the application. ResNet-50 has 50 convolution layers for image
 classification. It requires 3.8 GFLOPs to pass a single image (of size 224x224)
 through the network. The input image size is 224x224.
 
-Hardware: we use p2.8xlarge instances from AWS, each of which has 8 Nvidia Tesla
+Hardware: we use p2.8xlarge instances from AWS, each of which has 8 NVIDIA Tesla
 K80 GPUs, 96 GB GPU memory in total, 32 vCPU, 488 GB main memory, 10 Gbps
 network bandwidth.
 

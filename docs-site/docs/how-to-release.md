@@ -38,7 +38,7 @@ in SINGA.
    - The online documentation on the Apache website is up to date.
 
 4. Prepare the RELEASE_NOTES file. Include the following items, Introduction,
-   Features, Bugs (link to JIRA or Github PR), Changes, Dependency list,
+   Features, Bugs (link to JIRA or GitHub PR), Changes, Dependency list,
    Incompatibility issues. Follow this
    [example](http://commons.apache.org/proper/commons-digester/commons-digester-3.0/RELEASE-NOTES.txt).
 
@@ -128,7 +128,7 @@ in SINGA.
    The signature file is:
    https://dist.apache.org/repos/dist/dev/singa/3.1.0.rc2/apache-singa-3.1.0.rc2.tar.gz.asc
 
-   The Github tag is at:
+   The GitHub tag is at:
    https://github.com/apache/singa/releases/tag/3.1.0.rc2
 
    The documentation website is at

@@ -339,7 +339,7 @@ The following operators are supported:
 
 ## Implementation
 
-The code of SINGA ONNX locates at `python/singa/soonx.py`. There are four main
+The code of SINGA ONNX locates at `python/singa/sonnx.py`. There are four main
 class, `SingaFrontend`, `SingaBackend`, `SingaRep` and `SONNXModel`.
 `SingaFrontend` translates a SINGA model to an ONNX model; `SingaBackend`
 translates an ONNX model to `SingaRep` object which stores all SINGA operators
@@ -388,7 +388,7 @@ The first step of `_onnx_model_to_singa_ops` has four steps, the first one is to
 call `_parse_graph_params` to get all tensors stored as `params`. Then call
 `_parse_graph_inputs_outputs` to get all input and output information stores as
 `inputs` and `outputs`. Finally, it iterators all nodes within the ONNX graph
-and parses it by `_onnx_node_to_singa_op` as SIGNA operators or layers and store
+and parses it by `_onnx_node_to_singa_op` as SINGA operators or layers and store
 them as `outputs`. Some weights are stored within an ONNX node called
 `Constant`, SONNX can handle them by `_onnx_constant_to_np` to store it into
 `params`.

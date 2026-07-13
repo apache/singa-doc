@@ -5,8 +5,9 @@ title: Build SINGA from Source
 
 <!--- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.  -->
 
-The source files could be downloaded either as a
-[tar.gz file](https://dist.apache.org/repos/dist/dev/singa/), or as a git repo
+The source files can be downloaded either as a
+[tar.gz file](https://dist.apache.org/repos/dist/dev/singa/) or as a Git
+repository:
 
 ```shell
 $ git clone https://github.com/apache/singa.git
@@ -18,8 +19,8 @@ If you want to contribute code to SINGA, refer to
 
 ## Use Conda to build SINGA
 
-Conda-build is a building tool that installs the dependent libraries from
-anaconda cloud and executes the building scripts.
+Conda-build is a build tool that installs the dependent libraries from
+Anaconda Cloud and executes the build scripts.
 
 To install conda-build (after installing conda)
 
@@ -35,21 +36,22 @@ To build the CPU version of SINGA
 conda build tool/conda/singa/
 ```
 
-The above commands have been tested on Ubuntu (14.04, 16.04 and 18.04) and macOS
-10.11. Refer to the [Travis-CI page](https://travis-ci.org/apache/singa) for
-more information.
+SINGA builds are tested via GitHub Actions on Ubuntu 24.04 and macOS 26
+(Arm64). Refer to the
+[GitHub Actions workflows](https://github.com/apache/singa/tree/master/.github/workflows)
+for more information.
 
 ### Build GPU Version
 
-To build the GPU version of SINGA, the building machine must have Nvida GPU, and
-the CUDA driver (>= 384.81), CUDA toolkit (>=9) and cuDNN (>=7) must have be
-installed. The following two Docker images provide the building environment:
+To build the GPU version of SINGA, the build machine must have an NVIDIA GPU,
+and the CUDA driver (>= 384.81), CUDA toolkit (>=9) and cuDNN (>=7) must be
+installed. The following two Docker images provide the build environment:
 
 1. apache/singa:conda-cuda9.0
 2. apache/singa:conda-cuda10.0
 
-Once the building environment is ready, you need to export the CUDA version
-first, and then run conda command to build SINGA
+Once the build environment is ready, you need to export the CUDA version
+first, and then run the conda command to build SINGA
 
 ```shell
 export CUDA=x.y (e.g. 9.0)
@@ -65,8 +67,8 @@ The generated package can be installed directly,
 conda install -c conda-forge --use-local <path to the package file>
 ```
 
-or uploaded to anaconda cloud for others to download and install. You need to
-register an account on anaconda for
+or uploaded to Anaconda Cloud for others to download and install. You need to
+register an account on Anaconda Cloud for
 [uploading the package](https://docs.anaconda.com/anaconda-cloud/user-guide/getting-started/).
 
 ```shell
@@ -76,7 +78,7 @@ anaconda upload -l main <path to the package file>
 ```
 
 After uploading the package to the cloud, you can see it on
-[Anaconda Cloud](https://anaconda.org/) website or via the following command
+the [Anaconda Cloud](https://anaconda.org/) website or via the following command
 
 ```shell
 conda search -c <anaconda username> singa
@@ -114,10 +116,10 @@ installed as the dependent library.
 
 Refer to SINGA
 [Dockerfiles](https://github.com/apache/singa/blob/master/tool/docker/devel/ubuntu/cuda9/Dockerfile#L30)
-for the instructions of installing the dependent libraries on Ubuntu 16.04. You
+for instructions on installing the dependent libraries on Ubuntu 16.04. You
 can also create a Docker container using the [devel images]() and build SINGA
 inside the container. To build SINGA with GPU, DNNL, Python and unit tests, run
-the following instructions
+the following commands
 
 ```shell
 mkdir build    # at the root of singa folder
@@ -129,9 +131,9 @@ pip install .
 ```
 
 The details of the CMake options are explained in the last section of this page.
-The last command install the Python package. You can also run
+The last command installs the Python package. You can also run
 `pip install -e .`, which creates symlinks instead of copying the Python files
-into the site-package folder.
+into the site-packages folder.
 
 If SINGA is compiled with ENABLE_TEST=ON, you can run the unit tests by
 
@@ -139,13 +141,13 @@ If SINGA is compiled with ENABLE_TEST=ON, you can run the unit tests by
 $ ./bin/test_singa
 ```
 
-You can see all the testing cases with testing results. If SINGA passes all
+You can see all the test cases and results. If SINGA passes all
 tests, then you have successfully installed SINGA.
 
-## Use native tools to Build SINGA on Centos7
+## Use native tools to build SINGA on CentOS 7
 
-Building from source will be different for Centos7 as package names
-differ.Follow the instructions given below.
+Building from source will be different for CentOS 7 as package names
+differ. Follow the instructions given below.
 
 ### Installing dependencies
 
@@ -161,7 +163,7 @@ For build-essential
 sudo yum group install "Development Tools"
 ```
 
-For installing swig
+For installing SWIG
 
 ```shell
 sudo yum install pcre-devel
@@ -205,7 +207,7 @@ tests, then you have successfully installed SINGA.
 
 ## Compile SINGA on Windows
 
-Instructions for building on Windows with Python support can be found
+Instructions for building on Windows with Python support can be found on the
 [install-win page](install-win.md).
 
 ## More details about the compilation options
@@ -223,7 +225,7 @@ $ cmake -DUSE_MODULES=ON ..
 $ make
 ```
 
-cmake would download OpenBlas and Protobuf (2.6.1) and compile them together
+CMake would download OpenBLAS and Protobuf (2.6.1) and compile them together
 with SINGA.
 
 You can use `ccmake ..` to configure the compilation options. If some dependent
@@ -254,7 +256,7 @@ better performance.
 
 SINGA has been tested over CUDA 9/10, and cuDNN 7. If cuDNN is installed into
 non-system folder, e.g. /home/bob/local/cudnn/, the following commands should be
-executed for cmake and the runtime to find it
+executed for CMake and the runtime to find it
 
 ```shell
 $ export CMAKE_INCLUDE_PATH=/home/bob/local/cudnn/include:$CMAKE_INCLUDE_PATH
@@ -262,19 +264,19 @@ $ export CMAKE_LIBRARY_PATH=/home/bob/local/cudnn/lib64:$CMAKE_LIBRARY_PATH
 $ export LD_LIBRARY_PATH=/home/bob/local/cudnn/lib64:$LD_LIBRARY_PATH
 ```
 
-The cmake options for CUDA and cuDNN should be switched on
+The CMake options for CUDA and cuDNN should be switched on
 
 ```shell
-# Dependent libs are install already
+# Dependent libraries are already installed
 $ cmake -DUSE_CUDA=ON ..
 $ make
 ```
 
 ### USE_DNNL
 
-User can enable DNNL to enhance the performance of CPU computation.
+Users can enable DNNL to enhance the performance of CPU computation.
 
-Installation guide of DNNL could be found
+The DNNL installation guide can be found
 [here](https://github.com/intel/mkl-dnn#installation).
 
 SINGA has been tested over DNNL v1.1.
@@ -282,7 +284,7 @@ SINGA has been tested over DNNL v1.1.
 To build SINGA with DNNL support:
 
 ```shell
-# Dependent libs are installed already
+# Dependent libraries are already installed
 $ cmake -DUSE_DNNL=ON ..
 $ make
 ```
@@ -302,11 +304,11 @@ $ sudo yum install opencl-headers, viennacl
 Additionally, you will need the OpenCL Installable Client Driver (ICD) for the
 platforms that you want to run OpenCL on.
 
-- For AMD and nVidia GPUs, the driver package should also install the correct
+- For AMD and NVIDIA GPUs, the driver package should also install the correct
   OpenCL ICD.
 - For Intel CPUs and/or GPUs, get the driver from the
   [Intel website.](https://software.intel.com/en-us/articles/opencl-drivers)
-  Note that the drivers provided on that website only supports recent CPUs and
+  Note that the drivers provided on that website only support recent CPUs and
   Iris GPUs.
 - For older Intel CPUs, you can use the `beignet-opencl-icd` package.
 
@@ -334,7 +336,7 @@ $ make
 ### PACKAGE
 
 This setting is used to build the Debian package. Set PACKAGE=ON and build the
-package with make command like this:
+package with the make command like this:
 
 ```shell
 $ cmake -DPACKAGE=ON
@@ -347,21 +349,21 @@ $ make package
 
   A: Please check the detailed error from
   `python -c "from singa import _singa_wrap"`. Sometimes it is caused by the
-  dependent libraries, e.g. there are multiple versions of protobuf, missing of
-  cudnn, numpy version mismatch. Following steps show the solutions for
+  dependent libraries, e.g. multiple versions of protobuf, missing cuDNN
+  libraries, or a NumPy version mismatch. The following steps show solutions for
   different cases
 
-  1. Check the cudnn and cuda. If cudnn is missing or not match with the wheel
-     version, you can download the correct version of cudnn into ~/local/cudnn/
+  1. Check cuDNN and CUDA. If cuDNN is missing or does not match the wheel
+     version, you can download the correct version of cuDNN into ~/local/cudnn/
      and
 
      ```shell
      $ echo "export LD_LIBRARY_PATH=/home/<yourname>/local/cudnn/lib64:$LD_LIBRARY_PATH" >> ~/.bashrc
      ```
 
-  2. If it is the problem related to protobuf. You can install protobuf (3.6.1)
-     from source into a local folder, say ~/local/; Decompress the tar file, and
-     then
+  2. If the problem is related to protobuf, you can install protobuf (3.6.1)
+     from source into a local folder, such as ~/local/. Decompress the tar file,
+     and then
 
      ```shell
      $ ./configure --prefix=/home/<yourname>local
@@ -370,10 +372,10 @@ $ make package
      $ source ~/.bashrc
      ```
 
-  3. If it cannot find other libs including python, then create virtual env
-     using `pip` or `conda`;
+  3. If it cannot find other libraries, including Python, then create a virtual
+     environment using `pip` or `conda`;
 
-  4. If it is not caused by the above reasons, go to the folder of
+  4. If it is not caused by any of the above, go to the folder of
      `_singa_wrap.so`,
 
      ```shell
@@ -382,14 +384,14 @@ $ make package
      >> importlib.import_module('_singa_wrap')
      ```
 
-     Check the error message. For example, if the numpy version mismatches, the
+     Check the error message. For example, if the NumPy version mismatches, the
      error message would be,
 
      ```shell
      RuntimeError: module compiled against API version 0xb but this version of numpy is 0xa
      ```
 
-     Then you need to upgrade the numpy.
+     Then you need to upgrade NumPy.
 
 * Q: Error from running `cmake ..`, which cannot find the dependent libraries.
 
@@ -404,8 +406,8 @@ $ make package
 
 - Q: Error from `make`, e.g. the linking phase
 
-  A: If your libraries are in other folders than system default paths, you need
-  to export the following varaibles
+  A: If your libraries are outside the system default paths, you need
+  to export the following variables
 
   ```shell
   $ export LIBRARY_PATH=<path to your lib file folder>
@@ -421,18 +423,18 @@ $ make package
   $ export CPLUS_INCLUDE_PATH=/opt/OpenBLAS/include:$CPLUS_INCLUDE_PATH
   ```
 
-* Q:While compiling SINGA, I get error `SSE2 instruction set not enabled`
+* Q: While compiling SINGA, I get the error `SSE2 instruction set not enabled`
 
-  A:You can try following command:
+  A: You can try the following command:
 
   ```shell
   $ make CFLAGS='-msse2' CXXFLAGS='-msse2'
   ```
 
-* Q:I get `ImportError: cannot import name enum_type_wrapper` from
+* Q: I get `ImportError: cannot import name enum_type_wrapper` from
   google.protobuf.internal when I try to import .py files.
 
-  A: You need to install the python binding of protobuf, which could be
+  A: You need to install the Python binding of protobuf, which could be
   installed via
 
   ```shell
@@ -463,8 +465,8 @@ $ make package
   $ sudo apt-get install libopenblas-dev
   ```
 
-* Q: When I build protocol buffer, it reports that `GLIBC++_3.4.20` not found in
-  `/usr/lib64/libstdc++.so.6`?
+* Q: When I build Protocol Buffers, it reports that `GLIBC++_3.4.20` is not
+  found in `/usr/lib64/libstdc++.so.6`?
 
   A: This means the linker found libstdc++.so.6 but that library belongs to an
   older version of GCC than was used to compile and link the program. The
@@ -483,9 +485,9 @@ $ make package
 * Q: When I build glog, it reports that "src/logging_unittest.cc:83:20: error:
   ‘gflags’ is not a namespace-name"
 
-  A: It maybe that you have installed gflags with a different namespace such as
-  "google". so glog can't find 'gflags' namespace. Because it is not necessary
-  to have gflags to build glog. So you can change the configure.ac file to
+  A: It may be that you have installed gflags with a different namespace, such
+  as "google", so glog cannot find the `gflags` namespace. Because gflags is not
+  necessary to build glog, you can change the configure.ac file to
   ignore gflags.
 
         1. cd to glog src directory
@@ -494,35 +496,35 @@ $ make package
 
   After this, you can build glog again.
 
-* Q: When using virtual environment, every time I run pip install, it would
-  reinstall numpy. However, the numpy would not be used when I `import numpy`
+* Q: When using a virtual environment, every time I run `pip install`, it
+  reinstalls NumPy. However, NumPy is not used when I run `import numpy`.
 
-  A: It could be caused by the `PYTHONPATH` which should be set to empty when
-  you are using virtual environment to avoid the conflicts with the path of the
+  A: It could be caused by the `PYTHONPATH`, which should be set to empty when
+  you are using a virtual environment to avoid conflicts with the path of the
   virtual environment.
 
-* Q: When compiling PySINGA from source, there is a compilation error due to the
-  missing of <numpy/objectarray.h>
+* Q: When compiling PySINGA from source, there is a compilation error because
+  <numpy/objectarray.h> is missing
 
-  A: Please install numpy and export the path of numpy header files as
+  A: Please install NumPy and export the path of its header files as
 
         $ export CPLUS_INCLUDE_PATH=`python -c "import numpy; print numpy.get_include()"`:$CPLUS_INCLUDE_PATH
 
 * Q: When I run SINGA in Mac OS X, I got the error "Fatal Python error:
   PyThreadState_Get: no current thread Abort trap: 6"
 
-  A: This error happens typically when you have multiple version of Python on
+  A: This error happens typically when you have multiple versions of Python on
   your system and you installed SINGA via pip (this problem is resolved for
-  installation via conda), e.g, the one comes with the OS and the one installed
-  by Homebrew. The Python linked by PySINGA must be the same as the Python
-  interpreter. You can check your interpreter by `which python` and check the
-  Python linked by PySINGA via `otool -L <path to _singa_wrap.so>`. To fix this
+  installation via conda), e.g., the version that comes with the OS and the one
+  installed by Homebrew. The Python linked by PySINGA must be the same as the
+  Python interpreter. You can check your interpreter by `which python` and check the Python
+  linked by PySINGA via `otool -L <path to _singa_wrap.so>`. To fix this
   error, compile SINGA with the correct version of Python. In particular, if you
   build PySINGA from source, you need to specify the paths when invoking
   [cmake](http://stackoverflow.com/questions/15291500/i-have-2-versions-of-python-installed-but-cmake-is-using-older-version-how-do)
 
         $ cmake -DPYTHON_LIBRARY=`python-config --prefix`/lib/libpython2.7.dylib -DPYTHON_INCLUDE_DIR=`python-config --prefix`/include/python2.7/ ..
 
-  If installed PySINGA from binary packages, e.g. debian or wheel, then you need
-  to change the python interpreter, e.g., reset the \$PATH to put the correct
+  If you installed PySINGA from binary packages, e.g. Debian packages or wheels,
+  then you need to change the Python interpreter, e.g., reset the \$PATH to put the correct
   path of Python at the front position.

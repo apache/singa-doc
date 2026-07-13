@@ -198,7 +198,7 @@ A video tutorial for the build process can be found here:
   ```
 
   - From Visual Studio:
-    - right click on the test_singa project and choose 'Set as StartUp Project'.
+    - right click on the test_singa project and choose 'Set as Startup Project'.
     - from the Debug menu, choose 'Start Without Debugging'
 
 A video tutorial for running the unit tests can be found here:
@@ -391,7 +391,7 @@ A video tutorial for this part can be found here:
     ```
 
   - From Visual Studio:
-    - right click on the test_singa project and choose 'Set as StartUp Project'.
+    - right click on the test_singa project and choose 'Set as Startup Project'.
     - from the Debug menu, choose 'Start Without Debugging'
 
 A video tutorial for running the unit tests can be found here:

@@ -8,4 +8,4 @@ title: Issue Tracking
 SINGA used [JIRA](https://issues.apache.org/jira/browse/singa) to manage issues
 including bugs, new features and discussions.
 
-We are now moving to [Github Issues](https://github.com/apache/singa/issues).
+We are now moving to [GitHub Issues](https://github.com/apache/singa/issues).

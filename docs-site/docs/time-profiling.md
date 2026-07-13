@@ -7,7 +7,7 @@ title: Time Profiling
 
 SINGA supports the time profiling of each of the operators buffered in the
 graph. To utilize the time profiling function, we first call the
-`device.SetVerbosity` method to set the verbosity of the time profilier, and
+`device.SetVerbosity` method to set the verbosity of the time profiler, and
 then call the `device.PrintTimeProfiling` to print out the results of time
 profiling.
 

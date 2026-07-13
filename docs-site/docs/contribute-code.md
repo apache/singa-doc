@@ -12,7 +12,7 @@ The SINGA codebase follows the Google Style for both
 [Python](http://google.github.io/styleguide/pyguide.html) code.
 
 A simple way to enforce the Google coding styles is to use the linting and
-formating tools in the Visual Studio Code editor:
+formatting tools in the Visual Studio Code editor:
 
 - [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
 - [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
@@ -113,7 +113,7 @@ If you update the CPP code, you need to recompile SINGA
 [from source](./build.md). It is recommended to use the native building tools in
 the `*-devel` Docker images or `conda build`.
 
-If you only update the Python code, you can install SINGAS once, and then copy
+If you only update the Python code, you can install SINGA once, and then copy
 the updated Python files to replace those in the Python installation folder,
 
 ```shell

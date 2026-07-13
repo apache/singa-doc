@@ -27,7 +27,7 @@ Rafiki in your research:
   Chin Ooi, Jie Shao, Moaz Reyad.
   [Rafiki: Machine Learning as an Analytics Service System](http://www.vldb.org/pvldb/vol12/p128-wang.pdf).
   [VLDB 2019](http://vldb.org/2019/)
-  ([BibTex](https://dblp.org/rec/bib2/journals/pvldb/WangWGZCNOS18.bib)).
+  ([BibTeX](https://dblp.org/rec/bib2/journals/pvldb/WangWGZCNOS18.bib)).
 
 Companies like [NetEase](http://tech.163.com/17/0602/17/CLUL016I00098GJ5.html),
 [yzBigData](http://www.yzbigdata.com/en/index.html),

@@ -69,7 +69,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
     - Add the news for the SIGMOD Systems Award.
 
   * Fix bugs
-    - Fix the Github Actions for online code testing.
+    - Fix the GitHub Actions for online code testing.
 
 
 ## V4.2.0 (15 March 2024):
@@ -167,13 +167,13 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
     - Add sparsification implementation for mnist in the large dataset cnn
       example.
     - Update the cifar datasets downloading to local directories.
-    - Extend the cifar datasets load function for customized directorires.
+    - Extend the cifar datasets load function for customized directories.
 
   * Enhance the webpage
     - Update online documentation for distributed training.
 
   * Promote code quality
-    - Update inline comments for prepreocessing and data loading
+    - Update inline comments for preprocessing and data loading
 
   * Update the PIL image module
 
@@ -224,7 +224,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   * New examples
     - Add one cifar-10 distributed CNN example for benchmarking the performance
       of the distributed training.
-    - Add one large CNN example for training with a dataset from the filesysetm.
+    - Add one large CNN example for training with a dataset from the filesystem.
   * Enhance distributed training
     - Improve the data augmentation module for faster distributed training.
     - Add device synchronization for more accurate time measurements during the
@@ -266,7 +266,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
       of SINGA.
     - Add a SONNXModel which implements from Model to provide uniform API and
       features.
-  * Replace the Travis CI with Github workflow. Add quality and coverage
+  * Replace the Travis CI with GitHub workflow. Add quality and coverage
     management.
   * Add compiling and packaging scripts to create wheel packages for
     distribution.
@@ -318,7 +318,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - [Release Notes 1.2.0 (incubating)](http://singa.apache.org/docs/releases/RELEASE_NOTES_1.2.0.html)
 - New features and major updates,
   - Implement autograd (currently support MLP model)
-  - Upgrade PySinga to support Python 3
+  - Upgrade PySINGA to support Python 3
   - Improve the Tensor class with the stride field
   - Upgrade cuDNN from V5 to V7
   - Add VGG, Inception V4, ResNet, and DenseNet for ImageNet classification
@@ -339,7 +339,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   - Create Amazon AMI for SINGA (CPU version)
   - Integrate with Jenkins for automatically generating Wheel and Debian
     packages (for installation), and updating the website.
-  - Enhance the FeedFowardNet, e.g., multiple inputs and verbose mode for
+  - Enhance the FeedForwardNet, e.g., multiple inputs and verbose mode for
     debugging
   - Add Concat and Slice layers
   - Extend CrossEntropyLoss to accept instance with multiple labels
@@ -349,7 +349,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
   - Compile mandatory dependent libraries together with SINGA code
   - Enable Java binding (basic) for SINGA
   - Add version ID in checkpointing files
-  - Add Rafiki toolkit for providing RESTFul APIs
+  - Add Rafiki toolkit for providing RESTful APIs
   - Add examples pretrained from Caffe, including GoogleNet
 
 ## Incubating v1.0.0 (8 September 2016):
@@ -361,7 +361,7 @@ You can also check the SHA512 or MD5 values to see if the download is completed.
 - New features and major updates,
   - Tensor abstraction for supporting more machine learning models.
   - Device abstraction for running on different hardware devices, including CPU,
-    (Nvidia/AMD) GPU and FPGA (to be tested in later versions).
+    (NVIDIA/AMD) GPU and FPGA (to be tested in later versions).
   - Replace GNU autotool with cmake for compilation.
   - Support Mac OS
   - Improve Python binding, including installation and programming

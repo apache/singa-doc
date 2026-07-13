@@ -29,10 +29,10 @@ schedules the operations for executing, e.g., on CUDA streams or CPU threads.
 Depending on the hardware and its programming language, SINGA have implemented
 the following specific device classes:
 
-- **CudaGPU** represents an Nvidia GPU card. The execution units are the CUDA
+- **CudaGPU** represents an NVIDIA GPU card. The execution units are the CUDA
   streams.
 - **CppCPU** represents a normal CPU. The execution units are the CPU threads.
-- **OpenclGPU** represents normal GPU card from both Nvidia and AMD. The
+- **OpenclGPU** represents normal GPU card from both NVIDIA and AMD. The
   execution units are the CommandQueues. Given that OpenCL is compatible with
   many hardware devices, e.g. FPGA and ARM, the OpenclGPU has the potential to
   be extended for other devices.
@@ -64,8 +64,8 @@ are implemented separately for different hardware devices
 
 The neural network specific operators are also implemented separately, e.g.,
 
-- GpuConvFoward (convolution.h) implements the forward function of convolution
-  via CuDNN on Nvidia GPU.
+- GpuConvForward (convolution.h) implements the forward function of convolution
+  via cuDNN on NVIDIA GPU.
 - CpuConvForward (convolution.h) implements the forward function of convolution
   using CPP on CPU.
 
