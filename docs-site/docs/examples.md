@@ -7,7 +7,7 @@ title: Examples
 
 This page lists some example deep learning tasks using SINGA. The source code is
 maintained inside SINGA repo on
-[Github](https://github.com/apache/singa/tree/master/examples). For examples
+[GitHub](https://github.com/apache/singa/tree/master/examples). For examples
 running on CPU or single GPU using SINGA Python APIs, they are also available on
 [Google Colab](https://colab.research.google.com/). You can run them directly on
 Google Cloud without setting up the environment locally. The link to each

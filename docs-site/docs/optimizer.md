@@ -7,7 +7,7 @@ title: Optimizer
 
 SINGA supports various popular optimizers including stochastic gradient descent
 with momentum, Adam, RMSProp, and AdaGrad, etc. For each of the optimizer, it
-supports to use a decay schedular to schedule the learning rate to be applied in
+supports to use a decay scheduler to schedule the learning rate to be applied in
 different epochs. The optimizers and the decay schedulers are included in
 `singa/opt.py`.
 

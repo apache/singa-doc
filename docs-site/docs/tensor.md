@@ -134,7 +134,7 @@ between `device`s via `to_device()` function.
 ```python
 
 """
-  code snipet from examples/mlp/module.py
+  code snippet from examples/mlp/module.py
 """
 
 label = get_label()

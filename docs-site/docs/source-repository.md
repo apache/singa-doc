@@ -14,7 +14,7 @@ The following is a link to the online source repository.
 
 - https://gitbox.apache.org/repos/asf?p=singa.git
 
-There is a Github mirror at
+There is a GitHub mirror at
 
 - https://github.com/apache/singa
 

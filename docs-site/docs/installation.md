@@ -62,7 +62,7 @@ $ docker run -it apache/singa:X.Y.Z-cpu-ubuntu16.04 /bin/bash
 ```
 
 2. With GPU enabled. Install
-   [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) after install
+   [NVIDIA-Docker](https://github.com/NVIDIA/nvidia-docker) after install
    Docker.
 
 ```shell
@@ -81,7 +81,7 @@ version-(cpu|gpu)[-devel]
 | --------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `version` | SINGA version                    | '2.0.0-rc0', '2.0.0', '1.2.0'                                                                                                                                             |
 | `cpu`     | the image cannot run on GPUs     | 'cpu'                                                                                                                                                                     |
-| `gpu`     | the image can run on Nvidia GPUs | 'gpu', or 'cudax.x-cudnnx.x' e.g., 'cuda10.0-cudnn7.3'                                                                                                                    |
+| `gpu`     | the image can run on NVIDIA GPUs | 'gpu', or 'cudax.x-cudnnx.x' e.g., 'cuda10.0-cudnn7.3'                                                                                                                    |
 | `devel`   | indicator for development        | if absent, SINGA Python package is installed for runtime only; if present, the building environment is also created, you can recompile SINGA from source at '/root/singa' |
 | `OS`      | indicate OS version number       | 'ubuntu16.04', 'ubuntu18.04'                                                                                                                                              |
 

@@ -216,7 +216,7 @@ Note that we need to generate a NCCL ID here to be used for collective
 communication, and then pass it to all the processes. The NCCL ID is like a
 ticket, where only the processes with this ID can join the all-reduce operation.
 (Later if we use MPI, the passing of NCCL ID is not necessary, because the ID is
-broadcased by MPI in our code automatically)
+broadcast by MPI in our code automatically)
 
 (ii) `world_size`
 

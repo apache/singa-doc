@@ -85,12 +85,12 @@ This half implementation is integrated in C++ backend as general half type
 support.
 
 To run on GPU, `__half` is available in Cuda math API. To support `__half` math
-operation, it is required to compile against Nvidia compute arch > 6.0 (Pascal).
+operation, it is required to compile against NVIDIA compute arch > 6.0 (Pascal).
 
-### Nvidia Hardware Acceleration: Tensor Core
+### NVIDIA Hardware Acceleration: Tensor Core
 
-Tensor Core released by Nvidia further accelerates half precision and multiples
-throughput for operations like GEMM(CuBlas) and convolution(CuDNN). To enable
+Tensor Core released by NVIDIA further accelerates half precision and multiples
+throughput for operations like GEMM(cuBLAS) and convolution(cuDNN). To enable
 Tensor core operation, there are a few restriction on GEMM dimensions,
 convolution channel size, Cuda version, and GPU version(Turing or later) and
 etc.

@@ -8,8 +8,8 @@ title: Autograd
 There are two typical ways to implement autograd, via symbolic differentiation
 like [Theano](http://deeplearning.net/software/theano/index.html) or reverse
 differentiation like
-[Pytorch](https://pytorch.org/docs/stable/notes/autograd.html). SINGA follows
-Pytorch way, which records the computation graph and apply the backward
+[PyTorch](https://pytorch.org/docs/stable/notes/autograd.html). SINGA follows
+PyTorch way, which records the computation graph and apply the backward
 propagation automatically after forward propagation. The autograd algorithm is
 explained in details
 [here](https://pytorch.org/docs/stable/notes/autograd.html). We explain the
@@ -58,7 +58,7 @@ There are two member functions for forwarding and backwarding, i.e.,
 `CTensor`), and output `Ctensor`s. To add a specific operation, subclass
 `operation` should implement their own `.forward()` and `.backward()`. The
 `backward()` function is called by the `backward()` function of autograd
-automatically during backward propogation to compute the gradients of inputs
+automatically during backward propagation to compute the gradients of inputs
 (according to the `require_grad` field).
 
 ### Layer
@@ -128,7 +128,7 @@ for i in range(10):
 
 ### Operation + Layer
 
-The following [example](https://github.com/apache/singa/blob/master/examples/autograd/mnist_cnn.py) implemeNts a CNN model using layers provided by the autograd module.
+The following [example](https://github.com/apache/singa/blob/master/examples/autograd/mnist_cnn.py) implements a CNN model using layers provided by the autograd module.
 
 #### Create the layers
 
